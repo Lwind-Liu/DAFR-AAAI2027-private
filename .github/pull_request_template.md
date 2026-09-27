@@ -1,22 +1,22 @@
-## Change summary
+## 修改摘要
 
-- What changed:
-- Why it changed:
+- 修改了什么：
+- 为什么修改：
 
-## Scope
+## 修改范围
 
-- [ ] Paper / supplement
-- [ ] Review materials / translation
-- [ ] Code
-- [ ] Data / manifests
-- [ ] Results / release assets
-- [ ] Documentation only
+- [ ] 正文或补充材料
+- [ ] 审稿材料或翻译
+- [ ] 代码
+- [ ] 数据或实验清单
+- [ ] 结果或发布附件
+- [ ] 仅文档
 
-## Verification
+## 验证
 
-- [ ] Relevant tests pass
-- [ ] Changed PDFs compile and were visually checked
-- [ ] No credentials, secrets, unrelated files, or incomplete outputs were added
-- [ ] Result claims point to a tracked file or manifest
-- [ ] `UPLOAD_MANIFEST.csv` and `SHA256SUMS.txt` will be refreshed for the release snapshot
+- [ ] 相关测试通过
+- [ ] 修改后的 PDF 已成功编译并完成视觉检查
+- [ ] 没有加入凭据、密钥、无关文件或不完整输出
+- [ ] 结果声明能够对应到仓库中的结果或实验清单
+- [ ] 发布快照前将刷新 `UPLOAD_MANIFEST.csv` 和 `SHA256SUMS.txt`
 

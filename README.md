@@ -1,40 +1,53 @@
-# DAFR: Dynamic Action Feasible Regions
+# DAFR：动态动作可行域
 
-This repository snapshot accompanies the AAAI 2027 manuscript **“From Semantics to Execution: Dynamic Geometric Constraints for Tool-Action Feasibility.”** It packages the current paper, implementation, benchmark data, experiment manifests, aggregate results, and selected raw-result archives found in the authors' local workspace on 2026-09-27.
+本私人仓库对应 AAAI 2027 论文《From Semantics to Execution: Dynamic Geometric Constraints for Tool-Action Feasibility》，整理了截至 2026-09-27 的当前论文、补充材料、代码、数据、实验配置、结果和审稿意见，供论文合作者下载、复现和同步修改。
 
-## What is included
+## 建议阅读顺序
 
-- `paper/`: current anonymous main paper and supplement, their LaTeX sources, bibliography, figures, and AAAI style files.
-- `reviews/`: AAAI-27 decision, two official reviews, the AI review, section-aligned Chinese translations, and a modification tracker.
-- `ICLR/`: the latest archived experiment code, manifests, scripts, documentation, and tests. The directory name is historical.
-- `src/geoconstraints/`: the projection and constraint utilities required by the AgentDojo integration.
-- `external/`: the locally modified AgentDojo fork and the ToolSafe/ASB data slice used by the experiments.
-- `data/`: directly downloadable copies of the AgentDojo data, ASB JSONL data, and frozen run manifests.
-- `results/summaries/`: small, reviewable CSV/JSON/Markdown aggregates supporting the tables in the paper.
-- `release_assets/`: compressed selected raw results, each below GitHub's 100 MB per-file limit.
-- `method_reference/`: compact reference implementation of the paper-level DAFR decision procedure.
-- `docs/`: repository map, private-access checklist, and download/upload/synchronization workflow.
+1. 当前论文与补充材料：[`paper/README.md`](paper/README.md)
+2. 审稿意见和中文翻译：[`reviews/README.md`](reviews/README.md)
+3. 代码说明：[`docs/CODE_GUIDE.md`](docs/CODE_GUIDE.md)
+4. 汇总结果：[`results/README.md`](results/README.md)
+5. 原始结果压缩包：[`release_assets/README.md`](release_assets/README.md)
+6. 下载、上传和同步：[`docs/COLLABORATION_WORKFLOW.md`](docs/COLLABORATION_WORKFLOW.md)
 
-The code and old result manifests retain the internal identifier `CLAFR`. The current paper uses `DAFR`. These identifiers were not bulk-renamed because scripts, result paths, and audit records depend on the original names.
+## 仓库结构
 
-## Quick start on Windows PowerShell
+| 路径 | 内容 |
+|---|---|
+| `paper/` | 当前匿名正文、补充材料、LaTeX 源码、参考文献和图表。 |
+| `reviews/` | AAAI-27 决定、两份人工审稿、AI 审稿、对应中文翻译和修改追踪表。 |
+| `src/clafr/` | 论文主要动作—证据表示、约束编译、几何决策和选择器实现。 |
+| `src/geoconstraints/` | AgentDojo 集成所需的投影、约束和运行时工具。 |
+| `scripts/` | AgentDojo、ASB、多模型、消融、审计和结果聚合脚本。 |
+| `tests/` | 主实验工程的单元测试和集成测试。 |
+| `experiments/manifests/` | 补充实验协议。 |
+| `method_reference/` | 与论文算法描述对应的紧凑参考实现。 |
+| `external/` | 本地修改过的 AgentDojo 代码及 ToolSafe/ASB 数据切片。 |
+| `data/` | 可直接下载的 AgentDojo、ASB 数据和冻结实验清单。 |
+| `results/summaries/` | 支撑论文表格的 CSV、JSON 和 Markdown 汇总结果。 |
+| `release_assets/` | 精选原始结果 ZIP，每个文件均低于 GitHub 100 MB 限制。 |
+| `docs/` | 代码、实验、仓库结构、私有权限和协作说明。 |
+
+实现和旧结果中仍使用历史内部名称 `CLAFR`，当前论文使用公开名称 `DAFR`。为保持代码、结果路径和审计记录可追溯，没有对算法标识进行批量改名。
+
+## Windows PowerShell 快速开始
 
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install --upgrade pip
 python -m pip install -e ".[dev]"
-python -m pip install -e ".\ICLR[dev]"
 python -m pip install -e ".\external\official_baselines\AutoDojo\agentdojo"
 
-$env:PYTHONPATH = "$PWD\src;$PWD\ICLR\src;$PWD\external\official_baselines\AutoDojo\agentdojo\src"
-python -m pytest -q .\ICLR\tests
+$env:PYTHONPATH = "$PWD\src;$PWD\external\official_baselines\AutoDojo\agentdojo\src"
+python -m pytest -q .\tests
 python -m pytest -q .\method_reference\tests
 ```
 
-The unit tests do not call paid model APIs. Rerunning model experiments does require the provider-specific environment variables referenced by the scripts. No `.env` file or real credential is included.
+单元测试不会调用付费模型 API。重新运行模型实验需要按照对应脚本设置模型供应商环境变量。本仓库不包含 `.env` 或真实凭据。
 
-## Compile the paper
+## 编译论文
 
 ```powershell
 Push-Location .\paper\main
@@ -46,24 +59,16 @@ pdflatex -interaction=nonstopmode -halt-on-error DAFR_AAAI2027_Supplement_Curren
 Pop-Location
 ```
 
-The checked-in `.bbl` lets the main paper compile without rerunning BibTeX. If references change, run BibTeX and then LaTeX twice.
+正文目录中已包含 `.bbl`。参考文献发生变化后，应重新运行 BibTeX，再运行两次 LaTeX。
 
-## Results and raw artifacts
+## 版本和完整性
 
-Start with `results/summaries/`. The five ZIP files in `release_assets/` contain the selected underlying JSON traces for the main AgentDojo run, full four-suite ablation, GPT-5.4-mini run, Claude Haiku 4.5 run, and ASB/margin evidence. See `release_assets/README.md` for the mapping.
+- 原始 `AAAI 2027 ALL` 是历史归档，不是全部文件都最新。
+- 当前版本选择依据见 [`VERSION_AUDIT.md`](VERSION_AUDIT.md)。
+- 文件大小和 SHA-256 见 [`UPLOAD_MANIFEST.csv`](UPLOAD_MANIFEST.csv) 与 [`SHA256SUMS.txt`](SHA256SUMS.txt)。
+- 旧归档遗漏的 `src/geoconstraints/` 和 `clafr_adaptive_attacks.py` 已从原实验工作区补回。
 
-## Reviews and Chinese translations
+## 私有协作和许可
 
-Start with [`reviews/README.md`](reviews/README.md). Each review file preserves the English text supplied in the screenshots and places the corresponding Chinese translation under the same stable comment ID. [`reviews/response_tracker_zh.md`](reviews/response_tracker_zh.md) consolidates repeated concerns without claiming that any new experiment or revision has already been completed.
+本仓库必须保持 **Private**，仅向论文合作者授权。权限检查见 [`docs/PRIVATE_ACCESS_CHECKLIST.md`](docs/PRIVATE_ACCESS_CHECKLIST.md)。项目尚无明确的顶层开源许可证；在作者确定许可并核清第三方再分发条件前，不得公开仓库。
 
-## Private GitHub collaboration
-
-This snapshot is intended for a **private** GitHub repository. Use [`docs/PRIVATE_ACCESS_CHECKLIST.md`](docs/PRIVATE_ACCESS_CHECKLIST.md) before inviting collaborators, and use [`docs/COLLABORATION_WORKFLOW.md`](docs/COLLABORATION_WORKFLOW.md) for clone, branch, pull-request, upload, and synchronization commands. The full tree is explained in [`docs/REPOSITORY_STRUCTURE.md`](docs/REPOSITORY_STRUCTURE.md).
-
-## Snapshot status
-
-This package fixes omissions in the old archive by restoring `src/geoconstraints/` and `agentdojo/attacks/clafr_adaptive_attacks.py` from the original experiment workspace. See `VERSION_AUDIT.md` for the exact selection decisions and known caveats.
-
-## Licensing and visibility
-
-The project itself did not contain an explicit top-level license. Keep the repository private and restricted to approved paper collaborators until the authors choose a license and resolve third-party redistribution status. Vendored AgentDojo retains its MIT license. ToolSafe's archived README labels the project MIT, but the local data slice did not include a standalone license file; verify and add the upstream license before any public redistribution. See `LICENSE_STATUS.md` and `THIRD_PARTY_NOTICES.md`.

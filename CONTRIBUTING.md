@@ -1,11 +1,11 @@
-# Contributing
+# 协作修改说明
 
-This is a private research collaboration repository. Only paper collaborators approved by the repository owner may receive access.
+这是私人研究协作仓库，只有经仓库所有者确认的论文合作者可以获得访问权限。
 
-1. Read [`docs/COLLABORATION_WORKFLOW.md`](docs/COLLABORATION_WORKFLOW.md).
-2. Create a feature branch from the latest `main`.
-3. Keep manuscript, review, code, data, and result changes in their designated directories.
-4. Do not commit credentials, private correspondence outside `reviews/`, caches, incomplete runs, or unrelated projects.
-5. Run relevant tests and verify changed paper PDFs before opening a pull request.
-6. Use pull requests for `main`; another collaborator should review substantive manuscript, experiment, or result changes.
+1. 先阅读 [`docs/COLLABORATION_WORKFLOW.md`](docs/COLLABORATION_WORKFLOW.md)。
+2. 从最新 `main` 创建个人功能分支，不直接在 `main` 上修改。
+3. 按仓库结构放置论文、审稿、代码、数据和结果文件。
+4. 不得提交凭据、`.env`、缓存、不完整运行结果或与本论文无关的文件。
+5. 提交 PR 前运行相关测试；论文发生变化时还要重新编译并检查 PDF。
+6. 论文、实验和结果的实质性修改应通过 Pull Request 由另一位合作者复核。
 

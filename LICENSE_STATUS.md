@@ -1,11 +1,14 @@
-# License status
+# 许可状态
 
-No top-level license was present in the authors' source workspace. Until the authors choose and add a license, the project code and paper should be treated as shared with collaborators for review rather than as an open-source public release.
+## 当前结论
 
-Before making the GitHub repository public:
+本项目没有明确的顶层开源许可证。因此，本仓库必须保持私人状态，只向论文合作者开放；在全体作者确认许可证之前，不得公开发布或对外宣称可自由复用。
 
-1. Agree on a license for the authors' code and documentation.
-2. Add the corresponding top-level `LICENSE` file.
-3. Confirm that every dataset and third-party component may be redistributed.
-4. Preserve all third-party license and citation files.
+## 第三方内容
+
+- `external/official_baselines/AutoDojo/agentdojo/` 保留了上游 MIT `LICENSE`。
+- AgentDojo 内嵌的 CAMEL 防御目录保留了自己的 MIT `LICENSE`。
+- 本地 ToolSafe/ASB 切片的 README 标注为 MIT，但归档中没有独立许可证文件。公开再分发前必须从上游仓库核验并补充准确许可证。
+
+私人协作并不会自动解决版权和再分发问题；如以后公开仓库，应由作者逐项核对代码、数据、模型输出和第三方资产的许可条件。
 

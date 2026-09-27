@@ -1,14 +1,14 @@
-# Selected raw-result archives
+# 精选原始结果压缩包
 
-These ZIP files are intended either to remain in the repository or to be uploaded as GitHub Release assets:
+这些 ZIP 可以直接保留在私人仓库中，也可以作为 GitHub Release 附件上传。
 
-| File | Contents |
+| 文件 | 内容 |
 |---|---|
-| `agentdojo_deepseek_main_raw.zip` | Main DeepSeek V4 Flash AgentDojo run: 71 clean and 585 attacked cases. |
-| `agentdojo_deepseek_ablation_raw.zip` | Current full four-suite component ablation used by the paper. |
-| `agentdojo_gpt54mini_raw.zip` | Frozen GPT-5.4-mini AgentDojo results. |
-| `agentdojo_claudehaiku45_raw.zip` | Frozen Claude Haiku 4.5 AgentDojo results. |
-| `asb_and_margin_raw.zip` | ASB method runs, consolidated metrics, and signed-margin evidence. |
+| `agentdojo_deepseek_main_raw.zip` | DeepSeek V4 Flash 的 AgentDojo 主实验：71 个干净案例和 585 个攻击案例。 |
+| `agentdojo_deepseek_ablation_raw.zip` | 当前论文使用的四套件完整组件消融。 |
+| `agentdojo_gpt54mini_raw.zip` | 冻结的 GPT-5.4-mini AgentDojo 结果。 |
+| `agentdojo_claudehaiku45_raw.zip` | 冻结的 Claude Haiku 4.5 AgentDojo 结果。 |
+| `asb_and_margin_raw.zip` | ASB 方法运行、合并指标和带符号间隔证据。 |
 
-Each archive is below 100 MB. SHA-256 values are recorded in the repository's `SHA256SUMS.txt` and `UPLOAD_MANIFEST.csv`.
+每个压缩包均小于 100 MB。SHA-256 记录在仓库根目录的 `SHA256SUMS.txt` 和 `UPLOAD_MANIFEST.csv` 中。
 

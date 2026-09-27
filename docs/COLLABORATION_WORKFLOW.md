@@ -1,45 +1,36 @@
-# Private GitHub collaboration workflow / 私有 GitHub 协作流程
+# 私人 GitHub 协作流程
 
-## First download / 首次下载
+## 首次下载
 
-Only invited collaborators can clone a private repository. After accepting the GitHub invitation:
+接受仓库邀请后运行：
 
 ```powershell
 gh auth login
-gh repo clone OWNER/REPOSITORY
-Set-Location REPOSITORY
+gh repo clone Lwind-Liu/DAFR-AAAI2027-private
+Set-Location DAFR-AAAI2027-private
 ```
 
-Without GitHub CLI:
+也可以登录 GitHub 后使用 **Code → Download ZIP**。ZIP 适合直接下载，但不包含 Git 历史，也不能用于上传修改。
 
-```powershell
-git clone https://github.com/OWNER/REPOSITORY.git
-Set-Location REPOSITORY
-```
-
-GitHub's **Code → Download ZIP** also works after the collaborator signs in, but ZIP downloads do not preserve Git history and cannot be used to push changes.
-
-## Daily synchronization / 日常同步
-
-Create a personal branch; do not work directly on `main`:
+## 日常同步
 
 ```powershell
 git switch main
 git pull --ff-only origin main
-git switch -c username/short-task-name
+git switch -c 用户名/任务简称
 ```
 
-After editing:
+完成修改后：
 
 ```powershell
 git status
 git add --all
-git commit -m "Describe the paper/code/result change"
+git commit -m "说明本次论文、代码或结果修改"
 git push -u origin HEAD
 gh pr create --fill
 ```
 
-Before continuing later:
+后续继续工作前：
 
 ```powershell
 git fetch origin
@@ -47,33 +38,24 @@ git rebase origin/main
 git push --force-with-lease
 ```
 
-`--force-with-lease` must only be used on the author's own feature branch, never on shared `main`.
+`--force-with-lease` 只能用于自己的功能分支，不能用于共享 `main`。
 
-## What goes where / 文件放置
-
-- Manuscript source/PDF: `paper/`
-- Review originals/translations/tracker: `reviews/`
-- Core code: `src/`, `ICLR/`, `method_reference/`
-- Benchmark slices/manifests: `data/`
-- Small aggregate results: `results/summaries/`
-- Selected raw traces: `release_assets/`
-- Collaboration documentation: `docs/`
-
-## Verification before a pull request / PR 前验证
+## PR 前验证
 
 ```powershell
-python -m pytest -q .\ICLR\tests
+$env:PYTHONPATH = "$PWD\src;$PWD\external\official_baselines\AutoDojo\agentdojo\src"
+python -m pytest -q .\tests
 python -m pytest -q .\method_reference\tests
 ```
 
-If the paper changes, compile both `paper/main` and `paper/supplement`, inspect the PDFs, then regenerate `UPLOAD_MANIFEST.csv` and `SHA256SUMS.txt` using the packaging maintainer's release procedure.
+论文发生变化时，还应编译正文和补充材料并检查 PDF。发布新快照前，由维护者重新生成 `UPLOAD_MANIFEST.csv` 和 `SHA256SUMS.txt`。
 
-Never commit `.env`, API keys, access tokens, local virtual environments, caches, paid-model credentials, or unreviewed bulk outputs.
+不得提交 `.env`、API Key、访问令牌、虚拟环境、缓存、付费模型凭据或未经审核的批量输出。
 
-## Releases and direct downloads / 发布与直接下载
+## 直接下载与发布
 
-- The entire private repository can be downloaded from **Code → Download ZIP** by authorized users.
-- Individual tracked files can be downloaded from their GitHub file page.
-- The five files under `release_assets/` can remain tracked because each is below GitHub's 100 MB file limit. They may also be attached to a private GitHub Release for a cleaner download page.
-- Keep `UPLOAD_MANIFEST.csv` and `SHA256SUMS.txt` with every release so collaborators can verify completeness and file integrity.
+- 有权限的合作者可以使用 **Code → Download ZIP** 下载整个私人仓库。
+- 单个文件可以在 GitHub 文件页面直接下载。
+- `release_assets/` 下五个 ZIP 均低于 GitHub 100 MB 单文件限制，也可附加到私人 GitHub Release。
+- 每次发布应同时保留 `UPLOAD_MANIFEST.csv` 和 `SHA256SUMS.txt`，用于核对完整性。
 

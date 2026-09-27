@@ -1,44 +1,24 @@
-# Private-access checklist / 私有访问权限清单
+# 私人仓库权限检查清单
 
-Goal: only the paper owner and explicitly approved collaborators should have GitHub repository access.
+目标：只有仓库所有者和明确批准的论文合作者可以访问。
 
-## Recommended setup
+1. 仓库可见性必须保持 `Private`，不能改为 `Public` 或 `Internal`。
+2. 只邀请确认过的 GitHub 用户名，不通过共享账号或共享令牌协作。
+3. 个人账号私人仓库的合作者具有读写权限；若以后需要细分只读、写入、维护和管理权限，应迁移到 GitHub Organization。
+4. `main` 应通过 Pull Request 修改，并禁止强制推送和删除。
+5. 定期检查 **Settings → Collaborators**，移除离组人员和不明账号。
+6. 定期检查 Deploy Keys、Webhooks 和 GitHub Apps；没有明确用途的条目应保持为空。
+7. 所有合作者应启用双重验证。
+8. 移除 GitHub 权限不能删除对方已经下载到本地的副本，离组流程还需要求删除本地研究资料。
 
-1. Create the repository with visibility **Private** from the beginning. Do not create it as Public or Internal and then convert it.
-2. Prefer an organization-owned private repository if different collaborators need different roles. Set the organization's base repository permission to **None**, then grant access only through a dedicated paper team.
-3. Assign least privilege:
-   - `Read`: download/view only.
-   - `Write`: authors who actively push branches.
-   - `Maintain`: one project maintainer if needed.
-   - `Admin`: repository owner and at most one trusted backup administrator.
-4. Protect `main`: require pull requests, at least one approval, conversation resolution, and passing tests; block force pushes and deletion.
-5. Disable private-repository forking if the organization plan/settings allow it.
-6. Audit **Settings → Collaborators and teams** after invitations are accepted. Remove unknown users, broad teams, stale collaborators, deploy keys, webhooks, and GitHub Apps.
-7. Require two-factor authentication for all collaborators. Never share one GitHub account or personal access token.
-8. Recheck access when a collaborator leaves. Removing GitHub access does not delete copies already cloned to a collaborator's computer; project policy must require local deletion.
-
-## Personal-account limitation
-
-A private repository owned by a personal account is simple, but personal repositories only distinguish the owner and collaborators; private-repository collaborators receive write access. Use an organization if you need true read-only, triage, write, maintain, and admin separation.
-
-## Verification commands after remote creation
+## 命令行核查
 
 ```powershell
-gh repo view OWNER/REPOSITORY --json nameWithOwner,visibility,url
-gh api repos/OWNER/REPOSITORY/collaborators --jq '.[] | [.login, .permissions]'
-gh api repos/OWNER/REPOSITORY/keys --jq '.[] | [.title, .read_only]'
-gh api repos/OWNER/REPOSITORY/hooks --jq '.[] | [.name, .active]'
+gh repo view Lwind-Liu/DAFR-AAAI2027-private --json nameWithOwner,visibility,url
+gh api repos/Lwind-Liu/DAFR-AAAI2027-private/collaborators --jq '.[] | [.login, .permissions]'
+gh api repos/Lwind-Liu/DAFR-AAAI2027-private/keys --jq '.[] | [.title, .read_only]'
+gh api repos/Lwind-Liu/DAFR-AAAI2027-private/hooks --jq '.[] | [.name, .active]'
 ```
 
-Expected visibility is `PRIVATE`. The collaborator list must contain only approved paper workers, and deploy-key/webhook lists should be empty unless every entry is documented.
+预期结果：可见性为 `PRIVATE`；合作者名单只有批准的论文成员；Deploy Keys 和 Webhooks 在无明确用途时为空。
 
-## Important boundary
-
-GitHub permissions prevent uninvited accounts from viewing a private repository, but they cannot revoke local clones that an authorized collaborator already downloaded. Confidentiality therefore also depends on the collaborators' local-device and offboarding practices.
-
-## GitHub documentation
-
-- [Managing teams and people with access to your repository](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/managing-repository-settings/managing-teams-and-people-with-access-to-your-repository)
-- [Repository roles for an organization](https://docs.github.com/en/organizations/managing-user-access-to-your-organizations-repositories/managing-repository-roles/repository-roles-for-an-organization)
-- [Setting base permissions for an organization](https://docs.github.com/en/organizations/managing-user-access-to-your-organizations-repositories/managing-repository-roles/setting-base-permissions-for-an-organization)
-- [Permission levels for a personal account repository](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/repository-access-and-collaboration/permission-levels-for-a-personal-account-repository)

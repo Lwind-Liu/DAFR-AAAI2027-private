@@ -1,40 +1,30 @@
-# Repository structure / 仓库结构
-
-The repository keeps executable module names stable so existing scripts and imports continue to work. Human-facing folders use short, descriptive English names, and every top-level folder has a single purpose.
-
-为避免破坏已有脚本和导入路径，代码模块名称保持不变；面向合作者的目录采用简短、明确的英文命名，每个顶层目录只有一种职责。
+# 仓库结构与命名规则
 
 ```text
 .
-├── README.md                  # Entry point / 总入口
-├── paper/                     # Current main paper, supplement, figures
-├── reviews/                   # Decision, reviews, Chinese translations, tracker
-├── src/geoconstraints/        # Core projection/constraint utilities
-├── ICLR/                      # Experiment code (historical directory name)
-├── method_reference/          # Compact paper-level reference implementation
-├── external/                  # Vendored/modified benchmark dependencies
-├── data/                      # Directly downloadable benchmark slices/manifests
-├── results/summaries/         # Reviewable aggregate results
-├── release_assets/            # Selected compressed raw-result archives
-├── docs/                      # Collaboration, access, and structure guidance
-├── UPLOAD_MANIFEST.csv        # Path, size, timestamp, SHA-256 inventory
-└── SHA256SUMS.txt             # SHA-256 verification list
+├── README.md                  # 中文总入口
+├── paper/                     # 当前正文、补充材料和图表
+├── reviews/                   # 决定、审稿、中文翻译和追踪表
+├── src/clafr/                 # 主要算法实现
+├── src/geoconstraints/        # 通用约束与 AgentDojo 集成工具
+├── scripts/                   # 实验、聚合、审计和绘图脚本
+├── tests/                     # 主工程测试
+├── experiments/manifests/     # 补充实验协议
+├── method_reference/          # 论文级参考实现
+├── external/                  # 第三方基准及本地修改
+├── data/                      # 数据切片和冻结清单
+├── results/summaries/         # 可审阅的汇总结果
+├── release_assets/            # 精选原始结果压缩包
+├── docs/                      # 中文协作与实验说明
+├── UPLOAD_MANIFEST.csv        # 路径、大小和 SHA-256 清单
+└── SHA256SUMS.txt             # SHA-256 校验列表
 ```
 
-## Naming rules / 命名规则
+## 命名规则
 
-- New files and folders should use lowercase English `snake_case` unless an upstream dependency or frozen artifact already has a stable name.
-- Do not rename `ICLR`, `CLAFR`, benchmark IDs, result directories, manifest names, or Python package paths merely for presentation. They are compatibility and provenance identifiers.
-- Add a date suffix in `YYYYMMDD` form only for real snapshots; do not create duplicate names such as `(1)` or `final_final`.
-- Put current paper files under `paper/`, review materials under `reviews/`, aggregate tables under `results/summaries/`, and large raw traces under `release_assets/`.
-- Generated caches, local environments, credentials, and incomplete reruns must not be committed.
-
-## Where collaborators should start / 合作者入口
-
-- Read the current paper: [`paper/README.md`](../paper/README.md)
-- Read the reviews and translations: [`reviews/README.md`](../reviews/README.md)
-- Inspect results: [`results/README.md`](../results/README.md)
-- Download raw traces: [`release_assets/README.md`](../release_assets/README.md)
-- Set up Git collaboration: [`COLLABORATION_WORKFLOW.md`](COLLABORATION_WORKFLOW.md)
-- Check private access: [`PRIVATE_ACCESS_CHECKLIST.md`](PRIVATE_ACCESS_CHECKLIST.md)
+- 新文件和目录优先使用简短、明确的英文 `snake_case`，中文说明写在 README 中。
+- 上游依赖、冻结结果、基准 ID 和 Python 包名保持原名，避免破坏导入和来源追踪。
+- 真正的快照才使用 `YYYYMMDD` 日期后缀，不使用 `(1)`、`final_final` 等含糊命名。
+- 当前论文放入 `paper/`，审稿放入 `reviews/`，汇总结果放入 `results/summaries/`，大型原始轨迹放入 `release_assets/`。
+- 缓存、虚拟环境、凭据和未确认的临时结果不得提交。
 

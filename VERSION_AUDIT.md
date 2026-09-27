@@ -1,41 +1,42 @@
-# Version audit
+# 版本审计
 
-Audit date: 2026-09-27
+审计日期：2026-09-27
 
-## Conclusion
+## 结论
 
-The original `AAAI 2027 ALL` folder is a historical archive, not a uniformly current release tree. It contains valid current artifacts, frozen submission copies, later edits, duplicate files, historical versions, caches, and a stale root checksum manifest.
+原始 `AAAI 2027 ALL` 文件夹是历史归档，不是统一的最新发布目录，其中同时存在当前文件、冻结提交副本、后续修改、重复文件、历史版本和缓存。根目录旧 SHA-256 清单生成于 2026-07-28，不能代表后续更新。
 
-## Selected current artifacts
+## 当前共享包采用的版本
 
-| Component | Selected source | Evidence |
+| 组件 | 采用来源 | 判断依据 |
 |---|---|---|
-| Main paper | `02_当前论文与附录/.../DAFR_AAAI2027_Current_Source/` | The main `.tex` matches the active `Desktop/正文/Paper` copy by SHA-256 and recompiles to an 8-page PDF without LaTeX warnings. |
-| Supplement | `02_当前论文与附录/.../DAFR_AAAI2027_Supplement_Current_Source/` | Updated on 2026-07-30, later than the 2026-07-28 `Desktop/正文` copy; recompiles to a 3-page PDF without LaTeX warnings. |
-| Experiment code | `06_算法与复现代码/ICLR实验工程_代码与配置/` | Its 363 non-result, non-cache files match the original `Desktop/AAAI/ICLR` workspace byte-for-byte. |
-| Missing integration utilities | `Desktop/AAAI/src` and modified AgentDojo source | Required by the archived tests but omitted from the old packaged code. Restored here. |
-| Paper-level reference code | `06_算法与复现代码/DAFR_方法论算法参考实现_20260730/` | Latest source edit is 2026-07-30; 18 tests pass. |
-| Full ablation | `agentdojo_v122_clafr_full_ablation_4suite_20260728` | This is the full 71-clean/585-attack four-suite ablation used by the current paper, newer than the earlier one-third ablation. |
-| Main and multi-model results | selected frozen AgentDojo and ASB directories | Their aggregate values match the current main paper and supplement tables. |
+| 正文 | `02_当前论文与附录/.../DAFR_AAAI2027_Current_Source/` | `.tex` 与活动正文副本 SHA-256 一致；可重新编译为 8 页 PDF。 |
+| 补充材料 | `DAFR_AAAI2027_Supplement_Current_Source/` | 更新于 2026-07-30，比 2026-07-28 副本更新；可编译为 3 页 PDF。 |
+| 实验代码 | 原 `06_算法与复现代码/ICLR实验工程_代码与配置/` | 363 个非结果、非缓存文件与原实验工作区逐字节一致；现已按职责迁移到 `src/`、`scripts/`、`tests/`、`docs/experiments/` 和 `experiments/`。 |
+| 缺失集成代码 | 原实验工作区的 `src/geoconstraints/` 与修改版 AgentDojo | 旧打包遗漏，但测试和运行需要，现已补回。 |
+| 论文级参考实现 | `DAFR_方法论算法参考实现_20260730/` | 最新源码修改日期为 2026-07-30，18 项测试通过。 |
+| 完整消融 | `agentdojo_v122_clafr_full_ablation_4suite_20260728` | 当前论文使用的 71 个干净案例、585 个攻击案例四套件完整消融。 |
+| 主实验与多模型结果 | 精选冻结 AgentDojo 和 ASB 目录 | 汇总值与当前正文和补充材料表格一致。 |
 
-## Items that are not current release sources
+## 不作为当前发布源的内容
 
-- `01_最终提交/Submit_20260728/` mixes a frozen main PDF with a later supplement and an extra duplicate main PDF named `DAFR_AAAI2027_Main_Current (1).pdf`.
-- `03_LaTeX源码与模板/727_当前整合源码/` contains an older main source than the selected current paper.
-- `08_历史版本与修改记录/` and `99_原始工作区完整镜像/` are historical evidence, not release inputs.
-- Modification times from 2026-08-12 are generated `__pycache__/*.pyc` files, not newer source code.
-- `文件清单_SHA256.csv` was generated on 2026-07-28 and does not describe later 2026-07-30 and 2026-08-01 changes. It must not be used as the checksum manifest for this release.
+- `01_最终提交/Submit_20260728/` 混合了冻结正文、后续补充材料和重复 PDF。
+- `03_LaTeX源码与模板/727_当前整合源码/` 的正文早于当前版本。
+- `08_历史版本与修改记录/` 和 `99_原始工作区完整镜像/` 仅作为历史证据。
+- 2026-08-12 的较新修改时间来自 `__pycache__/*.pyc`，不是新源码。
+- 原 `文件清单_SHA256.csv` 没有覆盖 2026-07-30 和 2026-08-01 的更新。
 
-## Verification performed
+## 已完成验证
 
-- Main paper: isolated `pdflatex` build succeeded; 8 pages; no `Warning`, `Undefined`, `Overfull`, `Underfull`, `Fatal`, or `Error` entries in the new log; every page visually inspected.
-- Supplement: isolated `pdflatex` build succeeded; 3 pages; same log checks; every page visually inspected.
-- Default test command in this staging tree: 108 tests passed (90 integrated experiment tests plus 18 method-reference tests).
-- Credential scan: no OpenAI/Anthropic keys, GitHub tokens, or real private keys found. The private-key-looking string in AgentDojo is synthetic benchmark content.
-- GitHub size check: no staged file reaches 100 MB.
+- 正文独立编译成功：8 页，无 LaTeX 警告，逐页检查。
+- 补充材料独立编译成功：3 页，无 LaTeX 警告，逐页检查。
+- 主工程 90 项测试与方法参考实现 18 项测试通过，共 108 项。
+- 未发现真实 OpenAI、Anthropic、GitHub 凭据或真实私钥；看似私钥的文本是 AgentDojo 合成基准内容。
+- 无文件达到 GitHub 100 MB 单文件限制。
 
-## Known caveats
+## 已知边界
 
-- Re-running paid-model experiments was not attempted.
-- The current manuscript reports the public method name `DAFR`, while implementation and results retain the historical identifier `CLAFR`.
-- Public-release licensing remains an author decision; see `LICENSE_STATUS.md`.
+- 没有重新调用付费模型运行实验。
+- 论文使用 `DAFR`，实现和冻结结果仍保留历史标识 `CLAFR`。
+- 项目顶层许可和 ToolSafe 数据再分发许可仍需作者确认，仓库必须保持私人状态。
+
