@@ -1,0 +1,42 @@
+[
+  {
+    "label": "attack-clafr-banking",
+    "exit_code": 0,
+    "log": "C:\\Users\\f1567\\Desktop\\AAAI\\ICLR\\results\\agentdojo_v122_claudehaiku45_multillm_frozen_v1\\logs\\attack-clafr-banking.log"
+  },
+  {
+    "label": "attack-clafr-slack",
+    "exit_code": 0,
+    "log": "C:\\Users\\f1567\\Desktop\\AAAI\\ICLR\\results\\agentdojo_v122_claudehaiku45_multillm_frozen_v1\\logs\\attack-clafr-slack.log"
+  },
+  {
+    "label": "attack-clafr-travel",
+    "exit_code": 0,
+    "log": "C:\\Users\\f1567\\Desktop\\AAAI\\ICLR\\results\\agentdojo_v122_claudehaiku45_multillm_frozen_v1\\logs\\attack-clafr-travel.log"
+  },
+  {
+    "label": "attack-clafr-workspace",
+    "exit_code": 0,
+    "log": "C:\\Users\\f1567\\Desktop\\AAAI\\ICLR\\results\\agentdojo_v122_claudehaiku45_multillm_frozen_v1\\logs\\attack-clafr-workspace.log"
+  },
+  {
+    "label": "clean-clafr-banking",
+    "exit_code": 0,
+    "log": "C:\\Users\\f1567\\Desktop\\AAAI\\ICLR\\results\\agentdojo_v122_claudehaiku45_multillm_frozen_v1\\logs\\clean-clafr-banking.log"
+  },
+  {
+    "label": "clean-clafr-slack",
+    "exit_code": 0,
+    "log": "C:\\Users\\f1567\\Desktop\\AAAI\\ICLR\\results\\agentdojo_v122_claudehaiku45_multillm_frozen_v1\\logs\\clean-clafr-slack.log"
+  },
+  {
+    "label": "clean-clafr-travel",
+    "exit_code": 0,
+    "log": "C:\\Users\\f1567\\Desktop\\AAAI\\ICLR\\results\\agentdojo_v122_claudehaiku45_multillm_frozen_v1\\logs\\clean-clafr-travel.log"
+  },
+  {
+    "label": "clean-clafr-workspace",
+    "exit_code": 0,
+    "log": "C:\\Users\\f1567\\Desktop\\AAAI\\ICLR\\results\\agentdojo_v122_claudehaiku45_multillm_frozen_v1\\logs\\clean-clafr-workspace.log"
+  }
+]

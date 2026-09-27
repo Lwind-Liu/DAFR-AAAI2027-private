@@ -1,0 +1,2 @@
+method_key,method,clean_utility,asr,attack_utility,allowed_signed_margin,blocked_signed_margin,margin_separation,decision_blocked_signed_margin,legacy_absolute_margin,allowed_margin_n,blocked_margin_n,non_geometric_block_n,allowed_sign_errors,blocked_sign_errors,clean_cases,attack_cases,complete
+clafr,CLAFR,0.8748511904761904,0,0.8143069727891157,0.7122458223732788,-0.3678497400365462,1.080095562409825,-0.3678497400365462,0.6859145958520579,3618,329,0,0,0,71,585,True

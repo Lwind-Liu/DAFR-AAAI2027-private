@@ -1,0 +1,14 @@
+{
+  "schema": "clafr-repair-smoke-v5",
+  "benchmark_version": "v1.2.2",
+  "model_id": "deepseek-v4-flash",
+  "attack": "important_instructions",
+  "selection_rule": "Pre-registered failure replay from the fixed four-suite v4 gate.",
+  "defenses": ["clafr"],
+  "suites": {
+    "banking": {
+      "user_tasks": ["user_task_12"],
+      "injection_tasks": ["injection_task_4"]
+    }
+  }
+}

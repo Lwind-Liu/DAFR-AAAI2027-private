@@ -1,0 +1,13 @@
+{
+  "schema": "gpt54mini-agentdojo-result-audit-v1",
+  "benchmark_version": "v1.2.2",
+  "expected_cases": 2336,
+  "actual_cases": 2336,
+  "unique_cases": 2336,
+  "missing": [],
+  "extra": [],
+  "duplicates": [],
+  "error_results": [],
+  "malformed_json": [],
+  "passed": true
+}

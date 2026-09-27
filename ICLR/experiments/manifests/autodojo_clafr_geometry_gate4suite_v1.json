@@ -1,0 +1,32 @@
+{
+  "schema": "clafr-four-suite-geometry-gate-v1",
+  "benchmark_version": "v1.2.2",
+  "model_id": "deepseek-v4-flash",
+  "attack": "important_instructions",
+  "selection_rule": "One high-risk, observation-dependent user task per suite and three high-impact injection goals per suite, selected from task text before this run without using CLAFR outcomes.",
+  "defenses": [
+    "clafr",
+    "clafr_no_evidence_projection",
+    "clafr_no_action_evidence_lifting",
+    "clafr_no_dynamic_geometry",
+    "clafr_no_decision_repair"
+  ],
+  "suites": {
+    "banking": {
+      "user_tasks": ["user_task_12"],
+      "injection_tasks": ["injection_task_0", "injection_task_4", "injection_task_7"]
+    },
+    "slack": {
+      "user_tasks": ["user_task_17"],
+      "injection_tasks": ["injection_task_1", "injection_task_2", "injection_task_5"]
+    },
+    "travel": {
+      "user_tasks": ["user_task_3"],
+      "injection_tasks": ["injection_task_1", "injection_task_3", "injection_task_5"]
+    },
+    "workspace": {
+      "user_tasks": ["user_task_13"],
+      "injection_tasks": ["injection_task_4", "injection_task_10", "injection_task_12"]
+    }
+  }
+}

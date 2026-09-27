@@ -1,0 +1,233 @@
+\begin{thebibliography}{30}
+\providecommand{\natexlab}[1]{#1}
+
+\bibitem[{Alshiekh et~al.(2018)Alshiekh, Bloem, Ehlers, K{\"o}nighofer, Niekum,
+  and Topcu}]{alshiekh2018shielding}
+Alshiekh, M.; Bloem, R.; Ehlers, R.; K{\"o}nighofer, B.; Niekum, S.; and Topcu,
+  U. 2018.
+\newblock Safe Reinforcement Learning via Shielding.
+\newblock In \emph{Proceedings of the AAAI Conference on Artificial
+  Intelligence}, volume~32.
+
+\bibitem[{Andriushchenko et~al.(2025)Andriushchenko, Souly, Dziemian, Duenas,
+  Lin, Wang, Hendrycks, Zou, Kolter, Fredrikson, Winsor, Wynne, Gal, and
+  Davies}]{andriushchenko2025agentharm}
+Andriushchenko, M.; Souly, A.; Dziemian, M.; Duenas, D.; Lin, M.; Wang, J.;
+  Hendrycks, D.; Zou, A.; Kolter, Z.; Fredrikson, M.; Winsor, E.; Wynne, J.;
+  Gal, Y.; and Davies, X. 2025.
+\newblock AgentHarm: A Benchmark for Measuring Harmfulness of LLM Agents.
+\newblock In \emph{The Thirteenth International Conference on Learning
+  Representations}.
+
+\bibitem[{Chen et~al.(2025)Chen, Piet, Sitawarin, and Wagner}]{chen2025struq}
+Chen, S.; Piet, J.; Sitawarin, C.; and Wagner, D. 2025.
+\newblock StruQ: Defending Against Prompt Injection with Structured Queries.
+\newblock In \emph{34th USENIX Security Symposium}, 2383--2400.
+
+\bibitem[{Chen, Kang, and Li(2025)}]{chen2025shieldagent}
+Chen, Z.; Kang, M.; and Li, B. 2025.
+\newblock ShieldAgent: Shielding Agents via Verifiable Safety Policy Reasoning.
+\newblock In \emph{Proceedings of the 42nd International Conference on Machine
+  Learning}, volume 267 of \emph{Proceedings of Machine Learning Research},
+  8313--8344. PMLR.
+
+\bibitem[{Costa et~al.(2025)Costa, K{\"o}pf, Kolluri, Paverd, Russinovich,
+  Salem, Tople, Wutschitz, and Zanella-B{\'e}guelin}]{costa2025fides}
+Costa, M.; K{\"o}pf, B.; Kolluri, A.; Paverd, A.; Russinovich, M.; Salem, A.;
+  Tople, S.; Wutschitz, L.; and Zanella-B{\'e}guelin, S. 2025.
+\newblock Securing AI Agents with Information-Flow Control.
+\newblock arXiv:2505.23643.
+
+\bibitem[{Debenedetti et~al.(2025)Debenedetti, Shumailov, Fan, Hayes, Carlini,
+  Fabian, Kern, Shi, Terzis, and
+  Tram\`{e}r}]{debenedetti2025defeatingpromptinjectionsdesign}
+Debenedetti, E.; Shumailov, I.; Fan, T.; Hayes, J.; Carlini, N.; Fabian, D.;
+  Kern, C.; Shi, C.; Terzis, A.; and Tram\`{e}r, F. 2025.
+\newblock Defeating Prompt Injections by Design.
+\newblock arXiv:2503.18813.
+
+\bibitem[{Debenedetti et~al.(2024)Debenedetti, Zhang, Balunovic,
+  Beurer-Kellner, Fischer, and Tram\`{e}r}]{NEURIPS2024_97091a51}
+Debenedetti, E.; Zhang, J.; Balunovic, M.; Beurer-Kellner, L.; Fischer, M.; and
+  Tram\`{e}r, F. 2024.
+\newblock AgentDojo: A Dynamic Environment to Evaluate Prompt Injection Attacks
+  and Defenses for LLM Agents.
+\newblock In \emph{Advances in Neural Information Processing Systems},
+  volume~37, 82895--82920.
+
+\bibitem[{Greshake et~al.(2023)Greshake, Abdelnabi, Mishra, Endres, Holz, and
+  Fritz}]{greshake2023indirectpromptinjection}
+Greshake, K.; Abdelnabi, S.; Mishra, S.; Endres, C.; Holz, T.; and Fritz, M.
+  2023.
+\newblock Not What You've Signed Up For: Compromising Real-World LLM-Integrated
+  Applications with Indirect Prompt Injection.
+\newblock arXiv:2302.12173.
+
+\bibitem[{Hines et~al.(2024)Hines, Lopez, Hall, Zarfati, Zunger, and
+  Kiciman}]{hines2024spotlighting}
+Hines, K.; Lopez, G.; Hall, M.; Zarfati, F.; Zunger, Y.; and Kiciman, E. 2024.
+\newblock Defending Against Indirect Prompt Injection Attacks With
+  Spotlighting.
+\newblock arXiv:2403.14720.
+
+\bibitem[{Jia et~al.(2025)Jia, Wu, Qin, and Squicciarini}]{jia2025taskshield}
+Jia, F.; Wu, T.; Qin, X.; and Squicciarini, A. 2025.
+\newblock The Task Shield: Enforcing Task Alignment to Defend Against Indirect
+  Prompt Injection in LLM Agents.
+\newblock In \emph{Proceedings of the 63rd Annual Meeting of the Association
+  for Computational Linguistics (Volume 1: Long Papers)}, 29680--29697.
+
+\bibitem[{Lee et~al.(2026)Lee, Hahm, Choi, Knox, and
+  Lee}]{lee2026mobilesafetybench}
+Lee, J.; Hahm, D.; Choi, J.~S.; Knox, W.~B.; and Lee, K. 2026.
+\newblock MobileSafetyBench: Evaluating Safety of Autonomous Agents in Mobile
+  Device Control.
+\newblock In \emph{Proceedings of the AAAI Conference on Artificial
+  Intelligence}, volume~40, 37565--37573.
+
+\bibitem[{Li et~al.(2025{\natexlab{a}})Li, Liu, Chiu, Li, Zhang, and
+  Xiao}]{NEURIPS2025_77f3b26c}
+Li, H.; Liu, X.; Chiu, H.-C.; Li, D.; Zhang, N.; and Xiao, C.
+  2025{\natexlab{a}}.
+\newblock DRIFT: Dynamic Rule-Based Defense with Injection Isolation for
+  Securing LLM Agents.
+\newblock In \emph{Advances in Neural Information Processing Systems},
+  volume~38, 83262--83290.
+
+\bibitem[{Li et~al.(2025{\natexlab{b}})Li, Liu, Zhang, and
+  Xiao}]{li2025piguard}
+Li, H.; Liu, X.; Zhang, N.; and Xiao, C. 2025{\natexlab{b}}.
+\newblock {PIG}uard: Prompt Injection Guardrail via Mitigating Overdefense for
+  Free.
+\newblock In \emph{Proceedings of the 63rd Annual Meeting of the Association
+  for Computational Linguistics (Volume 1: Long Papers)}, 30420--30437.
+
+\bibitem[{Li et~al.(2026)Li, Wen, Shi, Zhang, and
+  Xiao}]{li2026agentdynagentsecuritydefenses}
+Li, H.; Wen, R.; Shi, S.; Zhang, N.; and Xiao, C. 2026.
+\newblock AgentDyn: A Dynamic Open-Ended Benchmark for Evaluating Prompt
+  Injection Attacks of Real-World Agent Security System.
+\newblock arXiv:2602.03117.
+
+\bibitem[{Liao et~al.(2025)Liao, Mo, Xu, Kang, Zhang, Xiao, Tian, Li, and
+  Sun}]{liao2025eia}
+Liao, Z.; Mo, L.; Xu, C.; Kang, M.; Zhang, J.; Xiao, C.; Tian, Y.; Li, B.; and
+  Sun, H. 2025.
+\newblock EIA: Environmental Injection Attack on Generalist Web Agents for
+  Privacy Leakage.
+\newblock In \emph{The Thirteenth International Conference on Learning
+  Representations}.
+
+\bibitem[{Liu et~al.(2023)Liu, Deng, Li, Wang, Wang, Wang, Zhang, Liu, Wang,
+  Zheng, and Liu}]{liu2023promptinjection}
+Liu, Y.; Deng, G.; Li, Y.; Wang, K.; Wang, Z.; Wang, X.; Zhang, T.; Liu, Y.;
+  Wang, H.; Zheng, Y.; and Liu, Y. 2023.
+\newblock Prompt Injection Attack against LLM-Integrated Applications.
+\newblock arXiv:2306.05499.
+
+\bibitem[{Ma et~al.(2026)Ma, Li, Xiao, Yu, Zhang, and
+  Vorobeychik}]{ma2026autodojoadaptiveblackboxattacks}
+Ma, X.; Li, T.; Xiao, C.; Yu, Z.; Zhang, N.; and Vorobeychik, Y. 2026.
+\newblock AutoDojo: Adaptive Attacks Expose Superficial Defenses and
+  User-Underspecification Limits in LLM Agents.
+\newblock arXiv:2606.15057.
+
+\bibitem[{Ruan et~al.(2024)Ruan, Dong, Wang, Pitis, Zhou, Ba, Dubois, Maddison,
+  and Hashimoto}]{ruan2024toolemu}
+Ruan, Y.; Dong, H.; Wang, A.; Pitis, S.; Zhou, Y.; Ba, J.; Dubois, Y.;
+  Maddison, C.~J.; and Hashimoto, T. 2024.
+\newblock Identifying the Risks of LM Agents with an LM-Emulated Sandbox.
+\newblock In \emph{The Twelfth International Conference on Learning
+  Representations}.
+
+\bibitem[{Schick et~al.(2023)Schick, Dwivedi-Yu, Dess\`{i}, Raileanu, Lomeli,
+  Hambro, Zettlemoyer, Cancedda, and Scialom}]{schick2023toolformer}
+Schick, T.; Dwivedi-Yu, J.; Dess\`{i}, R.; Raileanu, R.; Lomeli, M.; Hambro,
+  E.; Zettlemoyer, L.; Cancedda, N.; and Scialom, T. 2023.
+\newblock Toolformer: Language Models Can Teach Themselves to Use Tools.
+\newblock In \emph{Advances in Neural Information Processing Systems},
+  volume~36.
+
+\bibitem[{Shi et~al.(2025)Shi, He, Wang, Wu, Li, Guo, and
+  Song}]{shi2025progent}
+Shi, T.; He, J.; Wang, Z.; Wu, L.; Li, H.; Guo, W.; and Song, D. 2025.
+\newblock Progent: Programmable Privilege Control for LLM Agents.
+\newblock arXiv:2504.11703.
+
+\bibitem[{Storek et~al.(2026)Storek, Holzer, Zhang, and Jana}]{storek2026gif}
+Storek, A.; Holzer, N.; Zhang, Z.; and Jana, S. 2026.
+\newblock GIF: Locally Sound Geometric Information Flow Control for LLMs.
+\newblock arXiv:2606.23277.
+
+\bibitem[{Wallace et~al.(2024)Wallace, Xiao, Leike, Weng, Heidecke, and
+  Beutel}]{wallace2024instructionhierarchy}
+Wallace, E.; Xiao, K.; Leike, R.; Weng, L.; Heidecke, J.; and Beutel, A. 2024.
+\newblock The Instruction Hierarchy: Training LLMs to Prioritize Privileged
+  Instructions.
+\newblock arXiv:2404.13208.
+
+\bibitem[{Wang, Poskitt, and Sun(2025)}]{wang2025agentspec}
+Wang, H.; Poskitt, C.~M.; and Sun, J. 2025.
+\newblock AgentSpec: Customizable Runtime Enforcement for Safe and Reliable LLM
+  Agents.
+\newblock arXiv:2503.18666.
+
+\bibitem[{Wang et~al.(2026)Wang, Gao, Wang, Liu, Sun, Cheng, Shi, Du, and
+  Li}]{wang2026mcptox}
+Wang, Z.; Gao, Y.; Wang, Y.; Liu, S.; Sun, H.; Cheng, H.; Shi, G.; Du, H.; and
+  Li, X. 2026.
+\newblock MCPTox: A Benchmark for Tool Poisoning on Real-World MCP Servers.
+\newblock In \emph{Proceedings of the AAAI Conference on Artificial
+  Intelligence}, volume~40, 35811--35819.
+
+\bibitem[{Wang et~al.(2025)Wang, Siu, Ye, Shi, Nie, Zhao, Wang, Guo, and
+  Song}]{wang2025agentvigil}
+Wang, Z.; Siu, V.; Ye, Z.; Shi, T.; Nie, Y.; Zhao, X.; Wang, C.; Guo, W.; and
+  Song, D. 2025.
+\newblock AGENTVIGIL: Automatic Black-Box Red-teaming for Indirect Prompt
+  Injection against LLM Agents.
+\newblock In \emph{Findings of the Association for Computational Linguistics:
+  EMNLP 2025}, 23159--23172.
+
+\bibitem[{Yao et~al.(2023)Yao, Zhao, Yu, Du, Shafran, Narasimhan, and
+  Cao}]{yao2023react}
+Yao, S.; Zhao, J.; Yu, D.; Du, N.; Shafran, I.; Narasimhan, K.; and Cao, Y.
+  2023.
+\newblock ReAct: Synergizing Reasoning and Acting in Language Models.
+\newblock In \emph{The Eleventh International Conference on Learning
+  Representations}.
+
+\bibitem[{Ye et~al.(2024)Ye, Li, Li, Huang, Gao, Wu, Zhang, Gui, and
+  Huang}]{ye2024toolsword}
+Ye, J.; Li, S.; Li, G.; Huang, C.; Gao, S.; Wu, Y.; Zhang, Q.; Gui, T.; and
+  Huang, X. 2024.
+\newblock ToolSword: Unveiling Safety Issues of Large Language Models in Tool
+  Learning Across Three Stages.
+\newblock In \emph{Proceedings of the 62nd Annual Meeting of the Association
+  for Computational Linguistics (Volume 1: Long Papers)}, 2181--2211.
+
+\bibitem[{Zhan et~al.(2024)Zhan, Liang, Ying, and Kang}]{zhan2024injecagent}
+Zhan, Q.; Liang, Z.; Ying, Z.; and Kang, D. 2024.
+\newblock InjecAgent: Benchmarking Indirect Prompt Injections in
+  Tool-Integrated Large Language Model Agents.
+\newblock In \emph{Findings of the Association for Computational Linguistics:
+  ACL 2024}, 10471--10506.
+
+\bibitem[{Zhang et~al.(2025)Zhang, Huang, Mei, Yao, Wang, Zhan, Wang, and
+  Zhang}]{zhang2025agentsecuritybench}
+Zhang, H.; Huang, J.; Mei, K.; Yao, Y.; Wang, Z.; Zhan, C.; Wang, H.; and
+  Zhang, Y. 2025.
+\newblock Agent Security Bench (ASB): Formalizing and Benchmarking Attacks and
+  Defenses in LLM-based Agents.
+\newblock In \emph{The Thirteenth International Conference on Learning
+  Representations}.
+
+\bibitem[{Zhu et~al.(2025)Zhu, Yang, Wang, Guo, and Wang}]{zhu2025melon}
+Zhu, K.; Yang, X.; Wang, J.; Guo, W.; and Wang, W.~Y. 2025.
+\newblock MELON: Provable Defense Against Indirect Prompt Injection Attacks in
+  AI Agents.
+\newblock In \emph{Proceedings of the 42nd International Conference on Machine
+  Learning}, volume 267 of \emph{Proceedings of Machine Learning Research},
+  80310--80329. PMLR.
+
+\end{thebibliography}

@@ -1,0 +1,12 @@
+[
+  {
+    "label": "attack-progent-workspace",
+    "exit_code": 0,
+    "log": "C:\\Users\\f1567\\Desktop\\AAAI\\ICLR\\results\\agentdojo_v122_gpt54mini_multillm_frozen_v1\\logs\\attack-progent-workspace.log"
+  },
+  {
+    "label": "clean-progent-workspace",
+    "exit_code": 0,
+    "log": "C:\\Users\\f1567\\Desktop\\AAAI\\ICLR\\results\\agentdojo_v122_gpt54mini_multillm_frozen_v1\\logs\\clean-progent-workspace.log"
+  }
+]

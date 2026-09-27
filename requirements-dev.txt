@@ -1,0 +1,4 @@
+-e .[dev]
+-e ./ICLR[dev]
+-e ./external/official_baselines/AutoDojo/agentdojo
+

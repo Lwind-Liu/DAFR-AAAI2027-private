@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "semantic-geoconstraints"
+version = "0.1.0"
+description = "Semantic half-space constraints for safe tool-using agents."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "numpy",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+semantic = ["scikit-learn", "sentence-transformers"]
+
+[project.scripts]
+geoconstraints-demo = "geoconstraints.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = [
+  "src",
+  "ICLR/src",
+  "external/official_baselines/AutoDojo/agentdojo/src",
+]
+testpaths = ["ICLR/tests", "method_reference/tests"]
+addopts = "-q"

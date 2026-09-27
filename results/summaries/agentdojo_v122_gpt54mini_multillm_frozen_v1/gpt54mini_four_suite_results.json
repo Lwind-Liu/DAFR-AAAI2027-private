@@ -1,0 +1,441 @@
+{
+  "schema": "gpt54mini-agentdojo-four-suite-v1",
+  "model": "gpt-5.4-mini",
+  "benchmark_version": "v1.2.2",
+  "coverage": {
+    "clafr": {
+      "clean_cases": 71,
+      "clean_successes": 50,
+      "attack_cases": 585,
+      "attack_utility_successes": 344,
+      "attack_successes": 0,
+      "errors": 0,
+      "suite_metrics": {
+        "banking": {
+          "clean_cases": 16,
+          "clean_successes": 13,
+          "attack_cases": 144,
+          "attack_utility_successes": 88,
+          "attack_successes": 0
+        },
+        "slack": {
+          "clean_cases": 21,
+          "clean_successes": 18,
+          "attack_cases": 105,
+          "attack_utility_successes": 67,
+          "attack_successes": 0
+        },
+        "travel": {
+          "clean_cases": 20,
+          "clean_successes": 13,
+          "attack_cases": 140,
+          "attack_utility_successes": 82,
+          "attack_successes": 0
+        },
+        "workspace": {
+          "clean_cases": 14,
+          "clean_successes": 6,
+          "attack_cases": 196,
+          "attack_utility_successes": 107,
+          "attack_successes": 0
+        }
+      }
+    },
+    "no_defense": {
+      "clean_cases": 14,
+      "clean_successes": 8,
+      "attack_cases": 196,
+      "attack_utility_successes": 126,
+      "attack_successes": 0,
+      "errors": 0,
+      "suite_metrics": {
+        "banking": {
+          "clean_cases": 0,
+          "clean_successes": 0,
+          "attack_cases": 0,
+          "attack_utility_successes": 0,
+          "attack_successes": 0
+        },
+        "slack": {
+          "clean_cases": 0,
+          "clean_successes": 0,
+          "attack_cases": 0,
+          "attack_utility_successes": 0,
+          "attack_successes": 0
+        },
+        "travel": {
+          "clean_cases": 0,
+          "clean_successes": 0,
+          "attack_cases": 0,
+          "attack_utility_successes": 0,
+          "attack_successes": 0
+        },
+        "workspace": {
+          "clean_cases": 14,
+          "clean_successes": 8,
+          "attack_cases": 196,
+          "attack_utility_successes": 126,
+          "attack_successes": 0
+        }
+      }
+    },
+    "sandwich": {
+      "clean_cases": 14,
+      "clean_successes": 9,
+      "attack_cases": 196,
+      "attack_utility_successes": 115,
+      "attack_successes": 0,
+      "errors": 0,
+      "suite_metrics": {
+        "banking": {
+          "clean_cases": 0,
+          "clean_successes": 0,
+          "attack_cases": 0,
+          "attack_utility_successes": 0,
+          "attack_successes": 0
+        },
+        "slack": {
+          "clean_cases": 0,
+          "clean_successes": 0,
+          "attack_cases": 0,
+          "attack_utility_successes": 0,
+          "attack_successes": 0
+        },
+        "travel": {
+          "clean_cases": 0,
+          "clean_successes": 0,
+          "attack_cases": 0,
+          "attack_utility_successes": 0,
+          "attack_successes": 0
+        },
+        "workspace": {
+          "clean_cases": 14,
+          "clean_successes": 9,
+          "attack_cases": 196,
+          "attack_utility_successes": 115,
+          "attack_successes": 0
+        }
+      }
+    },
+    "reminder": {
+      "clean_cases": 14,
+      "clean_successes": 9,
+      "attack_cases": 196,
+      "attack_utility_successes": 121,
+      "attack_successes": 0,
+      "errors": 0,
+      "suite_metrics": {
+        "banking": {
+          "clean_cases": 0,
+          "clean_successes": 0,
+          "attack_cases": 0,
+          "attack_utility_successes": 0,
+          "attack_successes": 0
+        },
+        "slack": {
+          "clean_cases": 0,
+          "clean_successes": 0,
+          "attack_cases": 0,
+          "attack_utility_successes": 0,
+          "attack_successes": 0
+        },
+        "travel": {
+          "clean_cases": 0,
+          "clean_successes": 0,
+          "attack_cases": 0,
+          "attack_utility_successes": 0,
+          "attack_successes": 0
+        },
+        "workspace": {
+          "clean_cases": 14,
+          "clean_successes": 9,
+          "attack_cases": 196,
+          "attack_utility_successes": 121,
+          "attack_successes": 0
+        }
+      }
+    },
+    "spotlighting": {
+      "clean_cases": 14,
+      "clean_successes": 10,
+      "attack_cases": 196,
+      "attack_utility_successes": 129,
+      "attack_successes": 1,
+      "errors": 0,
+      "suite_metrics": {
+        "banking": {
+          "clean_cases": 0,
+          "clean_successes": 0,
+          "attack_cases": 0,
+          "attack_utility_successes": 0,
+          "attack_successes": 0
+        },
+        "slack": {
+          "clean_cases": 0,
+          "clean_successes": 0,
+          "attack_cases": 0,
+          "attack_utility_successes": 0,
+          "attack_successes": 0
+        },
+        "travel": {
+          "clean_cases": 0,
+          "clean_successes": 0,
+          "attack_cases": 0,
+          "attack_utility_successes": 0,
+          "attack_successes": 0
+        },
+        "workspace": {
+          "clean_cases": 14,
+          "clean_successes": 10,
+          "attack_cases": 196,
+          "attack_utility_successes": 129,
+          "attack_successes": 1
+        }
+      }
+    },
+    "piguard": {
+      "clean_cases": 14,
+      "clean_successes": 6,
+      "attack_cases": 196,
+      "attack_utility_successes": 70,
+      "attack_successes": 0,
+      "errors": 0,
+      "suite_metrics": {
+        "banking": {
+          "clean_cases": 0,
+          "clean_successes": 0,
+          "attack_cases": 0,
+          "attack_utility_successes": 0,
+          "attack_successes": 0
+        },
+        "slack": {
+          "clean_cases": 0,
+          "clean_successes": 0,
+          "attack_cases": 0,
+          "attack_utility_successes": 0,
+          "attack_successes": 0
+        },
+        "travel": {
+          "clean_cases": 0,
+          "clean_successes": 0,
+          "attack_cases": 0,
+          "attack_utility_successes": 0,
+          "attack_successes": 0
+        },
+        "workspace": {
+          "clean_cases": 14,
+          "clean_successes": 6,
+          "attack_cases": 196,
+          "attack_utility_successes": 70,
+          "attack_successes": 0
+        }
+      }
+    },
+    "protectai": {
+      "clean_cases": 14,
+      "clean_successes": 6,
+      "attack_cases": 196,
+      "attack_utility_successes": 100,
+      "attack_successes": 0,
+      "errors": 0,
+      "suite_metrics": {
+        "banking": {
+          "clean_cases": 0,
+          "clean_successes": 0,
+          "attack_cases": 0,
+          "attack_utility_successes": 0,
+          "attack_successes": 0
+        },
+        "slack": {
+          "clean_cases": 0,
+          "clean_successes": 0,
+          "attack_cases": 0,
+          "attack_utility_successes": 0,
+          "attack_successes": 0
+        },
+        "travel": {
+          "clean_cases": 0,
+          "clean_successes": 0,
+          "attack_cases": 0,
+          "attack_utility_successes": 0,
+          "attack_successes": 0
+        },
+        "workspace": {
+          "clean_cases": 14,
+          "clean_successes": 6,
+          "attack_cases": 196,
+          "attack_utility_successes": 100,
+          "attack_successes": 0
+        }
+      }
+    },
+    "progent": {
+      "clean_cases": 14,
+      "clean_successes": 6,
+      "attack_cases": 196,
+      "attack_utility_successes": 96,
+      "attack_successes": 0,
+      "errors": 0,
+      "suite_metrics": {
+        "banking": {
+          "clean_cases": 0,
+          "clean_successes": 0,
+          "attack_cases": 0,
+          "attack_utility_successes": 0,
+          "attack_successes": 0
+        },
+        "slack": {
+          "clean_cases": 0,
+          "clean_successes": 0,
+          "attack_cases": 0,
+          "attack_utility_successes": 0,
+          "attack_successes": 0
+        },
+        "travel": {
+          "clean_cases": 0,
+          "clean_successes": 0,
+          "attack_cases": 0,
+          "attack_utility_successes": 0,
+          "attack_successes": 0
+        },
+        "workspace": {
+          "clean_cases": 14,
+          "clean_successes": 6,
+          "attack_cases": 196,
+          "attack_utility_successes": 96,
+          "attack_successes": 0
+        }
+      }
+    },
+    "drift": {
+      "clean_cases": 14,
+      "clean_successes": 2,
+      "attack_cases": 196,
+      "attack_utility_successes": 32,
+      "attack_successes": 0,
+      "errors": 0,
+      "suite_metrics": {
+        "banking": {
+          "clean_cases": 0,
+          "clean_successes": 0,
+          "attack_cases": 0,
+          "attack_utility_successes": 0,
+          "attack_successes": 0
+        },
+        "slack": {
+          "clean_cases": 0,
+          "clean_successes": 0,
+          "attack_cases": 0,
+          "attack_utility_successes": 0,
+          "attack_successes": 0
+        },
+        "travel": {
+          "clean_cases": 0,
+          "clean_successes": 0,
+          "attack_cases": 0,
+          "attack_utility_successes": 0,
+          "attack_successes": 0
+        },
+        "workspace": {
+          "clean_cases": 14,
+          "clean_successes": 2,
+          "attack_cases": 196,
+          "attack_utility_successes": 32,
+          "attack_successes": 0
+        }
+      }
+    }
+  },
+  "table": [
+    {
+      "method": "CLAFR",
+      "clean_utility": 68.70535714285714,
+      "static_asr": 0.0,
+      "static_attack_utility": 59.520975056689345,
+      "clean_cases": 71,
+      "attack_cases": 585,
+      "complete": true,
+      "source": "four-suite rerun; unweighted suite macro"
+    },
+    {
+      "method": "No Defense",
+      "clean_utility": 72.1857142857143,
+      "static_asr": 5.175000000000001,
+      "static_attack_utility": 61.221428571428575,
+      "clean_cases": 71,
+      "attack_cases": 585,
+      "complete": true,
+      "source": "Word first-three-suite macro + workspace rerun; unweighted suite macro"
+    },
+    {
+      "method": "Sandwich",
+      "clean_utility": 80.57142857142857,
+      "static_asr": 2.0999999999999996,
+      "static_attack_utility": 65.36836734693877,
+      "clean_cases": 71,
+      "attack_cases": 585,
+      "complete": true,
+      "source": "Word first-three-suite macro + workspace rerun; unweighted suite macro"
+    },
+    {
+      "method": "Reminder",
+      "clean_utility": 76.59642857142858,
+      "static_asr": 0.6000000000000001,
+      "static_attack_utility": 65.38367346938776,
+      "clean_cases": 71,
+      "attack_cases": 585,
+      "complete": true,
+      "source": "Word first-three-suite macro + workspace rerun; unweighted suite macro"
+    },
+    {
+      "method": "Spotlighting",
+      "clean_utility": 70.50714285714287,
+      "static_asr": 2.4525510204081633,
+      "static_attack_utility": 62.72908163265306,
+      "clean_cases": 71,
+      "attack_cases": 585,
+      "complete": true,
+      "source": "Word first-three-suite macro + workspace rerun; unweighted suite macro"
+    },
+    {
+      "method": "PIGuard",
+      "clean_utility": 46.26428571428571,
+      "static_asr": 0.0,
+      "static_attack_utility": 34.35357142857143,
+      "clean_cases": 71,
+      "attack_cases": 585,
+      "complete": true,
+      "source": "Word first-three-suite macro + workspace rerun; unweighted suite macro"
+    },
+    {
+      "method": "ProtectAI",
+      "clean_utility": 48.88928571428571,
+      "static_asr": 2.325,
+      "static_attack_utility": 38.55510204081632,
+      "clean_cases": 71,
+      "attack_cases": 585,
+      "complete": true,
+      "source": "Word first-three-suite macro + workspace rerun; unweighted suite macro"
+    },
+    {
+      "method": "Progent",
+      "clean_utility": 65.98928571428571,
+      "static_asr": 1.35,
+      "static_attack_utility": 54.244897959183675,
+      "clean_cases": 71,
+      "attack_cases": 585,
+      "complete": true,
+      "source": "Word first-three-suite macro + workspace rerun; unweighted suite macro"
+    },
+    {
+      "method": "DRIFT",
+      "clean_utility": 41.74642857142857,
+      "static_asr": 0.22499999999999998,
+      "static_attack_utility": 38.80663265306122,
+      "clean_cases": 71,
+      "attack_cases": 585,
+      "complete": true,
+      "source": "Word first-three-suite macro + workspace rerun; unweighted suite macro"
+    }
+  ]
+}

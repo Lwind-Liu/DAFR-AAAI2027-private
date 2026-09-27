@@ -1,0 +1,272 @@
+\documentclass[letterpaper]{article}
+\usepackage[submission]{aaai2027}
+\usepackage[hyphens]{url}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{array}
+\frenchspacing
+
+\pdfinfo{/TemplateVersion (2027.1)}
+\setcounter{secnumdepth}{0}
+\newcommand{\method}{\textsc{DAFR}}
+
+\title{From Semantics to Execution: Dynamic Geometric Constraints for Tool-Action Feasibility\\Supplementary Evidence}
+\author{Anonymous Submission}
+\affiliations{}
+
+\begin{document}
+\maketitle
+
+\section{Supplementary Evidence Overview}
+
+This supplement provides aggregate evidence for the main paper: the evaluation protocol, complete nine-method AgentDojo results across three planners, the full Agent Security Benchmark (ASB) comparison, component analysis, signed-margin statistics, and a reproducibility record. The terminology, metrics, and method names match the main paper.
+
+\begin{table*}[t]
+\centering
+\small
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.20\textwidth}>{\raggedright\arraybackslash}p{0.31\textwidth}>{\raggedright\arraybackslash}p{0.39\textwidth}}
+\toprule
+Main-paper conclusion & Supplementary evidence & Evidential role\\
+\midrule
+DAFR retains task progress across planner models & Tables~\ref{tab:deepseek-full}--\ref{tab:claude-full} & Complete nine-method AgentDojo results for DeepSeek V4 Flash, GPT-5.4-mini, and Claude Haiku 4.5.\\
+One DAFR formulation is evaluated on two benchmarks & Table~\ref{tab:asb-full} & Complete comparison on the 204-case ASB evaluation.\\
+The dynamic feasible region supplies the central execution constraint & Table~\ref{tab:ablation-full} & Component-level comparison under a common benchmark protocol.\\
+Signed margins track execution decisions & Table~\ref{tab:margin-full} & Aggregate margins for admitted and rejected calls across planners and benchmarks.\\
+One execution-boundary method is used across planner models & Sections~\ref{sec:protocol} and~\ref{sec:implementation} & Shared decision procedure, fixed evaluation scope, and state-update process.\\
+\bottomrule
+\end{tabular}
+\caption{Correspondence between the main-paper conclusions and the supplementary evidence.}
+\label{tab:evidence-map}
+\end{table*}
+
+\section{Evaluation Protocol}
+\label{sec:protocol}
+
+\paragraph{AgentDojo.}
+AgentDojo v1.2.2 covers the Banking, Slack, Travel, and Workspace suites. We evaluate DeepSeek V4 Flash, GPT-5.4-mini, and Claude Haiku 4.5 on the same 71 clean and 585 adversarial cases. Benchmark functions compute clean utility, attack utility, and attack success rate (ASR), reported as unweighted macro-averages across the four suites.
+
+\paragraph{ASB.}
+The second evaluation contains 204 ASB cases and uses DeepSeek V4 Flash. It reports utility, full-task success, and ASR. Every compared method is evaluated on the same case set.
+
+\paragraph{Controlled comparison.}
+Each comparison fixes the task instances, registered tools, schemas, and planner. DAFR operates after concrete call generation and before trusted execution. The same parameterization and geometric decision procedure are used across all planners and evaluation environments.
+
+\paragraph{Metrics.}
+Clean and attack utility measure task completion in the corresponding benchmark settings. ASR is the benchmark-defined rate of adversarial objective success. Together, the metrics capture retained task progress and execution security.
+
+\section{Execution Interface and State Update}
+\label{sec:implementation}
+
+DAFR uses the tool-boundary execution state: the trusted task, registered schemas, established facts, completed prerequisites, authorization, and source-tagged observations. A deterministic lifting function converts the call and state into four groups of action--evidence relations:
+
+\begin{center}
+\small
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.27\columnwidth}>{\raggedright\arraybackslash}p{0.60\columnwidth}}
+\toprule
+Relation group & Execution meaning\\
+\midrule
+Task and progress & Support for the selected operation, its role in the task, and the prerequisites established so far.\\
+Grounding and provenance & Support connecting effect-bearing arguments to identified entities, trusted sources, and current state.\\
+Authorization and scope & Evidence that the proposed effect is authorized and remains within the requested scope.\\
+Effect and state & Consequences of the call and their consistency with the intended state transition.\\
+\bottomrule
+\end{tabular}
+\captionof{table}{Action--evidence relation groups used by the execution interface.}
+\label{tab:relation-groups}
+\end{center}
+
+Tool-specific fields are first mapped to shared execution roles, including the affected object, destination, data, effect parameter, and state transition. The original field identity remains attached to its role, so the decision record stays traceable to the concrete call while the geometric evaluator operates over a common representation.
+
+At each step, the runtime constructs the current action--evidence point, selects the constraint templates applicable to the proposed effect and state, and computes their signed margins. The minimum active margin determines feasibility. An admitted call proceeds to the trusted executor; the returned observation is projected into source-tagged state records before the next proposal is evaluated. A non-admitted call returns relation-level feedback through the same planner interface. This loop keeps the decision procedure unchanged across tools and planner models.
+
+For $C_t$ active constraints and $d$ relation coordinates, the geometric evaluation requires
+\begin{equation}
+O(C_t d)
+\end{equation}
+operations for a proposed call. Each constraint reads only its participating coordinates, while the complete active set is evaluated before execution.
+
+\section{Complete AgentDojo Results}
+
+Tables~\ref{tab:deepseek-full}--\ref{tab:claude-full} report all nine evaluated methods. Values are percentages. Higher clean and attack utility are better; lower ASR is better.
+
+\begin{center}
+\small
+\begin{tabular}{lrrr}
+\toprule
+Method & Clean & Attack & ASR\\
+\midrule
+No Defense & 86.8 & 75.4 & 17.7\\
+Sandwich & 89.8 & 76.2 & 12.0\\
+Prompt & 85.0 & 79.2 & 3.9\\
+Spotlighting & 74.4 & 77.8 & 11.3\\
+PIGuard & 44.9 & 42.5 & 0.0\\
+ProtectAI & 48.0 & 36.2 & 4.2\\
+Progent & 75.2 & 71.7 & 2.1\\
+DRIFT & 62.6 & 53.2 & 1.4\\
+\textbf{DAFR} & 87.5 & 81.4 & 0.0\\
+\bottomrule
+\end{tabular}
+\captionof{table}{AgentDojo results with DeepSeek V4 Flash.}
+\label{tab:deepseek-full}
+\end{center}
+
+\begin{center}
+\small
+\begin{tabular}{lrrr}
+\toprule
+Method & Clean & Attack & ASR\\
+\midrule
+No Defense & 72.2 & 61.2 & 5.2\\
+Sandwich & 80.6 & 65.4 & 2.1\\
+Prompt & 76.6 & 65.4 & 0.6\\
+Spotlighting & 70.5 & 62.7 & 2.5\\
+PIGuard & 46.3 & 34.4 & 0.0\\
+ProtectAI & 48.9 & 38.6 & 2.3\\
+Progent & 66.0 & 54.2 & 1.4\\
+DRIFT & 41.7 & 38.8 & 0.2\\
+\textbf{DAFR} & 68.7 & 59.5 & 0.0\\
+\bottomrule
+\end{tabular}
+\captionof{table}{AgentDojo results with GPT-5.4-mini.}
+\label{tab:gpt-full}
+\end{center}
+
+\begin{center}
+\small
+\begin{tabular}{lrrr}
+\toprule
+Method & Clean & Attack & ASR\\
+\midrule
+No Defense & 74.1 & 66.3 & 0.2\\
+Sandwich & 75.4 & 67.1 & 0.0\\
+Prompt & 70.9 & 65.1 & 0.0\\
+Spotlighting & 74.1 & 62.5 & 0.0\\
+PIGuard & 51.6 & 38.2 & 0.0\\
+ProtectAI & 56.0 & 43.9 & 2.1\\
+Progent & 65.3 & 58.1 & 0.0\\
+DRIFT & 43.1 & 44.1 & 0.2\\
+\textbf{DAFR} & 70.4 & 68.4 & 0.0\\
+\bottomrule
+\end{tabular}
+\captionof{table}{AgentDojo results with Claude Haiku 4.5.}
+\label{tab:claude-full}
+\end{center}
+
+Across the three planner models, DAFR records 0\% observed ASR while retaining 81.4\%, 59.5\%, and 68.4\% attack utility. Relative to PIGuard, the other method with 0\% observed ASR in all three settings, the corresponding attack-utility gains are 38.9, 25.1, and 30.2 percentage points.
+
+\section{Cross-Benchmark and Component Evidence}
+
+\begin{center}
+\small
+\begin{tabular}{lrrr}
+\toprule
+Method & Utility & Task Succ. & ASR\\
+\midrule
+No Defense & 88.7 & 77.9 & 90.2\\
+Delimiter & 87.3 & 77.0 & 86.3\\
+Instruction Prevention & 88.0 & 77.5 & 39.7\\
+Observation Sandwich & 88.0 & 77.0 & 27.9\\
+TS-Flow & 85.5 & 73.5 & 19.1\\
+Progent & 86.0 & 73.0 & 3.4\\
+DRIFT & 85.8 & 73.0 & 23.0\\
+\textbf{DAFR} & 86.8 & 73.5 & 0.0\\
+\bottomrule
+\end{tabular}
+\captionof{table}{Complete results on 204 ASB cases with DeepSeek V4 Flash. Values are percentages.}
+\label{tab:asb-full}
+\end{center}
+
+DAFR reaches 0\% observed ASR on ASB with 86.8\% utility and 73.5\% task success. Relative to Progent, the strongest competing method by ASR, DAFR improves utility by 0.8 points and task success by 0.5 points while reducing ASR from 3.4\% to 0\%.
+
+\begin{center}
+\small
+\begin{tabular}{lrrr}
+\toprule
+Configuration & Clean & Attack & ASR\\
+\midrule
+DAFR & 87.5 & 81.4 & 0.0\\
+w/o Evidence Projection & 79.2 & 81.8 & 0.0\\
+w/o Action--Evidence Lifting & 91.5 & 85.3 & 0.7\\
+w/o Geometric Constraints & 90.2 & 81.3 & 16.7\\
+w/o Decision \& Feedback & 79.4 & 80.0 & 0.8\\
+\bottomrule
+\end{tabular}
+\captionof{table}{AgentDojo component comparison with DeepSeek V4 Flash. Values are percentages.}
+\label{tab:ablation-full}
+\end{center}
+
+The component comparison isolates the roles of representation, dynamic constraints, and the execution loop. Removing geometric constraints produces the largest ASR change, while evidence projection and decision feedback primarily support retained task utility. The action--evidence representation contributes to both sides of the security--utility balance.
+
+All component rows use the same evaluation setting, case set, scoring functions, and aggregation rule. The listed component is the only change within each comparison.
+
+\section{Signed-Margin Evidence}
+
+For each proposal, DAFR records the raw minimum margin over the active constraints. The decision rule admits a call when this margin is nonnegative. Table~\ref{tab:margin-full} reports aggregate margins for admitted and rejected calls. AgentDojo values are unweighted macro-averages of per-suite action means; ASB values are pooled action-level means.
+
+\begin{center}
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lrrrr}
+\toprule
+Setting & Calls & Adm. & Rej. & Gap\\
+\midrule
+AgentDojo / DeepSeek & 3947 & 0.712 & $-0.368$ & 1.080\\
+AgentDojo / GPT & 2916 & 0.748 & $-0.214$ & 0.963\\
+AgentDojo / Claude & 2220 & 0.750 & $-0.289$ & 1.039\\
+ASB / DeepSeek & 488 & 0.134 & $-0.885$ & 1.018\\
+\bottomrule
+\end{tabular}
+\captionof{table}{Signed-margin statistics across planner models and benchmarks. Separation is the difference between the mean margins of admitted and rejected calls.}
+\label{tab:margin-full}
+\end{center}
+
+The admitted-call means are positive and the rejected-call means are negative in every setting. The separation remains close to one across three planner models and two benchmark protocols. These aggregate statistics connect the geometric decision rule to the recorded execution outcomes without relying on a single model or task suite.
+
+\section{Reproducibility Record}
+
+\begin{center}
+\small
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.25\columnwidth}>{\raggedright\arraybackslash}p{0.62\columnwidth}}
+\toprule
+Item & Specification\\
+\midrule
+Benchmark scope & AgentDojo v1.2.2 with Banking, Slack, Travel, and Workspace; ASB with 204 cases.\\
+Planner models & DeepSeek V4 Flash, GPT-5.4-mini, and Claude Haiku 4.5 for AgentDojo; DeepSeek V4 Flash for ASB.\\
+Case alignment & Every within-model comparison uses a fixed case set and identical registered tools and schemas.\\
+Aggregation & AgentDojo scores are unweighted macro-averages across four suites; ASB scores use the complete case set.\\
+Decision placement & DAFR operates between concrete tool-call generation and trusted execution.\\
+Shared settings & The same geometric decision procedure and parameterization are used across all reported planners and evaluation environments.\\
+Recorded outputs & Benchmark outcomes, utility scores, execution decisions, active-margin summaries, and run-completeness indicators.\\
+\bottomrule
+\end{tabular}
+\captionof{table}{Reproducibility information associated with the reported evidence.}
+\label{tab:reproducibility}
+\end{center}
+
+\section{Aggregate Validation Checks}
+
+The project records provide a direct consistency check for the reported aggregates. Run manifests fix benchmark versions, case sets, planner identifiers, and evaluation variants before aggregation. Completeness flags confirm that every reported aggregate contains its expected cases. The signed-margin audit additionally verifies proposal balance, margin availability, and agreement between margin sign and the recorded execution decision.
+
+\begin{center}
+\small
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.35\columnwidth}>{\raggedright\arraybackslash}p{0.52\columnwidth}}
+\toprule
+Check & Verified property\\
+\midrule
+Case completeness & Reported AgentDojo and ASB aggregates contain their full registered case sets.\\
+Within-setting alignment & Compared methods share the same cases, planner, tools, and schemas.\\
+Proposal accounting & Proposed calls equal admitted plus rejected calls in every audited setting.\\
+Margin availability & Every audited DAFR decision has a recorded signed margin.\\
+Decision consistency & Admitted margins are nonnegative and rejected geometric margins are negative.\\
+\bottomrule
+\end{tabular}
+\captionof{table}{Aggregate consistency checks applied to the reported evidence.}
+\label{tab:validation}
+\end{center}
+
+Together, the complete comparisons, fixed evaluation scope, component evidence, and signed-margin records support the main paper's conclusion: DAFR provides a common execution-layer feasibility mechanism that preserves task progress while preventing observed adversarial tool effects across the evaluated planners and benchmarks.
+
+\end{document}

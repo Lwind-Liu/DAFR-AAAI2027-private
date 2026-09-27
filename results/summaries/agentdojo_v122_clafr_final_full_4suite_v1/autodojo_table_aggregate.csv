@@ -1,0 +1,2 @@
+method_key,method,clean_cases,expected_clean_cases,attack_cases,expected_attack_cases,clean_utility,static_asr,static_attack_utility
+clafr,CLAFR,57,57,389,389,0.8807539682539682,0,0.8323412698412698

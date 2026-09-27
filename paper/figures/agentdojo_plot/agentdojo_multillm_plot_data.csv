@@ -1,0 +1,28 @@
+method,model,clean_utility,attack_utility,attack_success_rate,is_placeholder
+No Defense,DeepSeek V4 Flash,86.8,75.4,17.7,0
+Sandwich,DeepSeek V4 Flash,89.8,76.2,12.0,0
+Prompt,DeepSeek V4 Flash,85.0,79.2,3.9,0
+Spotlighting,DeepSeek V4 Flash,74.4,77.8,11.3,0
+PIGuard,DeepSeek V4 Flash,44.9,42.5,0.0,0
+ProtectAI,DeepSeek V4 Flash,48.0,36.2,4.2,0
+Progent,DeepSeek V4 Flash,75.2,71.7,2.1,0
+DRIFT,DeepSeek V4 Flash,62.6,53.2,1.4,0
+DAFR,DeepSeek V4 Flash,87.5,81.4,0.0,0
+No Defense,GPT-5.4-mini,72.1857142857,61.2214285714,5.175,0
+Sandwich,GPT-5.4-mini,80.5714285714,65.3683673469,2.1,0
+Prompt,GPT-5.4-mini,76.5964285714,65.3836734694,0.6,0
+Spotlighting,GPT-5.4-mini,70.5071428571,62.7290816327,2.4525510204,0
+PIGuard,GPT-5.4-mini,46.2642857143,34.3535714286,0.0,0
+ProtectAI,GPT-5.4-mini,48.8892857143,38.5551020408,2.325,0
+Progent,GPT-5.4-mini,65.9892857143,54.2448979592,1.35,0
+DRIFT,GPT-5.4-mini,41.7464285714,38.8066326531,0.225,0
+DAFR,GPT-5.4-mini,68.7053571429,59.5209750567,0.0,0
+No Defense,Claude Haiku 4.5,74.1,66.3,0.2,0
+Sandwich,Claude Haiku 4.5,75.4,67.1,0.0,0
+Prompt,Claude Haiku 4.5,70.9,65.1,0.0,0
+Spotlighting,Claude Haiku 4.5,74.1,62.5,0.0,0
+PIGuard,Claude Haiku 4.5,51.6,38.2,0.0,0
+ProtectAI,Claude Haiku 4.5,56.0,43.9,2.1,0
+Progent,Claude Haiku 4.5,65.3,58.1,0.0,0
+DRIFT,Claude Haiku 4.5,43.1,44.1,0.2,0
+DAFR,Claude Haiku 4.5,70.4,68.4,0.0,0

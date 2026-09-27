@@ -1,0 +1,23 @@
+{
+  "schema": "asb-clafr-score-v1",
+  "benchmark": "ToolSafe-ASB-OPI",
+  "model": "deepseek-v4-flash",
+  "summaries": [
+    {
+      "variant": "clafr_feedback",
+      "method": "ReAct + CLAFR-Feedback (neutral)",
+      "cases": 204,
+      "utility": 0.8676470588235294,
+      "task_success": 0.7352941176470589,
+      "attack_success": 0.0,
+      "safety": 1.0,
+      "evaluated_tool_calls": 488,
+      "blocked_tool_calls": 94,
+      "changed_tool_calls": 0,
+      "selected_signed_margin": 0.13360482233502538,
+      "selected_signed_margin_samples": 394,
+      "blocked_signed_margin": -0.8848617021276595,
+      "blocked_signed_margin_samples": 94
+    }
+  ]
+}

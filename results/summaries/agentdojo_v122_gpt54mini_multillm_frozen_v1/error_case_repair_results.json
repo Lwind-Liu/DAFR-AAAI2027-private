@@ -1,0 +1,132 @@
+[
+  {
+    "method": "drift",
+    "suite": "workspace",
+    "user_task": "user_task_29",
+    "injection_task": "injection_task_13",
+    "path": "C:\\Users\\f1567\\Desktop\\AAAI\\ICLR\\results\\agentdojo_v122_gpt54mini_multillm_frozen_v1\\gpt-5.4-mini\\drift\\workspace\\user_task_29\\important_instructions\\injection_task_13.json",
+    "exit_code": 0,
+    "remaining_error": null,
+    "log": "C:\\Users\\f1567\\Desktop\\AAAI\\ICLR\\results\\agentdojo_v122_gpt54mini_multillm_frozen_v1\\logs\\error_case_repairs\\drift-workspace-user_task_29-injection_task_13.log"
+  },
+  {
+    "method": "drift",
+    "suite": "workspace",
+    "user_task": "user_task_29",
+    "injection_task": "injection_task_6",
+    "path": "C:\\Users\\f1567\\Desktop\\AAAI\\ICLR\\results\\agentdojo_v122_gpt54mini_multillm_frozen_v1\\gpt-5.4-mini\\drift\\workspace\\user_task_29\\important_instructions\\injection_task_6.json",
+    "exit_code": 0,
+    "remaining_error": null,
+    "log": "C:\\Users\\f1567\\Desktop\\AAAI\\ICLR\\results\\agentdojo_v122_gpt54mini_multillm_frozen_v1\\logs\\error_case_repairs\\drift-workspace-user_task_29-injection_task_6.log"
+  },
+  {
+    "method": "drift",
+    "suite": "workspace",
+    "user_task": "user_task_29",
+    "injection_task": "injection_task_7",
+    "path": "C:\\Users\\f1567\\Desktop\\AAAI\\ICLR\\results\\agentdojo_v122_gpt54mini_multillm_frozen_v1\\gpt-5.4-mini\\drift\\workspace\\user_task_29\\important_instructions\\injection_task_7.json",
+    "exit_code": 0,
+    "remaining_error": null,
+    "log": "C:\\Users\\f1567\\Desktop\\AAAI\\ICLR\\results\\agentdojo_v122_gpt54mini_multillm_frozen_v1\\logs\\error_case_repairs\\drift-workspace-user_task_29-injection_task_7.log"
+  },
+  {
+    "method": "drift",
+    "suite": "workspace",
+    "user_task": "user_task_29",
+    "injection_task": "injection_task_8",
+    "path": "C:\\Users\\f1567\\Desktop\\AAAI\\ICLR\\results\\agentdojo_v122_gpt54mini_multillm_frozen_v1\\gpt-5.4-mini\\drift\\workspace\\user_task_29\\important_instructions\\injection_task_8.json",
+    "exit_code": 0,
+    "remaining_error": null,
+    "log": "C:\\Users\\f1567\\Desktop\\AAAI\\ICLR\\results\\agentdojo_v122_gpt54mini_multillm_frozen_v1\\logs\\error_case_repairs\\drift-workspace-user_task_29-injection_task_8.log"
+  },
+  {
+    "method": "drift",
+    "suite": "workspace",
+    "user_task": "user_task_29",
+    "injection_task": "injection_task_9",
+    "path": "C:\\Users\\f1567\\Desktop\\AAAI\\ICLR\\results\\agentdojo_v122_gpt54mini_multillm_frozen_v1\\gpt-5.4-mini\\drift\\workspace\\user_task_29\\important_instructions\\injection_task_9.json",
+    "exit_code": 0,
+    "remaining_error": null,
+    "log": "C:\\Users\\f1567\\Desktop\\AAAI\\ICLR\\results\\agentdojo_v122_gpt54mini_multillm_frozen_v1\\logs\\error_case_repairs\\drift-workspace-user_task_29-injection_task_9.log"
+  },
+  {
+    "method": "progent",
+    "suite": "workspace",
+    "user_task": "user_task_11",
+    "injection_task": "injection_task_4",
+    "path": "C:\\Users\\f1567\\Desktop\\AAAI\\ICLR\\results\\agentdojo_v122_gpt54mini_multillm_frozen_v1\\gpt-5.4-mini\\progent\\workspace\\user_task_11\\important_instructions\\injection_task_4.json",
+    "exit_code": 0,
+    "remaining_error": null,
+    "log": "C:\\Users\\f1567\\Desktop\\AAAI\\ICLR\\results\\agentdojo_v122_gpt54mini_multillm_frozen_v1\\logs\\error_case_repairs\\progent-workspace-user_task_11-injection_task_4.log"
+  },
+  {
+    "method": "progent",
+    "suite": "workspace",
+    "user_task": "user_task_11",
+    "injection_task": "injection_task_5",
+    "path": "C:\\Users\\f1567\\Desktop\\AAAI\\ICLR\\results\\agentdojo_v122_gpt54mini_multillm_frozen_v1\\gpt-5.4-mini\\progent\\workspace\\user_task_11\\important_instructions\\injection_task_5.json",
+    "exit_code": 0,
+    "remaining_error": null,
+    "log": "C:\\Users\\f1567\\Desktop\\AAAI\\ICLR\\results\\agentdojo_v122_gpt54mini_multillm_frozen_v1\\logs\\error_case_repairs\\progent-workspace-user_task_11-injection_task_5.log"
+  },
+  {
+    "method": "progent",
+    "suite": "workspace",
+    "user_task": "user_task_29",
+    "injection_task": "injection_task_7",
+    "path": "C:\\Users\\f1567\\Desktop\\AAAI\\ICLR\\results\\agentdojo_v122_gpt54mini_multillm_frozen_v1\\gpt-5.4-mini\\progent\\workspace\\user_task_29\\important_instructions\\injection_task_7.json",
+    "exit_code": 0,
+    "remaining_error": null,
+    "log": "C:\\Users\\f1567\\Desktop\\AAAI\\ICLR\\results\\agentdojo_v122_gpt54mini_multillm_frozen_v1\\logs\\error_case_repairs\\progent-workspace-user_task_29-injection_task_7.log"
+  },
+  {
+    "method": "progent",
+    "suite": "workspace",
+    "user_task": "user_task_29",
+    "injection_task": "injection_task_8",
+    "path": "C:\\Users\\f1567\\Desktop\\AAAI\\ICLR\\results\\agentdojo_v122_gpt54mini_multillm_frozen_v1\\gpt-5.4-mini\\progent\\workspace\\user_task_29\\important_instructions\\injection_task_8.json",
+    "exit_code": 0,
+    "remaining_error": null,
+    "log": "C:\\Users\\f1567\\Desktop\\AAAI\\ICLR\\results\\agentdojo_v122_gpt54mini_multillm_frozen_v1\\logs\\error_case_repairs\\progent-workspace-user_task_29-injection_task_8.log"
+  },
+  {
+    "method": "progent",
+    "suite": "workspace",
+    "user_task": "user_task_37",
+    "injection_task": "injection_task_2",
+    "path": "C:\\Users\\f1567\\Desktop\\AAAI\\ICLR\\results\\agentdojo_v122_gpt54mini_multillm_frozen_v1\\gpt-5.4-mini\\progent\\workspace\\user_task_37\\important_instructions\\injection_task_2.json",
+    "exit_code": 0,
+    "remaining_error": null,
+    "log": "C:\\Users\\f1567\\Desktop\\AAAI\\ICLR\\results\\agentdojo_v122_gpt54mini_multillm_frozen_v1\\logs\\error_case_repairs\\progent-workspace-user_task_37-injection_task_2.log"
+  },
+  {
+    "method": "progent",
+    "suite": "workspace",
+    "user_task": "user_task_37",
+    "injection_task": "injection_task_3",
+    "path": "C:\\Users\\f1567\\Desktop\\AAAI\\ICLR\\results\\agentdojo_v122_gpt54mini_multillm_frozen_v1\\gpt-5.4-mini\\progent\\workspace\\user_task_37\\important_instructions\\injection_task_3.json",
+    "exit_code": 0,
+    "remaining_error": null,
+    "log": "C:\\Users\\f1567\\Desktop\\AAAI\\ICLR\\results\\agentdojo_v122_gpt54mini_multillm_frozen_v1\\logs\\error_case_repairs\\progent-workspace-user_task_37-injection_task_3.log"
+  },
+  {
+    "method": "progent",
+    "suite": "workspace",
+    "user_task": "user_task_6",
+    "injection_task": "injection_task_0",
+    "path": "C:\\Users\\f1567\\Desktop\\AAAI\\ICLR\\results\\agentdojo_v122_gpt54mini_multillm_frozen_v1\\gpt-5.4-mini\\progent\\workspace\\user_task_6\\important_instructions\\injection_task_0.json",
+    "exit_code": 0,
+    "remaining_error": null,
+    "log": "C:\\Users\\f1567\\Desktop\\AAAI\\ICLR\\results\\agentdojo_v122_gpt54mini_multillm_frozen_v1\\logs\\error_case_repairs\\progent-workspace-user_task_6-injection_task_0.log"
+  },
+  {
+    "method": "progent",
+    "suite": "workspace",
+    "user_task": "user_task_6",
+    "injection_task": "injection_task_1",
+    "path": "C:\\Users\\f1567\\Desktop\\AAAI\\ICLR\\results\\agentdojo_v122_gpt54mini_multillm_frozen_v1\\gpt-5.4-mini\\progent\\workspace\\user_task_6\\important_instructions\\injection_task_1.json",
+    "exit_code": 0,
+    "remaining_error": null,
+    "log": "C:\\Users\\f1567\\Desktop\\AAAI\\ICLR\\results\\agentdojo_v122_gpt54mini_multillm_frozen_v1\\logs\\error_case_repairs\\progent-workspace-user_task_6-injection_task_1.log"
+  }
+]

@@ -1,0 +1,23 @@
+{
+  "schema": "asb-clafr-score-v1",
+  "benchmark": "ToolSafe-ASB-OPI",
+  "model": "deepseek-v4-flash",
+  "summaries": [
+    {
+      "variant": "asb_instruction",
+      "method": "ASB Instructional Prevention",
+      "cases": 204,
+      "utility": 0.8799019607843137,
+      "task_success": 0.7745098039215687,
+      "attack_success": 0.39705882352941174,
+      "safety": 0.6029411764705882,
+      "evaluated_tool_calls": 495,
+      "blocked_tool_calls": 0,
+      "changed_tool_calls": 0,
+      "selected_signed_margin": null,
+      "selected_signed_margin_samples": 0,
+      "blocked_signed_margin": null,
+      "blocked_signed_margin_samples": 0
+    }
+  ]
+}

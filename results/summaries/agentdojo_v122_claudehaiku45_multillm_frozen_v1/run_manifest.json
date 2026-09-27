@@ -1,0 +1,20 @@
+{
+  "schema": "agentdojo-multillm-frozen-run-v1",
+  "source_manifest": "C:\\Users\\f1567\\Desktop\\AAAI\\ICLR\\manifests\\agentdojo_v122_clafr_multillm_four_suite_71_585.json",
+  "model": "claude-haiku-4-5-20251001",
+  "base_url": "https://api-slb.packyapi.com/v1",
+  "protocol": "chat_completions",
+  "phase": "clafr",
+  "max_workers": 1,
+  "jobs": [
+    "clean-clafr-banking",
+    "attack-clafr-banking",
+    "clean-clafr-slack",
+    "attack-clafr-slack",
+    "clean-clafr-travel",
+    "attack-clafr-travel",
+    "clean-clafr-workspace",
+    "attack-clafr-workspace"
+  ],
+  "expected_cases": null
+}

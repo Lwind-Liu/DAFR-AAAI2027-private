@@ -1,0 +1,27 @@
+.env
+.env.*
+!.env.example
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+
+# LaTeX build products; PDFs intentionally tracked.
+*.aux
+*.blg
+*.log
+*.out
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+
+# Local experiment reruns.
+ICLR/results/
+ICLR/outputs/
+

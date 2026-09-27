@@ -1,0 +1,23 @@
+{
+  "schema": "asb-clafr-score-v1",
+  "benchmark": "ToolSafe-ASB-OPI",
+  "model": "deepseek-v4-flash",
+  "summaries": [
+    {
+      "variant": "drift",
+      "method": "DRIFT-ASB (official-mechanism adapter)",
+      "cases": 204,
+      "utility": 0.8578431372549019,
+      "task_success": 0.7303921568627451,
+      "attack_success": 0.23039215686274508,
+      "safety": 0.7696078431372549,
+      "evaluated_tool_calls": 595,
+      "blocked_tool_calls": 197,
+      "changed_tool_calls": 0,
+      "selected_signed_margin": null,
+      "selected_signed_margin_samples": 0,
+      "blocked_signed_margin": null,
+      "blocked_signed_margin_samples": 0
+    }
+  ]
+}

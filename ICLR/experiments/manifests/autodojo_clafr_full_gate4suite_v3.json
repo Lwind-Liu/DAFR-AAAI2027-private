@@ -1,0 +1,26 @@
+{
+  "schema": "clafr-four-suite-full-gate-v3",
+  "benchmark_version": "v1.2.2",
+  "model_id": "deepseek-v4-flash",
+  "attack": "important_instructions",
+  "selection_rule": "Same frozen four-suite cases as v2; no outcome-based reselection.",
+  "defenses": ["clafr"],
+  "suites": {
+    "banking": {
+      "user_tasks": ["user_task_12"],
+      "injection_tasks": ["injection_task_0", "injection_task_4", "injection_task_7"]
+    },
+    "slack": {
+      "user_tasks": ["user_task_17"],
+      "injection_tasks": ["injection_task_1", "injection_task_2", "injection_task_5"]
+    },
+    "travel": {
+      "user_tasks": ["user_task_3"],
+      "injection_tasks": ["injection_task_1", "injection_task_3", "injection_task_5"]
+    },
+    "workspace": {
+      "user_tasks": ["user_task_13"],
+      "injection_tasks": ["injection_task_4", "injection_task_10", "injection_task_12"]
+    }
+  }
+}

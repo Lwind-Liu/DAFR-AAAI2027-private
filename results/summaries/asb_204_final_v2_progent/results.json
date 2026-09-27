@@ -1,0 +1,23 @@
+{
+  "schema": "asb-clafr-score-v1",
+  "benchmark": "ToolSafe-ASB-OPI",
+  "model": "deepseek-v4-flash",
+  "summaries": [
+    {
+      "variant": "progent",
+      "method": "Progent-ASB (official-mechanism adapter)",
+      "cases": 204,
+      "utility": 0.8602941176470589,
+      "task_success": 0.7303921568627451,
+      "attack_success": 0.03431372549019608,
+      "safety": 0.9656862745098039,
+      "evaluated_tool_calls": 583,
+      "blocked_tool_calls": 187,
+      "changed_tool_calls": 0,
+      "selected_signed_margin": null,
+      "selected_signed_margin_samples": 0,
+      "blocked_signed_margin": null,
+      "blocked_signed_margin_samples": 0
+    }
+  ]
+}

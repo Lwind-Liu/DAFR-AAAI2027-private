@@ -1,0 +1,16 @@
+{
+  "schema": "agentdojo-multillm-frozen-run-v1",
+  "source_manifest": "C:\\Users\\f1567\\Desktop\\AAAI\\ICLR\\manifests\\agentdojo_v122_workspace_tail3.json",
+  "model": "gpt-5.4-mini",
+  "base_url": "https://api-slb.packyapi.com/v1",
+  "protocol": "responses",
+  "phase": "baselines",
+  "max_workers": 4,
+  "jobs": [
+    "clean-progent-workspace",
+    "attack-progent-workspace",
+    "clean-drift-workspace",
+    "attack-drift-workspace"
+  ],
+  "expected_cases": null
+}
