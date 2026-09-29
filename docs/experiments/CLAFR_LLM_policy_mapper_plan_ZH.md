@@ -52,3 +52,16 @@ PYTHONPATH=src python scripts/check_clafr_predicate_equivalence.py
 5. AgentDojo/ASB 端到端重新运行后才允许更新论文数字；旧数字不自动继承到新方法。
 
 论文工作稿：`paper/revision/jianghao_method_revision.md`。
+
+## 32-case 中文策略映射试验（2026-09-29）
+
+为避免把 JSON 可解析率误当作安全正确率，新增 8 类工具、每类 4 个策略实例，共 32 个 case；每个 case 使用手写 gold 标注角色集合和安全关键字段。当前结果来自 `qwen-max` 与 `deepseek-v4-flash`，属于 mapper pilot，不是 AgentDojo/ASB 的端到端攻击成功率。
+
+| 模型 | 有效 IR | role accuracy | 前置条件 exact | unsafe relaxation | over-constraint | 平均延迟 |
+|---|---:|---:|---:|---:|---:|---:|
+| qwen-max | 32/32 (1.000) | 1.000 | 0.750 | 0.250 | 0.000 | 6.49 s |
+| deepseek-v4-flash | 31/32 (0.969) | 0.969 | 0.875 | 0.063 | 0.063 | 12.83 s |
+
+这里的 `unsafe relaxation` 指某个 gold 安全前置条件没有被预测约束覆盖，或阈值低于安全要求；`over-constraint` 指预测了 gold 未要求的额外字段约束。两者都按 case 计数，不能由 valid JSON 率替代。qwen 的 4 个失败语义样例主要集中在邮件/支付/日历的字段边界，说明“能生成 IR”不等于“安全关键字段识别正确”；deepseek 的 1 个无效输出和 2 个过约束样例则说明需要 abstain、人工复核或更细的字段 gold。
+
+下一轮必须把 4 个实例改为真正不同的中文释义和网页注入变体，并冻结原始输出后再复测；当前结果只能支持“训练-free mapper 可运行且暴露了可量化失效模式”，不能支持跨工具泛化或安全率结论。
