@@ -45,6 +45,29 @@ low-latency implementation of the same IR interface and requires its own evaluat
 
 No new benchmark accuracy or security claims have been established by this revision.
 
+## Evidence gate after protocol audit (2026-09-29)
+
+The first mapper pilot was invalid because the runner sent the hand-written `gold`
+object to the model.  The corrected runner withholds gold and checks both IR
+validation and `IRPolicyCompiler.compile()`.  On the corrected 32-case pilot,
+precondition exact match is 21.9% for Qwen-Max and 28.1% for DeepSeek V4 Flash;
+unsafe relaxation is 65.6% for both models.  These numbers are the usable mapper
+baseline; the earlier positive pilot numbers must not be cited as generalization.
+
+On the same 8 clean plus 8 injection banking tasks, the hand-written CLAFR
+baseline succeeds on 5/8 clean tasks and has 0/8 attack successes.  A frozen LLM
+IR artifact succeeds on 3/8 clean and 2/8 attack-utility tasks, while a
+deterministic read-only/effectful tool-class adapter reaches 4/8 and 4/8.  Both
+LLM variants have 0/8 attack successes under AgentDojo's `security=true`
+definition, but their abstentions and utility loss prevent a claim that the
+mapper improves end-to-end safety.
+
+The matched 64-case in-process geometry pilot has zero geometry/predicate decision
+disagreements, 32/64 allows for each, and zero executable repairs.  We therefore
+retain the geometry story only as a common representation for coupled constraints
+and diagnostics; we withdraw any claim that geometry is more expressive than
+if--else or has already demonstrated better repair utility.
+
 
 ## Current smoke evidence (not a benchmark result)
 

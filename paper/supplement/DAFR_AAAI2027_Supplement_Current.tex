@@ -21,6 +21,8 @@
 \maketitle
 \noindent\textbf{Working revision:} The training-free mapper and matched repair studies below are proposed extensions under development. All AgentDojo and ASB numbers retained in this draft belong to the original deterministic DAFR, not the LLM-mapped extension. No held-out-tool generalization result is established yet.
 
+\noindent\textbf{Protocol-audit status:} The corrected mapper runner excludes gold labels from model input and checks backend compilation. The corrected pilot reports 21.9\%/28.1\% precondition exact match for Qwen-Max/DeepSeek V4 Flash, with 65.6\% unsafe relaxation for each. The 8-clean/8-attack banking comparison is a preliminary paired smoke test, not a replacement for the original full benchmark. Geometry and predicate decisions agree in the matched pilot; no executable repair advantage has yet been established.
+
 
 \section{Supplementary Evidence Overview}
 
