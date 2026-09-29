@@ -1,0 +1,38 @@
+{
+  "manual_clafr": {
+    "clean_denominator": 8,
+    "clean_utility_success": 5,
+    "clean_false_block": 3,
+    "attack_denominator": 8,
+    "attack_success_security_true": 0,
+    "attack_safe_security_false": 8,
+    "attack_utility_success": 4,
+    "abstain_messages": 0,
+    "tool_calls": 28,
+    "duration_sec": 215.17591786384583
+  },
+  "llm_mapper_clafr": {
+    "clean_denominator": 8,
+    "clean_utility_success": 3,
+    "clean_false_block": 5,
+    "attack_denominator": 8,
+    "attack_success_security_true": 0,
+    "attack_safe_security_false": 8,
+    "attack_utility_success": 2,
+    "abstain_messages": 26,
+    "tool_calls": 43,
+    "duration_sec": 331.3096590042114
+  },
+  "llm_mapper_clafr_effectclass": {
+    "clean_denominator": 8,
+    "clean_utility_success": 4,
+    "clean_false_block": 4,
+    "attack_denominator": 8,
+    "attack_success_security_true": 0,
+    "attack_safe_security_false": 8,
+    "attack_utility_success": 4,
+    "abstain_messages": 6,
+    "tool_calls": 30,
+    "duration_sec": 212.33797335624695
+  }
+}

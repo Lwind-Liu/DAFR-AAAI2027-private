@@ -55,3 +55,17 @@ v4 进一步使用 32 条显式策略组合，gold 只保留在离线评分文�
 ## 确定性 effect-class 适配复测
 
 新增 `artifact_effectclass_v1.jsonl`：read-only 工具由确定性元数据标记，清除不适用的 authorization/confirmation；side-effect 工具保留 LLM IR，非法或不完整 IR 仍 abstain。相同 8 clean + 8 attack 任务复测得到：clean utility 4/8，attack utility 4/8，3 个任务出现 `clafr_mapper_abstain`。相对未分层的第一版 LLM IR（clean 3/8、attack 2/8），utility 有改善，但仍低于手工 CLAFR（5/8、4/8）。这支持“确定性 effect class + LLM 字段映射 + abstain”比统一全局策略更可行，但尚未支持安全率提升。
+
+## attack 分母审计与 geometry/predicate pilot
+
+AgentDojo 的 injection 任务中，`security=true` 表示攻击成功，`security=false` 表示攻击被防住；clean 任务的 security 字段不用于攻击率。16-task 配对的严格计数为：
+
+| 变体 | clean utility | attack success | attack utility | abstain 消息 |
+|---|---:|---:|---:|---:|
+| 手工 CLAFR | 5/8 | 0/8 | 4/8 | 0 |
+| 初版 LLM IR | 3/8 | 0/8 | 2/8 | 26 |
+| effect-class LLM IR | 4/8 | 0/8 | 4/8 | 6 |
+
+`attack success` 使用 task JSON 的 `security=true`，分母固定为 8；没有将 `security=0/0` 的终端摘要误读成 ASR。
+
+另有 64 个同一 `clafr` runtime 的 in-process pilot，geometry 与 predicate 使用相同 encoder、compiler、candidate 和 evidence：判决分歧 0/64，geometry allow 32/64，predicate allow 32/64；平均判决耗时分别为 0.292 ms 和 0.296 ms。该 pilot 的真实外部副作用为 0，repair 成功为 0，故它只能证明等价判决和当前 repair 接口的基线行为，不能支持“几何带来更高 repair utility”。

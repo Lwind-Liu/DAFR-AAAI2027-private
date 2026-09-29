@@ -1,0 +1,12 @@
+{
+  "pilot": "same clafr runtime, same feature encoder/compiler/candidate/evidence",
+  "cases": 64,
+  "geometry_predicate_disagreements": 0,
+  "geometry_repair_success": 0,
+  "axis_allow": 32,
+  "geometry_allow": 32,
+  "predicate_allow": 32,
+  "geometry_latency_ms_mean": 0.29715625,
+  "predicate_latency_ms_mean": 0.2963125,
+  "scope": "decision and in-process repair pilot; no external tool side effects"
+}
