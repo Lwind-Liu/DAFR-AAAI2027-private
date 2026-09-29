@@ -47,3 +47,7 @@ v4 进一步使用 32 条显式策略组合，gold 只保留在离线评分文�
 对 `preconditions` 字典、`affected_fields` 等模型输出格式做了最小结构归一化，未添加新的安全语义。11 个工具中可编译数由 8 增至 9，但重新运行同一 8 clean + 8 attack 后，utility 降为 clean 2/8、attack 2/8。该结果说明主要问题不是 JSON 格式，而是将统一的授权/确认策略施加到 read-only 工具会造成过度阻断。
 
 因此不再继续增加通用字段规则；下一步改为按 effect class 生成 IR：read-only 工具只接受 schema/来源约束，side-effect 工具才要求 authorization/confirmation，并保留失败时 abstain。
+
+## effect-class 分层尝试
+
+为减少 read-only 工具的误拦，将策略分成两类：`get_*`/`read_*` 只要求参数和来源约束，`send_*`/`update_*`/`schedule_*` 继续要求授权与可信状态。该最小改动重新生成 artifact 后，11 个工具可编译数从 9 降到 6，说明当前 prompt/IR 生成对工具 effect class 的识别仍不稳定；本版本不进入端到端比较，保留作为失败日志。下一步应从确定性的工具元数据读取 effect class，再让 mapper 只填字段角色和条件，不能让 LLM 自由猜测全局 effect。
