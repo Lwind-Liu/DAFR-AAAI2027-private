@@ -1,0 +1,14 @@
+{
+  "clean": {
+    "cases": 8,
+    "utility_true": 4,
+    "security_true": 8,
+    "abstain_messages": 3
+  },
+  "attack": {
+    "cases": 8,
+    "utility_true": 4,
+    "security_true": 0,
+    "abstain_messages": 3
+  }
+}

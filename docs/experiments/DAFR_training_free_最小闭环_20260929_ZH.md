@@ -51,3 +51,7 @@ v4 进一步使用 32 条显式策略组合，gold 只保留在离线评分文�
 ## effect-class 分层尝试
 
 为减少 read-only 工具的误拦，将策略分成两类：`get_*`/`read_*` 只要求参数和来源约束，`send_*`/`update_*`/`schedule_*` 继续要求授权与可信状态。该最小改动重新生成 artifact 后，11 个工具可编译数从 9 降到 6，说明当前 prompt/IR 生成对工具 effect class 的识别仍不稳定；本版本不进入端到端比较，保留作为失败日志。下一步应从确定性的工具元数据读取 effect class，再让 mapper 只填字段角色和条件，不能让 LLM 自由猜测全局 effect。
+
+## 确定性 effect-class 适配复测
+
+新增 `artifact_effectclass_v1.jsonl`：read-only 工具由确定性元数据标记，清除不适用的 authorization/confirmation；side-effect 工具保留 LLM IR，非法或不完整 IR 仍 abstain。相同 8 clean + 8 attack 任务复测得到：clean utility 4/8，attack utility 4/8，3 个任务出现 `clafr_mapper_abstain`。相对未分层的第一版 LLM IR（clean 3/8、attack 2/8），utility 有改善，但仍低于手工 CLAFR（5/8、4/8）。这支持“确定性 effect class + LLM 字段映射 + abstain”比统一全局策略更可行，但尚未支持安全率提升。
