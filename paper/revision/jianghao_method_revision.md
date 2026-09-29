@@ -21,8 +21,11 @@ baseline's correctness and says nothing about safety of missing baseline policie
 
 The current adapter supports global preconditions and nonnegative risk budgets over
 existing features. Field-scoped semantics and forbidden effects are rejected explicitly.
-Role labels are not yet integrated into the feature encoder; therefore this prototype
-must not be described as zero-shot tool generalization.
+Role labels are supplied by a large-language-model semantic mapper and then checked before
+entering the feature encoder. If this mapper transfers to held-out tools without parameter
+updates, the evidence supports training-free cross-tool semantic adaptation. It does not
+imply that a trained encoder will work; a trained encoder is a separate distilled,
+low-latency implementation of the same IR interface and requires its own evaluation.
 
 ## Evaluation contract
 
@@ -30,6 +33,8 @@ must not be described as zero-shot tool generalization.
    attribute ASR improvements to changing syntax from predicates to regions.
 2. Mapper: held-out tools and policy paraphrases; measure omission, unsafe relaxation,
    field/role accuracy, abstention and API usage. Structural validity alone is insufficient.
+   Compare manual mapping, LLM mapping, and a trained/distilled encoder under the same IR
+   and execution layer; do not transfer conclusions between these adapters.
 3. Repair: compare against predicate-based candidate enumeration using identical repair
    candidates and cost. Measure executed effect preservation, unsafe repair and utility;
    feature-space projection distance is not proof of an executable repair.
