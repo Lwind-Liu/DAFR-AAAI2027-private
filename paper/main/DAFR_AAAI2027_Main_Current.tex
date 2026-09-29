@@ -23,6 +23,8 @@
 
 \begin{document}
 \maketitle
+\noindent\textbf{Working revision:} The training-free mapper and matched repair studies below are proposed extensions under development. All AgentDojo and ASB numbers retained in this draft belong to the original deterministic DAFR, not the LLM-mapped extension. No held-out-tool generalization result is established yet.
+
 
 \begin{abstract}
 A tool call can be valid and relevant to the task yet still be induced by untrusted content and cause an unauthorized external effect. Execution therefore requires evidence that grounds the proposed effect, establishes its authorization, and matches the current state. We present DAFR, a method for judging tool-action feasibility with dynamic geometric constraints. DAFR uses a training-free language-model semantic mapper to translate a tool schema and execution policy into a typed, auditable role representation. A deterministic validator checks this representation before a fixed semantic lifting function maps the call and its evidence to interpretable action--evidence coordinates; state-dependent constraints then form the feasible region. Calls inside the region are executed; calls outside it are blocked or returned with targeted feedback identifying the unsupported execution relation. DAFR reconstructs the representation and active constraints as evidence and environment state change. On AgentDojo, DAFR reaches 0\% observed attack success with 87.5\% clean utility and 81.4\% attack utility. On Agent Security Benchmark, it reaches 0\% observed attack success with 86.8\% utility and 73.5\% task success. Across both benchmarks, the dynamic feasible region blocks observed attack-induced actions while retaining task progress.

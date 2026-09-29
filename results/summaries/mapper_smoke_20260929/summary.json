@@ -1,0 +1,5 @@
+{
+  "cases": 4,
+  "valid": 3,
+  "scope": "smoke only; no gold semantics or end-to-end security claims"
+}
