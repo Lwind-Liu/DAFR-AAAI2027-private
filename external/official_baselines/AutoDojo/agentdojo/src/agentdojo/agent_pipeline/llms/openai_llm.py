@@ -255,6 +255,13 @@ def chat_completion_request(
 ):
     if _is_anthropic_route(model):
         messages = _add_anthropic_cache_control(messages)
+    extra_body = {
+        "app": os.environ.get("DISTILL_APP_NAME"),
+        "quota_id": os.environ.get("DISTILL_QUOTA_ID"),
+        "user_id": os.environ.get("DISTILL_USER_ID"),
+        "access_key": os.environ.get("DISTILL_ACCESS_KEY"),
+    }
+    extra_body = {key: value for key, value in extra_body.items() if value}
     if "qwen" in model.lower():
         completion = client.chat.completions.create(
             model=model,
@@ -262,6 +269,7 @@ def chat_completion_request(
             tools=tools or NOT_GIVEN,
             tool_choice="auto" if tools else NOT_GIVEN,
             temperature=temperature if temperature is not None else NOT_GIVEN,
+            extra_body=extra_body or NOT_GIVEN,
         )
     else:
         completion = client.chat.completions.create(
@@ -271,6 +279,7 @@ def chat_completion_request(
             tool_choice="auto" if tools else NOT_GIVEN,
             temperature=temperature if temperature is not None else NOT_GIVEN,
             reasoning_effort=reasoning_effort or NOT_GIVEN,
+            extra_body=extra_body or NOT_GIVEN,
         )
     if not completion.choices:
         raise openai.APIError(
