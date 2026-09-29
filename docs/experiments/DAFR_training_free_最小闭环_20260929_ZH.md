@@ -41,3 +41,9 @@ v4 进一步使用 32 条显式策略组合，gold 只保留在离线评分文�
 上述 utility 是 AgentDojo task JSON 的实际结果；原始日志和每个任务 JSON 保存在 `results/runs/agentdojo_mapper_pair_smoke/`。当前输出没有把 attack 组终端 `security=0/0` 解读成 ASR，安全指标还需按 benchmark 的 injection utility 定义重新汇总。
 
 这个结果暂不支持“LLM 映射可直接替代手工规则”。它支持的是更窄的工程结论：确定性 abstain 能阻止不合格 IR 进入执行层，但会明显降低合法任务 utility；下一步需要只修正字段映射和 read-only 工具策略，并保持失败时拒绝执行。
+
+## 最小修复复测：alternate-schema 归一化
+
+对 `preconditions` 字典、`affected_fields` 等模型输出格式做了最小结构归一化，未添加新的安全语义。11 个工具中可编译数由 8 增至 9，但重新运行同一 8 clean + 8 attack 后，utility 降为 clean 2/8、attack 2/8。该结果说明主要问题不是 JSON 格式，而是将统一的授权/确认策略施加到 read-only 工具会造成过度阻断。
+
+因此不再继续增加通用字段规则；下一步改为按 effect class 生成 IR：read-only 工具只接受 schema/来源约束，side-effect 工具才要求 authorization/confirmation，并保留失败时 abstain。
