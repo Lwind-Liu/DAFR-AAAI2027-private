@@ -2,9 +2,11 @@ from __future__ import annotations
 import json
 from collections import defaultdict
 from pathlib import Path
-ROOT=Path(__file__).resolve().parents[1]; run=ROOT/'results/summaries/mapper_eval_zh_v1'
+import sys
+ROOT=Path(__file__).resolve().parents[1]; VERSION=sys.argv[1] if len(sys.argv)>1 else 'v1'
+run=ROOT/f'results/summaries/mapper_eval_zh_{VERSION}'
 rows=[json.loads(x) for x in (run/'results.jsonl').read_text().splitlines()]
-cases={json.loads(x)['id']:json.loads(x) for x in (ROOT/'data/mapper_eval_zh_v1.jsonl').read_text().splitlines()}
+cases={json.loads(x)['id']:json.loads(x) for x in (ROOT/f'data/mapper_eval_zh_{VERSION}.jsonl').read_text().splitlines()}
 agg=defaultdict(list); details=[]
 for row in rows:
     case=cases[row['id']]; gold=case['gold']; d={'id':row['id'],'model':row['model'],'valid':row['ok']}
@@ -20,7 +22,7 @@ for row in rows:
     else:
         d.update({'role_acc':0.,'missing_role':len(gold['roles']),'extra_role':0,'precondition_exact':False,'unsafe_relaxation':True,'over_constraint':False})
     agg[row['model']].append(d); details.append(d)
-report={'total':len(rows),'by_model':{},'scope':'32-case Chinese policy pilot, hand-written gold; not end-to-end ASR'}
+report={'total':len(rows),'by_model':{},'scope':f'32-case Chinese paraphrase pilot ({VERSION}), hand-written gold; not end-to-end ASR'}
 for model, ds in agg.items():
     report['by_model'][model]={
       'valid_rate':sum(x['valid'] for x in ds)/len(ds), 'role_accuracy':sum(x['role_acc'] for x in ds)/len(ds),

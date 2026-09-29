@@ -65,3 +65,14 @@ PYTHONPATH=src python scripts/check_clafr_predicate_equivalence.py
 这里的 `unsafe relaxation` 指某个 gold 安全前置条件没有被预测约束覆盖，或阈值低于安全要求；`over-constraint` 指预测了 gold 未要求的额外字段约束。两者都按 case 计数，不能由 valid JSON 率替代。qwen 的 4 个失败语义样例主要集中在邮件/支付/日历的字段边界，说明“能生成 IR”不等于“安全关键字段识别正确”；deepseek 的 1 个无效输出和 2 个过约束样例则说明需要 abstain、人工复核或更细的字段 gold。
 
 下一轮必须把 4 个实例改为真正不同的中文释义和网页注入变体，并冻结原始输出后再复测；当前结果只能支持“训练-free mapper 可运行且暴露了可量化失效模式”，不能支持跨工具泛化或安全率结论。
+
+## 释义鲁棒性复测（v2，2026-09-29）
+
+v2 将每类工具的 4 个实例改为不同中文释义：直接策略、授权边界、网页/工具注入、状态过期或来源不可信等表达。gold 的工具字段、角色和安全关键字段保持不变，因此可以区分“语言表述变化”与“策略变化”。
+
+| 模型 | 有效 IR | role accuracy | 前置条件 exact | unsafe relaxation | over-constraint | 平均延迟 |
+|---|---:|---:|---:|---:|---:|---:|
+| qwen-max | 32/32 (1.000) | 1.000 | 0.750 | 0.188 | 0.094 | 6.07 s |
+| deepseek-v4-flash | 31/32 (0.969) | 0.969 | 0.875 | 0.063 | 0.094 | 12.77 s |
+
+v2 仍是手写 gold 的 mapper pilot，不能替代 held-out 工具或端到端 AgentDojo/ASB。它支持的较窄结论是：训练-free 语义映射可以在不同中文表述下稳定生成可编译 IR，但字段级安全语义仍会产生放宽或过约束，需要 abstain/人工复核和更细的字段标注。
