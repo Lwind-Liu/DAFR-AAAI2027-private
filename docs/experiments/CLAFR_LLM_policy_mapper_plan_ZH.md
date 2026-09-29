@@ -76,3 +76,7 @@ v2 将每类工具的 4 个实例改为不同中文释义：直接策略、授�
 | deepseek-v4-flash | 31/32 (0.969) | 0.969 | 0.875 | 0.063 | 0.094 | 12.77 s |
 
 v2 仍是手写 gold 的 mapper pilot，不能替代 held-out 工具或端到端 AgentDojo/ASB。它支持的较窄结论是：训练-free 语义映射可以在不同中文表述下稳定生成可编译 IR，但字段级安全语义仍会产生放宽或过约束，需要 abstain/人工复核和更细的字段标注。
+
+## 冻结执行 artifact
+
+v2 的 64 条 mapper 输出已冻结到 `results/summaries/mapper_eval_zh_v2/frozen_mapper_artifact.jsonl`。每条记录包含输入哈希、模型、IR 或错误、`allow_to_compile/abstain` 状态和 artifact 哈希。当前 63 条可编译，1 条必须 abstain；端到端实验只能读取该冻结文件，不能在运行过程中重新请求模型或静默修补失败输出。
