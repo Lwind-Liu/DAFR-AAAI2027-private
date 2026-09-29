@@ -1,0 +1,31 @@
+{
+  "cases": 4,
+  "audit": [
+    {
+      "case_id": "email",
+      "structurally_valid": true,
+      "zero_grounding_requirements": 1,
+      "backend_supported": false,
+      "backend_reason": "authorization must name affected fields"
+    },
+    {
+      "case_id": "payment",
+      "structurally_valid": true,
+      "zero_grounding_requirements": 1,
+      "backend_supported": false,
+      "backend_reason": "confirmation must name affected fields"
+    },
+    {
+      "case_id": "delete",
+      "structurally_valid": true,
+      "zero_grounding_requirements": 0,
+      "backend_supported": false,
+      "backend_reason": "authorization must name affected fields"
+    },
+    {
+      "case_id": "publish",
+      "structurally_valid": false
+    }
+  ],
+  "scope": "No human gold labels; zero grounding thresholds are policy omissions, not measured security outcomes."
+}
