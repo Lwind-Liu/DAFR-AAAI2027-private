@@ -23,6 +23,26 @@ python -m pytest tests/test_policy_mapper.py tests/test_ir_runtime.py tests/test
 PYTHONPATH=src python scripts/check_clafr_predicate_equivalence.py
 ```
 
+## API 映射器的中文运行约定
+
+- system prompt 与实验 gold policy 使用中文说明，但 IR 字段名保持英文固定枚举，避免中文字段名进入执行代码。
+- 每个安全前置条件必须列出受影响字段；`authorization`、`confirmation`、`trusted_grounding` 不允许空 `fields` 或 `minimum=0`。
+- 模型输出先做 schema 校验，再做字段覆盖、数值阈值和语义完整性校验；失败记录为 abstain，不自动补成 allow。
+- role 错误和字段遗漏分别计数，不能只报告 JSON 解析成功率。
+
+## 当前 API 冒烟结果（2026-09-29）
+
+使用 `qwen-max` 对 4 个手写工具策略做单次映射：`send_email`、`transfer_funds`、`delete_record`、`publish_post`。
+
+- 本地结构和语义校验通过：4/4；
+- backend 可编译：4/4；
+- 手写 gold role accuracy：1.000；
+- 手写 gold 前置条件 exact match：1.000；
+- 总 token：2222；总耗时约 29 秒；
+- 结果属于 4-case smoke pilot，不是 held-out 泛化或安全率结论。
+
+第二轮使用更严格的中文/英文混合 prompt 后，模型仍可能把字段角色映射得过宽，例如把整个邮件的 `subject` 也列为授权字段。后续 gold 集需要明确“安全关键字段”与“普通字段”的边界，并报告 over-constraint rate，不能只报告 exact match。
+
 ## 后续实验门槛
 
 1. 接入 LLM role mapper 与 role 驱动 encoder 后，再做 held-out tool 泛化；mapper 的输出必须记录并冻结，不能边测边改。

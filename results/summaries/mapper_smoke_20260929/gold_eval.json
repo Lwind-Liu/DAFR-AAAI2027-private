@@ -1,0 +1,41 @@
+{
+  "cases": 4,
+  "valid_rate": 1.0,
+  "mean_role_accuracy": 1.0,
+  "precondition_exact_rate": 1.0,
+  "scope": "4-case smoke pilot with hand-written gold labels; not a benchmark claim",
+  "cases_detail": [
+    {
+      "case_id": "email",
+      "valid": true,
+      "role_accuracy": 1.0,
+      "precondition_exact": true,
+      "role_missing": [],
+      "role_extra": []
+    },
+    {
+      "case_id": "payment",
+      "valid": true,
+      "role_accuracy": 1.0,
+      "precondition_exact": true,
+      "role_missing": [],
+      "role_extra": []
+    },
+    {
+      "case_id": "delete",
+      "valid": true,
+      "role_accuracy": 1.0,
+      "precondition_exact": true,
+      "role_missing": [],
+      "role_extra": []
+    },
+    {
+      "case_id": "publish",
+      "valid": true,
+      "role_accuracy": 1.0,
+      "precondition_exact": true,
+      "role_missing": [],
+      "role_extra": []
+    }
+  ]
+}

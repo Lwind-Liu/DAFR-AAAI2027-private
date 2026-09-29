@@ -26,7 +26,7 @@ CASES = [
 def main():
     cfg=load_cfg(); out=ROOT/'results/summaries/mapper_smoke_20260929'; out.mkdir(parents=True,exist_ok=True)
     results=[]
-    model='deepseek-v4-flash'
+    model='qwen-max'
     for case in CASES:
         payload={'model':model,'messages':[{'role':'system','content':MAPPER_SYSTEM_PROMPT},{'role':'user','content':json.dumps(case)}], 'max_tokens':3000,'stream':False,
           'app':cfg.get('APP_NAME','mos_lab'),'quota_id':cfg['QUOTA_ID'],'user_id':cfg['USER_ID'],'access_key':cfg['ACCESS_KEY']}

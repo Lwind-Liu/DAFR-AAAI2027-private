@@ -12,8 +12,10 @@ ranking with the geometric backend. Its acceptance decisions should coincide.
 ## Proposed method
 
 We investigate a training-free semantic mapper that translates trusted policy text and
-tool schemas into a typed constraint representation. Structural validation checks the
-representation; it does not establish semantic fidelity, completeness or authorization.
+tool schemas into a typed constraint representation. Structural and semantic-completeness validation checks the
+representation; it does not establish full semantic fidelity. Security preconditions must
+name their affected fields and use positive thresholds; failures abstain rather than being
+repaired into an allow decision.
 The experimental runtime intersects supported mapped constraints with the existing
 trusted constraint envelope. Consequently, for fixed features and execution context,
 the accepted set is a subset of that envelope. This inclusion is conditional on the
@@ -42,3 +44,8 @@ low-latency implementation of the same IR interface and requires its own evaluat
 4. Report fixed-trajectory diagnostic results separately from fresh end-to-end rollouts.
 
 No new benchmark accuracy or security claims have been established by this revision.
+
+
+## Current smoke evidence (not a benchmark result)
+
+A four-tool smoke pilot with Qwen-Max produced structurally valid, backend-compilable mappings for `send_email`, `transfer_funds`, `delete_record`, and `publish_post`. Against hand-written labels for this pilot, role accuracy and precondition exact match were both 1.0. These numbers are not held-out generalization results. The pilot also exposed a necessary metric for the full study: over-constraint rate, since a mapper may safely include an ordinary field in an authorization set while reducing utility.

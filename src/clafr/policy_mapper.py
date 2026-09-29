@@ -20,6 +20,13 @@ JSON shape: {"version":"1", "tool_name":"exact input tool name", "roles":{"field
 "risk_budgets":[],"forbidden_effects":[],"provenance":"llm"}.
 Preserve policy scope. Do not omit a requirement just because its semantics are unsupported.
 Numeric thresholds must come from the policy; do not invent risk weights or budgets. For any stated requirement, minimum must be strictly positive; never emit minimum 0.0 for trusted_grounding, authorization, or confirmation. Name every affected schema field.
+For an external send with fields recipient and body, the roles MUST be
+recipient: destination and body: data, and authorization/confirmation/grounding MUST list
+those exact fields. Never leave fields empty for these three precondition types. Example:
+{"version":"1","tool_name":"send_email","roles":{"recipient":"destination","body":"data"},
+"preconditions":[{"type":"authorization","fields":["recipient","body"],"minimum":1.0,"source":"trusted"},
+{"type":"trusted_grounding","fields":["recipient","body"],"minimum":1.0,"source":"trusted"}],
+"risk_budgets":[],"forbidden_effects":[],"provenance":"llm"}.
 """
 
 

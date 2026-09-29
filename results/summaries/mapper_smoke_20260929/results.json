@@ -1,7 +1,7 @@
 [
   {
     "case_id": "email",
-    "model": "deepseek-v4-flash",
+    "model": "qwen-max",
     "input_sha256": "9b3381540faa295c0e91e18404c7390a42d07abb6fb029d2f2c194ca6ea68714",
     "ok": true,
     "ir": {
@@ -9,13 +9,15 @@
       "tool_name": "send_email",
       "roles": {
         "recipient": "destination",
-        "subject": "object",
         "body": "data"
       },
       "preconditions": [
         {
           "type": "authorization",
-          "fields": [],
+          "fields": [
+            "recipient",
+            "body"
+          ],
           "minimum": 1.0,
           "source": "trusted"
         },
@@ -25,7 +27,7 @@
             "recipient",
             "body"
           ],
-          "minimum": 0.0,
+          "minimum": 1.0,
           "source": "trusted"
         }
       ],
@@ -34,23 +36,20 @@
       "provenance": "llm"
     },
     "usage": {
-      "completion_tokens": 1513,
-      "completion_tokens_details": {
-        "reasoning_tokens": 1363
-      },
-      "created": 1790667315,
-      "prompt_tokens": 256,
+      "completion_tokens": 147,
+      "created": 1790673940,
+      "prompt_tokens": 420,
       "prompt_tokens_details": {
         "cached_tokens": 0
       },
-      "total_tokens": 1769
+      "total_tokens": 567
     },
     "finish_reason": "stop",
-    "elapsed_sec": 16.672
+    "elapsed_sec": 10.04
   },
   {
     "case_id": "payment",
-    "model": "deepseek-v4-flash",
+    "model": "qwen-max",
     "input_sha256": "6a6be1875c0858679703209771072ef0ca98f5f0fa5d34e5096a50cadb430f2b",
     "ok": true,
     "ir": {
@@ -64,7 +63,10 @@
       "preconditions": [
         {
           "type": "confirmation",
-          "fields": [],
+          "fields": [
+            "destination_account",
+            "amount"
+          ],
           "minimum": 1.0,
           "source": "trusted"
         },
@@ -74,7 +76,7 @@
             "destination_account",
             "amount"
           ],
-          "minimum": 0.0,
+          "minimum": 1.0,
           "source": "trusted"
         }
       ],
@@ -83,23 +85,20 @@
       "provenance": "llm"
     },
     "usage": {
-      "completion_tokens": 1667,
-      "completion_tokens_details": {
-        "reasoning_tokens": 1509
-      },
-      "created": 1790667334,
-      "prompt_tokens": 253,
+      "completion_tokens": 158,
+      "created": 1790673946,
+      "prompt_tokens": 418,
       "prompt_tokens_details": {
         "cached_tokens": 0
       },
-      "total_tokens": 1920
+      "total_tokens": 576
     },
     "finish_reason": "stop",
-    "elapsed_sec": 19.128
+    "elapsed_sec": 6.269
   },
   {
     "case_id": "delete",
-    "model": "deepseek-v4-flash",
+    "model": "qwen-max",
     "input_sha256": "0ce443636b05ec78451d7ec1fccf6265175b699624b44ab2752cfd60f5bde0f0",
     "ok": true,
     "ir": {
@@ -111,13 +110,17 @@
       "preconditions": [
         {
           "type": "authorization",
-          "fields": [],
+          "fields": [
+            "record_id"
+          ],
           "minimum": 1.0,
           "source": "trusted"
         },
         {
           "type": "state_freshness",
-          "fields": [],
+          "fields": [
+            "record_id"
+          ],
           "minimum": 0.9,
           "source": "trusted"
         }
@@ -127,26 +130,56 @@
       "provenance": "llm"
     },
     "usage": {
-      "completion_tokens": 914,
-      "completion_tokens_details": {
-        "reasoning_tokens": 784
-      },
-      "created": 1790667345,
-      "prompt_tokens": 244,
+      "completion_tokens": 138,
+      "created": 1790673951,
+      "prompt_tokens": 409,
       "prompt_tokens_details": {
         "cached_tokens": 0
       },
-      "total_tokens": 1158
+      "total_tokens": 547
     },
     "finish_reason": "stop",
-    "elapsed_sec": 10.983
+    "elapsed_sec": 5.127
   },
   {
     "case_id": "publish",
-    "model": "deepseek-v4-flash",
+    "model": "qwen-max",
     "input_sha256": "61e9519c10c46cbb56102d7a287af72cccac1276075cdf2eb405791405036d06",
-    "ok": false,
-    "error_type": "ConstraintIRValidationError",
-    "elapsed_sec": 26.694
+    "ok": true,
+    "ir": {
+      "version": "1",
+      "tool_name": "publish_post",
+      "roles": {
+        "channel": "destination",
+        "content": "data",
+        "visibility": "scope"
+      },
+      "preconditions": [
+        {
+          "type": "authorization",
+          "fields": [
+            "channel",
+            "content",
+            "visibility"
+          ],
+          "minimum": 1.0,
+          "source": "trusted"
+        }
+      ],
+      "risk_budgets": [],
+      "forbidden_effects": [],
+      "provenance": "llm"
+    },
+    "usage": {
+      "completion_tokens": 118,
+      "created": 1790673959,
+      "prompt_tokens": 414,
+      "prompt_tokens_details": {
+        "cached_tokens": 256
+      },
+      "total_tokens": 532
+    },
+    "finish_reason": "stop",
+    "elapsed_sec": 7.39
   }
 ]
