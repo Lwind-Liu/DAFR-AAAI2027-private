@@ -52,7 +52,7 @@ AgentDojo v1.2.2 covers the Banking, Slack, Travel, and Workspace suites. We eva
 The second evaluation contains 204 ASB cases and uses DeepSeek V4 Flash. It reports utility, full-task success, and ASR. Every compared method is evaluated on the same case set.
 
 \paragraph{Controlled comparison.}
-Each comparison fixes the task instances, registered tools, schemas, and planner. DAFR operates after concrete call generation and before trusted execution. The same parameterization and geometric decision procedure are used across all planners and evaluation environments.
+Each comparison fixes the task instances, registered tools, schemas, and planner. DAFR operates after concrete call generation and before trusted execution. The same mapper configuration, validated IR schema, parameterization and geometric decision procedure are used across all planners and evaluation environments; the mapper is frozen before end-to-end scoring.
 
 \paragraph{Metrics.}
 Clean and attack utility measure task completion in the corresponding benchmark settings. ASR is the benchmark-defined rate of adversarial objective success. Together, the metrics capture retained task progress and execution security.
@@ -60,7 +60,7 @@ Clean and attack utility measure task completion in the corresponding benchmark 
 \section{Execution Interface and State Update}
 \label{sec:implementation}
 
-DAFR uses the tool-boundary execution state: the trusted task, registered schemas, established facts, completed prerequisites, authorization, and source-tagged observations. A deterministic lifting function converts the call and state into four groups of action--evidence relations:
+DAFR uses the tool-boundary execution state: the trusted task, registered schemas, established facts, completed prerequisites, authorization, and source-tagged observations. A training-free semantic mapper first converts the registered schema and policy text into a validated typed interface. A deterministic lifting function then converts the call and state into four groups of action--evidence relations:
 
 \begin{center}
 \small
@@ -78,7 +78,7 @@ Effect and state & Consequences of the call and their consistency with the inten
 \label{tab:relation-groups}
 \end{center}
 
-Tool-specific fields are first mapped to shared execution roles, including the affected object, destination, data, effect parameter, and state transition. The original field identity remains attached to its role, so the decision record stays traceable to the concrete call while the geometric evaluator operates over a common representation.
+Tool-specific fields are mapped by the validated training-free mapper to shared execution roles, including the affected object, destination, data, effect parameter, and state transition. The original field identity remains attached to its role, so the decision record stays traceable to the concrete call while the geometric evaluator operates over a common representation.
 
 At each step, the runtime constructs the current action--evidence point, selects the constraint templates applicable to the proposed effect and state, and computes their signed margins. The minimum active margin determines feasibility. An admitted call proceeds to the trusted executor; the returned observation is projected into source-tagged state records before the next proposal is evaluated. A non-admitted call returns relation-level feedback through the same planner interface. This loop keeps the decision procedure unchanged across tools and planner models.
 
@@ -198,7 +198,7 @@ w/o Decision \& Feedback & 79.4 & 80.0 & 0.8\\
 \label{tab:ablation-full}
 \end{center}
 
-The component comparison isolates the roles of representation, dynamic constraints, and the execution loop. Removing geometric constraints produces the largest ASR change, while evidence projection and decision feedback primarily support retained task utility. The action--evidence representation contributes to both sides of the security--utility balance.
+The component comparison isolates the roles of representation, dynamic constraints, and the execution loop. A separate matched representation study compares an unrestricted predicate implementation, axis-aligned thresholds, weighted halfspaces, and joint-risk cones under the same validated IR and feature vectors; it does not assume that geometry is more expressive than general code. Removing geometric constraints produces the largest ASR change, while evidence projection and decision feedback primarily support retained task utility. The action--evidence representation contributes to both sides of the security--utility balance.
 
 All component rows use the same evaluation setting, case set, scoring functions, and aggregation rule. The listed component is the only change within each comparison.
 
