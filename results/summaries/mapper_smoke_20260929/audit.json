@@ -6,20 +6,21 @@
       "structurally_valid": true,
       "zero_grounding_requirements": 1,
       "backend_supported": false,
-      "backend_reason": "field-scoped constraints require a field-level evaluator"
+      "backend_reason": "authorization must name affected fields"
     },
     {
       "case_id": "payment",
       "structurally_valid": true,
       "zero_grounding_requirements": 1,
       "backend_supported": false,
-      "backend_reason": "field-scoped constraints require a field-level evaluator"
+      "backend_reason": "confirmation must name affected fields"
     },
     {
       "case_id": "delete",
       "structurally_valid": true,
       "zero_grounding_requirements": 0,
-      "backend_supported": true
+      "backend_supported": false,
+      "backend_reason": "authorization must name affected fields"
     },
     {
       "case_id": "publish",
