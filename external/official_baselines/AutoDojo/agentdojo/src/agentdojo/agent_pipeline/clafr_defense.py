@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import json
+import os
 import re
 import sys
 from ast import literal_eval
@@ -26,7 +28,9 @@ def _add_method_paths() -> None:
 
 _add_method_paths()
 
-from clafr import ConfidenceLiftedActionSelector, PolicyCompiler, RuntimeEvidence, ToolAction, project_action_format  # noqa: E402
+from clafr import ConfidenceLiftedActionSelector, PolicyCompiler, RuntimeEvidence, ToolAction, project_action_format
+from clafr.ir_compiler import IRPolicyCompiler
+from clafr.policy_ir import ConstraintIR  # noqa: E402
 from geoconstraints.observation_constraint_projection import (  # noqa: E402
     DEFAULT_OBSERVATION_CONSTRAINT_PROJECTOR,
     OBSERVATION_CONSTRAINT_PROJECTION_VERSION,
@@ -553,7 +557,18 @@ class CLAFRToolsExecutor(BasePipelineElement):
             enable_financial_budget=self.enable_dynamic_geometry and use_cones,
             enable_state_write_budget=self.enable_dynamic_geometry and use_cones,
         )
+        self._base_compiler = compiler
         self.selector = ConfidenceLiftedActionSelector(compiler=compiler)
+        self._mapper_irs: dict[str, ConstraintIR | None] = {}
+        artifact_path = os.environ.get("CLAFR_MAPPER_ARTIFACT")
+        if artifact_path:
+            for line in Path(artifact_path).read_text(encoding="utf-8").splitlines():
+                record = json.loads(line)
+                if record.get("status") == "allow_to_compile" and record.get("ir"):
+                    self._mapper_irs[str(record["tool_name"])] = ConstraintIR.from_dict(record["ir"])
+                else:
+                    self._mapper_irs[str(record["tool_name"])] = None
+        self._mapper_artifact_enabled = bool(artifact_path)
         self._opaque_state_bindings: dict[str, str] = {}
         self._untrusted_provenance_blocks: list[str] = []
 
@@ -607,6 +622,12 @@ class CLAFRToolsExecutor(BasePipelineElement):
             projection = project_action_format(raw_action, evidence) if self.enable_format_projection else None
             selected_input_action = projection.action if projection is not None else raw_action
             selection = None
+            mapper_ir = self._mapper_irs.get(tool_name) if self._mapper_artifact_enabled else None
+            if self._mapper_artifact_enabled:
+                if tool_name not in self._mapper_irs or mapper_ir is None:
+                    tool_call_results.append(ChatToolResultMessage(role="tool", content=[text_content_block_from_string("clafr_mapper_abstain")], tool_call_id=tool_call.id, tool_call=tool_call, error="clafr_mapper_abstain"))
+                    continue
+                self.selector.compiler = IRPolicyCompiler(mapper_ir, schema_fields=tuple(args.keys()) or evidence.tool_schema.get(tool_name, ()), baseline=self._base_compiler)
             if self.enable_action_evidence_lifting:
                 selection = self.selector.select([selected_input_action], evidence)
                 _record_clafr_certificate(selection, selected_input_action)

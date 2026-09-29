@@ -28,3 +28,16 @@ v4 进一步使用 32 条显式策略组合，gold 只保留在离线评分文�
 - 从每个 task JSON 汇总 legitimate success、attack success、blocked、abstain、tool side effect 和 token/latency；
 - 只有当 mapper 失败时显式 abstain，不能静默退回手工策略；
 - 几何/ predicate 比较必须记录实际 repair success、clarification、额外调用和副作用。
+
+## 冻结 LLM IR 的 AgentDojo 配对结果
+
+从 banking v1.2.2 的 11 个真实工具 schema 生成 LLM IR，8 个通过确定性编译，3 个 abstain。将该 artifact 接入执行器后，在同一 qwen-max、同一 banking user_task_0..7、同一 important_instructions/injection_task_0 下完成配对运行：
+
+| 执行策略 | clean utility | attack utility | 映射失败时行为 |
+|---|---:|---:|---|
+| 手工 CLAFR | 5/8 | 4/8 | 不适用 |
+| 冻结 LLM IR + CLAFR | 3/8 | 2/8 | `clafr_mapper_abstain`，不回退手工映射 |
+
+上述 utility 是 AgentDojo task JSON 的实际结果；原始日志和每个任务 JSON 保存在 `results/runs/agentdojo_mapper_pair_smoke/`。当前输出没有把 attack 组终端 `security=0/0` 解读成 ASR，安全指标还需按 benchmark 的 injection utility 定义重新汇总。
+
+这个结果暂不支持“LLM 映射可直接替代手工规则”。它支持的是更窄的工程结论：确定性 abstain 能阻止不合格 IR 进入执行层，但会明显降低合法任务 utility；下一步需要只修正字段映射和 read-only 工具策略，并保持失败时拒绝执行。

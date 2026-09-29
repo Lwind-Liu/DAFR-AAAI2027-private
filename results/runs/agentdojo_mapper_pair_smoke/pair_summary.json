@@ -1,0 +1,18 @@
+{
+  "manual_clafr": {
+    "clean_cases": 8,
+    "clean_utility": 5,
+    "attack_cases": 8,
+    "attack_utility": 4,
+    "attack_security_true": 0,
+    "durations_sec": 215.17591786384583
+  },
+  "llm_mapper_clafr": {
+    "clean_cases": 8,
+    "clean_utility": 3,
+    "attack_cases": 8,
+    "attack_utility": 2,
+    "attack_security_true": 0,
+    "durations_sec": 331.3096590042114
+  }
+}
