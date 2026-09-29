@@ -80,3 +80,16 @@ v2 仍是手写 gold 的 mapper pilot，不能替代 held-out 工具或端到端
 ## 冻结执行 artifact
 
 v2 的 64 条 mapper 输出已冻结到 `results/summaries/mapper_eval_zh_v2/frozen_mapper_artifact.jsonl`。每条记录包含输入哈希、模型、IR 或错误、`allow_to_compile/abstain` 状态和 artifact 哈希。当前 63 条可编译，1 条必须 abstain；端到端实验只能读取该冻结文件，不能在运行过程中重新请求模型或静默修补失败输出。
+
+## 协议审计与无泄漏复测（v3，2026-09-29）
+
+审计发现 v1/v2 runner 曾把包含 `gold` 的完整 case 放进模型 user message，因此 v1/v2 的准确率不能作为泛化证据。旧结果保留用于审计，但论文和后续实验不得引用其正向数字。
+
+v3 修复为：模型只接收 `id`、`tool_name`、`fields`、`policy` 四类输入；gold 只在模型返回后离线评分。每条结果同时记录 `input_sha256`、`gold_sha256`；在结构校验后额外调用 `IRPolicyCompiler(...).compile()`，因此 `valid` 的含义是“结构合法且后端可编译”，不是 JSON 可解析率。
+
+| 模型 | 有效且可编译 | role accuracy | 前置条件 exact | unsafe relaxation | over-constraint | 平均延迟 |
+|---|---:|---:|---:|---:|---:|---:|
+| qwen-max | 32/32 (1.000) | 0.917 | 0.219 | 0.656 | 0.594 | 5.55 s |
+| deepseek-v4-flash | 30/32 (0.938) | 0.797 | 0.281 | 0.656 | 0.563 | 16.91 s |
+
+v3 才是可用于后续实验的 mapper 基线。结果表明，安全字段映射比结构化输出困难得多；在没有训练和 gold 泄漏的条件下，不能宣称已经实现通用安全映射。v3 的冻结 artifact 位于 `results/summaries/mapper_eval_zh_v3/frozen_mapper_artifact.jsonl`，其中 62 条为 `allow_to_compile`，2 条为 `abstain`。
