@@ -44,7 +44,11 @@ class ConfidenceLiftedActionSelector:
         proximity_weight: float = 0.15,
         confidence_weight: float = 0.15,
         delta: float = 1e-3,
+        decision_backend: str = "geometry",
     ) -> None:
+        if decision_backend not in {"geometry", "predicate"}:
+            raise ValueError("Unknown decision backend")
+        self.decision_backend = decision_backend
         self.encoder = encoder or ConfidenceLiftedEncoder()
         self.compiler = compiler or PolicyCompiler()
         self.utility_weight = float(utility_weight)
@@ -70,6 +74,9 @@ class ConfidenceLiftedActionSelector:
                 region_metadata={"reason": "empty_candidate_set"},
             )
 
+        ir = getattr(self.compiler, "ir", None)
+        if ir is not None and any(a.tool_name != ir.tool_name for a in action_tuple):
+            raise ValueError("IR tool mismatch: refusing to apply a tool policy to another tool")
         active_policies = tuple(policies or evidence.policies)
         region = self.compiler.compile(active_policies, evidence)
         vectors = tuple(self.encoder.encode(action, evidence) for action in action_tuple)
@@ -79,6 +86,9 @@ class ConfidenceLiftedActionSelector:
         for action, vector in zip(action_tuple, vectors):
             margins = region.margins(vector)
             feasible = all(margin.slack >= 0.0 for margin in margins if not margin.soft)
+            if self.decision_backend == "predicate":
+                from .predicate import predicate_feasible
+                feasible = predicate_feasible(region, vector)
             utility = self._utility(action, vector.as_dict())
             interior = self._interior_score(margins)
             proximity = vector.squared_distance(anchor, PROXIMITY_FEATURES)

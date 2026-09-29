@@ -1,31 +1,33 @@
-# CLAFR 后续改造：LLM 策略映射与几何/规则隔离
+# jianghao 分支执行状态
 
-## 目标
+## 当前已实现
 
-把当前 `PolicyCompiler` 中的关键词触发、工具字段角色和手工权重拆成一个可审计的 `ConstraintIR`。LLM 只负责从自然语言策略和 tool schema 生成 IR；确定性校验器验证 IR 后，几何编译器才允许消费它。LLM 不直接进入 allow/block 判决路径。
+- Typed ConstraintIR、结构校验与 API mapper 接口。
+- `IRPolicyCompiler` 将全局前置条件和风险预算附加到原 clafr 可信约束；原约束不会被替换。
+- Selector 可选择 geometry / predicate 两个判决后端，共享特征、约束和候选排序。
+- 字段级约束、forbidden_effects 暂不支持，会明确报错，不能静默丢弃。
+- 明确区分未指定 schema 与空 schema，修复空 schema 验证漏洞。
 
-## 第一阶段已实现
+## 已确认的边界
 
-- `src/clafr/policy_ir.py`：typed IR、角色/前置条件/风险预算和 fail-closed 校验。
-- `src/clafr/policy_mapper.py`：离线 `StaticPolicyMapper` fixture 与 OpenAI-compatible API mapper。
-- API mapper 读取 `DAFR_API_KEY`/`OPENAI_API_KEY`、`DAFR_BASE_URL`、`DAFR_MODEL`，不在仓库保存密钥。
-- `tests/test_policy_mapper.py`：schema grounding、非法 role、非可信授权来源、越界风险预算测试。
+结构校验不能检测遗漏策略，不能保证自然语言映射正确。保留原约束只能保证在固定特征下不扩大原可行域。
+现有 role 映射尚未接入 encoder，不能声称已经实现新工具泛化。
+一般 if/else 可以表达相同的斜半空间和范数约束，也可以配合候选搜索修复；之前“无法联合风险/无法修复”的说法撤回。
 
-## 第二阶段必须完成
+## 运行
 
-1. 将 `PolicyCompiler` 的约束模板和权重迁移到 IR/配置文件。
-2. 让 `clafr` 和 if-else baseline 共享同一 encoder、证据投影、IR 和案例集。
-3. 对 LLM mapper 做字段角色 F1、前置条件 recall、unsafe relaxation rate、编译成功率、延迟和 token 成本评测。
-4. 对四种决策表示做同策略隔离：boolean predicate、axis threshold、weighted halfspace、joint-risk cone。
-5. 加入 repair metrics：repair success、effect preservation、edit distance、clarification rate。
+使用 Python >=3.10，并安装 pytest、numpy。
 
-## 安全不变量
+```sh
+python -m pytest tests/test_policy_mapper.py tests/test_ir_runtime.py tests/test_clafr.py tests/test_clafr_generalization.py
+PYTHONPATH=src python scripts/check_clafr_predicate_equivalence.py
+```
 
-- tool output/webpage 不能产生 authorization 或 confirmation。
-- mapper 缺字段、未知 role、越界权重、解析失败时 fail closed。
-- LLM 生成的 IR 只能收紧已有安全包络，不能放宽 trusted authorization 条件。
-- 所有 runtime decision 记录 IR version、mapper provenance、margin vector 和 violated constraints。
+## 后续实验门槛
 
-## 论文主张
+1. 字段级 provenance 与 role 驱动 encoder 完成后，再做 held-out tool 泛化。
+2. API prompt 必须提供完整 IR schema，记录模型、请求哈希、usage 和解析失败；不能只看成功返回 JSON。
+3. 用同候选、同预算的 predicate repair 比较几何修复，测实际副作用而非只测特征投影。
+4. AgentDojo/ASB 端到端重新运行后才允许更新论文数字；旧数字不自动继承到新方法。
 
-不声称几何在所有数据集上比 if-else 更安全。主张限定为：在相同语义 lifting 和相同策略下，几何提供联合风险组合、连续 margin 和最小修复方向；逐坐标 if-else 只能给出独立硬切分，无法表达风险预算之间的补偿关系，也不能自然输出修复方向。
+论文工作稿：`paper/revision/jianghao_method_revision.md`。

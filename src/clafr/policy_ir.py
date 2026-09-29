@@ -98,10 +98,12 @@ def validate_constraint_ir(
     schema_fields: Sequence[str] | None = None,
     max_budget_limit: float = 1.0,
 ) -> ConstraintIR:
-    """Fail closed on malformed or privilege-expanding LLM output."""
+    """Validate structure only; this cannot detect omitted or mistranslated policy."""
     if not ir.tool_name.strip():
         raise ConstraintIRValidationError("tool_name must be non-empty")
-    fields = set(schema_fields or ir.roles.keys())
+    if ir.version != "1":
+        raise ConstraintIRValidationError("unsupported IR version")
+    fields = set(ir.roles.keys() if schema_fields is None else schema_fields)
     unknown = set(ir.roles) - fields
     if unknown:
         raise ConstraintIRValidationError(f"role mapping references unknown fields: {sorted(unknown)}")
