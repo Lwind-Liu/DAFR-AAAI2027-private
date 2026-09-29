@@ -5,7 +5,7 @@
 - Typed ConstraintIR、结构校验与 API mapper 接口。
 - `IRPolicyCompiler` 将全局前置条件和风险预算附加到原 clafr 可信约束；原约束不会被替换。
 - Selector 可选择 geometry / predicate 两个判决后端，共享特征、约束和候选排序。
-- 字段级约束、forbidden_effects 暂不支持，会明确报错，不能静默丢弃。
+- 字段级 grounding/authorization 已接入 encoder；字段级 risk budget 和 forbidden_effects 暂不支持，会明确报错，不能静默丢弃。
 - 明确区分未指定 schema 与空 schema，修复空 schema 验证漏洞。
 
 ## 已确认的边界

@@ -19,8 +19,9 @@ trusted constraint envelope. Consequently, for fixed features and execution cont
 the accepted set is a subset of that envelope. This inclusion is conditional on the
 baseline's correctness and says nothing about safety of missing baseline policies.
 
-The current adapter supports global preconditions and nonnegative risk budgets over
-existing features. Field-scoped semantics and forbidden effects are rejected explicitly.
+The current adapter supports field-scoped grounding and authorization through the
+feature encoder, and aggregate nonnegative risk budgets over existing features. Field-scoped
+risk budgets and forbidden effects are rejected explicitly.
 Role labels are supplied by a large-language-model semantic mapper and then checked before
 entering the feature encoder. If this mapper transfers to held-out tools without parameter
 updates, the evidence supports training-free cross-tool semantic adaptation. It does not
