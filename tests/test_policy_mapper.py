@@ -58,3 +58,12 @@ def test_validator_rejects_untrusted_authorization_source_and_out_of_range_budge
     )
     with pytest.raises(ConstraintIRValidationError):
         validate_constraint_ir(ir2)
+
+
+def test_validator_rejects_semantically_empty_security_precondition():
+    ir = ConstraintIR.from_dict({
+        "tool_name": "send", "roles": {"recipient": "destination"},
+        "preconditions": [{"type": "trusted_grounding", "fields": ["recipient"], "minimum": 0.0}],
+    })
+    with pytest.raises(ConstraintIRValidationError):
+        validate_constraint_ir(ir, schema_fields=("recipient",))

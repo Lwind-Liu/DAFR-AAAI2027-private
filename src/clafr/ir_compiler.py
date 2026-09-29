@@ -27,8 +27,11 @@ class IRPolicyCompiler:
         validate_constraint_ir(ir, schema_fields=schema_fields)
         if ir.forbidden_effects:
             raise ConstraintIRValidationError('forbidden_effects are not supported by this backend')
-        if any(p.fields for p in ir.preconditions) or any(b.fields for b in ir.risk_budgets):
-            raise ConstraintIRValidationError('field-scoped constraints require a field-level evaluator')
+        # Field scope is enforced by ConfidenceLiftedEncoder. The compiler only
+        # adds the aggregate margin, so an IR must still retain its field list.
+        if any(not p.fields and p.type in {"trusted_grounding", "authorization", "confirmation"}
+               for p in ir.preconditions):
+            raise ConstraintIRValidationError('security preconditions require field scope')
         for budget in ir.risk_budgets:
             if not budget.weights or set(budget.weights) - RISK_FEATURES:
                 raise ConstraintIRValidationError('budget requires supported risk feature weights')

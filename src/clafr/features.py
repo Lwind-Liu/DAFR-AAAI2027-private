@@ -1,7 +1,10 @@
 from __future__ import annotations
 
 import re
-from typing import Any, Iterable, Mapping
+from typing import Any, Iterable, Mapping, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from .policy_ir import ConstraintIR
 
 from .schemas import FeatureVector, RuntimeEvidence, ToolAction
 
@@ -897,7 +900,13 @@ class ConfidenceLiftedEncoder:
 
     feature_names = FEATURE_NAMES
 
-    def encode(self, action: ToolAction, evidence: RuntimeEvidence) -> FeatureVector:
+    def encode(
+        self,
+        action: ToolAction,
+        evidence: RuntimeEvidence,
+        *,
+        constraint_ir: "ConstraintIR | None" = None,
+    ) -> FeatureVector:
         tool_description = evidence.tool_description(action.tool_name)
         action_text = _action_surface_text(action)
         semantic_tool_text = " ".join(part for part in (action.tool_name.replace("_", " "), tool_description) if part)
@@ -1010,6 +1019,30 @@ class ConfidenceLiftedEncoder:
             arg_trusted=arg_trusted,
             entity_grounding=entity_grounding,
         )
+        # A validated mapper can narrow the critical field set. The aggregate
+        # encoder remains the fallback when no IR is supplied.
+        if constraint_ir is not None:
+            from .policy_ir import Precondition
+            for precondition in constraint_ir.preconditions:
+                if precondition.type == "trusted_grounding" and precondition.fields:
+                    field_scores = critical_field_grounding(action, evidence)
+                    mapped_scores = [field_scores.get(field, 0.0) for field in precondition.fields]
+                    critical_grounding = _clip(min(critical_grounding, min(mapped_scores, default=0.0)))
+                elif precondition.type in {"authorization", "confirmation"}:
+                    auth_text = " ".join((*evidence.trusted_authorizations, *evidence.trusted_confirmations))
+                    if precondition.fields:
+                        field_scores = critical_field_grounding(action, evidence)
+                        missing_field_support = [
+                            field for field in precondition.fields
+                            if field in action.arguments and not _argument_token_fraction_strict(
+                                {field: action.arguments[field]}, auth_text
+                            )
+                        ]
+                        if missing_field_support:
+                            if precondition.type == "authorization":
+                                authorization = 0.0
+                            else:
+                                confirmation = 0.0
         state_read_necessity = _state_read_necessity(
             action,
             evidence,

@@ -113,12 +113,16 @@ def validate_constraint_ir(
     for p in ir.preconditions:
         if p.type not in PRECONDITION_TYPES:
             raise ConstraintIRValidationError(f"unknown precondition type: {p.type}")
-        if not 0.0 <= p.minimum <= 1.0:
-            raise ConstraintIRValidationError(f"precondition minimum out of range: {p.minimum}")
+        if not 0.0 < p.minimum <= 1.0:
+            raise ConstraintIRValidationError(
+                f"precondition minimum must be in (0,1]: {p.type}={p.minimum}"
+            )
         if set(p.fields) - fields:
             raise ConstraintIRValidationError(f"precondition references unknown fields: {p.fields}")
         if p.source != "trusted":
             raise ConstraintIRValidationError("authorization preconditions must use trusted source")
+        if p.type in {"authorization", "confirmation", "trusted_grounding"} and not p.fields:
+            raise ConstraintIRValidationError(f"{p.type} must name affected fields")
     for b in ir.risk_budgets:
         if not b.name.strip() or not 0.0 < b.limit <= max_budget_limit:
             raise ConstraintIRValidationError(f"invalid risk budget: {b.name!r}, {b.limit}")

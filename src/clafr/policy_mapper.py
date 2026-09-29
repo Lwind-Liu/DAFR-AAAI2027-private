@@ -19,7 +19,7 @@ JSON shape: {"version":"1", "tool_name":"exact input tool name", "roles":{"field
 "preconditions":[{"type":"authorization","fields":[],"minimum":1.0,"source":"trusted"}],
 "risk_budgets":[],"forbidden_effects":[],"provenance":"llm"}.
 Preserve policy scope. Do not omit a requirement just because its semantics are unsupported.
-Numeric thresholds must come from the policy; do not invent risk weights or budgets.
+Numeric thresholds must come from the policy; do not invent risk weights or budgets. For any stated requirement, minimum must be strictly positive; never emit minimum 0.0 for trusted_grounding, authorization, or confirmation. Name every affected schema field.
 """
 
 

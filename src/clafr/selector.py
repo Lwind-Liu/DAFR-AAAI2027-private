@@ -79,7 +79,7 @@ class ConfidenceLiftedActionSelector:
             raise ValueError("IR tool mismatch: refusing to apply a tool policy to another tool")
         active_policies = tuple(policies or evidence.policies)
         region = self.compiler.compile(active_policies, evidence)
-        vectors = tuple(self.encoder.encode(action, evidence) for action in action_tuple)
+        vectors = tuple(self.encoder.encode(action, evidence, constraint_ir=ir) for action in action_tuple)
         anchor = vectors[0]
 
         certificates: list[ActionCertificate] = []

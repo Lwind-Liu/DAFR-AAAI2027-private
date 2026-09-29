@@ -24,7 +24,7 @@ def test_empty_schema_is_not_unspecified_schema():
 
 def test_ir_retains_envelope_and_rejects_tool_mismatch():
     ir = ConstraintIR.from_dict({'tool_name': 'send', 'preconditions': [
-        {'type': 'confirmation', 'minimum': 1.0}]})
+        {'type': 'confirmation', 'fields': ['body'], 'minimum': 1.0}]})
     compiler = IRPolicyCompiler(ir, schema_fields=['body'])
     evidence = RuntimeEvidence(trusted_task='Send hello', tool_schema={'send': ('body',)})
     base = PolicyCompiler().compile([], evidence)
