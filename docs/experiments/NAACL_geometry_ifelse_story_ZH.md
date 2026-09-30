@@ -44,3 +44,7 @@
 ## 当前证据
 
 现有 64-case pilot 中 geometry 与 equivalent predicate 的判决分歧为 0/64，双方 allow 均为 32/64，executable repair 为 0。因此当前只能说明实现等价，尚未证明 repair 或 utility 优势。下一轮实验必须在同一 `src/clafr` runtime 上增加 boundary-active、joint-risk 和真实候选修复案例，不能继续引用不同 runtime 的 geometry isolation 数字作为主结论。
+
+## 2026-09-30 实现审计更正
+
+当前 clafr 的 repair 是删除缺乏支持的可选字段，不是最近可行工具动作求解器。SOC 的 normalized_slack 是缩放残差，不能当作精确欧氏距离。predicate 也可以共用约束对象输出 margin、失败规则和来源，不能声称它必然需要复制维护逻辑。上述投影、维护优势属于待验证设计假设。

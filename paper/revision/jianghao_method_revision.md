@@ -16,11 +16,9 @@ arithmetic. An unrestricted predicate can reproduce every current halfspace and
 second-order cone, so the predicate control is required to match the geometry
 decision. Geometry is retained because one typed region exposes four quantities
 from the same object: (i) joint feasibility across fields, (ii) a signed and
-normalized margin for every violated facet, (iii) the closest repair direction
-under the declared constraint, and (iv) a provenance-bearing certificate that
+normalized margin for every violated facet, (iii) an interface for future constrained repair search (not yet a closest-action solver), and (iv) a provenance-bearing certificate that
 can be composed when a new policy facet is added. A boolean gate returns only
-true/false; implementing these quantities with if--else requires separate,
-manually synchronized code and an extra optimization objective.
+true/false; an arithmetic implementation can expose the same quantities from shared constraint objects. Maintenance and repair advantages therefore remain hypotheses, not intrinsic properties of geometry.
 
 This is a falsifiable systems claim. We will compare geometry and an equivalent
 predicate with the same feature vector, constraints, candidates and repair

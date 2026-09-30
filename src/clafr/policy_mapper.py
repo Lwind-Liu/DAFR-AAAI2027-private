@@ -95,6 +95,35 @@ class PolicyMapper(Protocol):
         ...
 
 
+class MapperAbstention(ConstraintIRValidationError):
+    """Explicit semantic abstention, distinct from malformed output."""
+
+
+def parse_mapper_response(content: str, tool_name: str, schema_fields: Sequence[str]) -> ConstraintIR:
+    try:
+        obj = json.loads(content)
+        if not isinstance(obj, dict):
+            raise ValueError("response must be an object")
+        if obj.get("status") == "abstain":
+            raise MapperAbstention(str(obj.get("reason", "unspecified mapping")))
+        if "status" in obj and obj["status"] != "ok":
+            raise ValueError("unknown mapper status")
+        data = obj.get("ir", obj)
+        if not isinstance(data, dict):
+            raise ValueError("ir must be an object")
+        ir = ConstraintIR.from_dict(data)
+        if ir.tool_name != tool_name:
+            raise ValueError("tool mismatch")
+        validate_constraint_ir(ir, schema_fields=schema_fields)
+        from .ir_compiler import IRPolicyCompiler
+        IRPolicyCompiler(ir, schema_fields=schema_fields).compile()
+        return ir
+    except MapperAbstention:
+        raise
+    except (ValueError, TypeError, KeyError, AttributeError) as exc:
+        raise ConstraintIRValidationError(f"invalid mapper response: {exc}") from exc
+
+
 @dataclass(frozen=True, slots=True)
 class StaticPolicyMapper:
     """Deterministic fixture mapper for tests and offline reproduction."""
@@ -168,13 +197,7 @@ class OpenAICompatiblePolicyMapper:
         with urlopen(request, timeout=self.timeout) as response:
             payload = json.loads(response.read().decode("utf-8"))
         content = payload["choices"][0]["message"]["content"]
-        match = re.search(r"\{.*\}", content, flags=re.DOTALL)
-        if not match:
-            raise ConstraintIRValidationError("mapper response did not contain a JSON object")
-        ir = ConstraintIR.from_dict(json.loads(match.group(0)))
-        if ir.tool_name != tool_name:
-            raise ConstraintIRValidationError("mapper returned a different tool name")
-        return validate_constraint_ir(ir, schema_fields=schema_fields)
+        return parse_mapper_response(content, tool_name, schema_fields)
 
 
 @dataclass(slots=True)

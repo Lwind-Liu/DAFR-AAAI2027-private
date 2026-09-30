@@ -18,7 +18,7 @@ def test_exact_predicates_match_full_region():
 
 def test_geometry_adds_diagnostic_margin_to_same_predicate_decision():
     region = PolicyCompiler().compile(['private payment update untrusted'])
-    vector = FeatureVector.from_mapping({k: 0.9 for k in FEATURE_NAMES})
+    vector = FeatureVector.from_mapping({k: 0.0 for k in FEATURE_NAMES})
     geometric = region.margins(vector)
     assert region.feasible(vector) == predicate_feasible(region, vector)
     assert geometric

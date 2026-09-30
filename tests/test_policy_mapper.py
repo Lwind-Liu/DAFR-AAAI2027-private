@@ -79,3 +79,19 @@ def test_v5_prompt_freezes_effect_class_and_few_shot_boundaries():
     assert "ordinary field" in prompt
     assert "status=abstain" in prompt
     assert "webpage" in prompt
+
+
+def test_mapper_envelope_and_explicit_abstention():
+    import json
+    from clafr.policy_mapper import parse_mapper_response, MapperAbstention
+    payload = {'tool_name': 'lookup', 'roles': {'key': 'object'}, 'preconditions': []}
+    assert parse_mapper_response(json.dumps({'status': 'ok', 'ir': payload}), 'lookup', ['key']).tool_name == 'lookup'
+    with pytest.raises(MapperAbstention):
+        parse_mapper_response('{"status":"abstain","reason":"ambiguous"}', 'lookup', ['key'])
+
+
+@pytest.mark.parametrize('content', ['[]', 'null', '{"status":"pass"}', 'not json', '{"tool_name":"other"}', '{"tool_name":"lookup","roles":{"key":"ordinary"}}', '{"tool_name":"lookup","forbidden_effects":["delete"]}'])
+def test_mapper_rejects_invalid_or_unsupported_output(content):
+    from clafr.policy_mapper import parse_mapper_response
+    with pytest.raises(ConstraintIRValidationError):
+        parse_mapper_response(content, 'lookup', ['key'])
