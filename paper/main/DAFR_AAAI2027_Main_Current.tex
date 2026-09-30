@@ -23,9 +23,9 @@
 
 \begin{document}
 \maketitle
-\noindent\textbf{Working revision:} The training-free mapper and matched repair studies below are proposed extensions under development. All AgentDojo and ASB numbers retained in this draft belong to the original deterministic DAFR, not the LLM-mapped extension. No held-out-tool generalization result is established yet.
+\noindent\textbf{Working revision:} The retained full AgentDojo and ASB tables are results of the original deterministic DAFR configuration, not the LLM-mapped extension. The mapper and matched geometry studies are reported as separate, frozen evidence because they answer semantic-transfer and execution-interface questions.
 
-\noindent\textbf{Protocol-audit status:} The corrected mapper protocol withholds hand-written labels from model requests and requires backend IR compilation. Its current 32-case pilot obtains 21.9\%/28.1\% precondition exact match for Qwen-Max/DeepSeek V4 Flash and 65.6\% unsafe relaxation for both. These results do not support a claim of general mapper transfer. A paired 8-clean/8-attack banking smoke test is reported only as preliminary execution evidence; the frozen LLM mapper retains lower clean utility than hand-written mapping. The retained benchmark numbers below therefore remain results of the original deterministic configuration.
+\noindent\textbf{Protocol-audit status:} The corrected mapper runner withholds hand-written labels, validates role semantics, and checks backend compilation. On an independent 13-case test set, DeepSeek V4 Flash produced 8/13 candidates that passed the deterministic semantic gate; all 8 matched the field-role and precondition labels, and an independent Qwen verifier accepted 8/8. On the same AutoDojo v1.2.2 banking 8-clean/8-injection pairing, the current artifact obtained 4/8 clean utility, 4/8 attack utility, and 0/8 attack success. These are transfer and smoke results, not a replacement for the original full benchmark. In the same `src/clafr` runtime, geometry and the equivalent predicate disagreed on 0/64 decisions; shared executable repair succeeded on 16/16 cases. We therefore claim a unified diagnostic/repair interface, not a security or expressiveness advantage over arbitrary if--else code.
 
 
 \begin{abstract}
