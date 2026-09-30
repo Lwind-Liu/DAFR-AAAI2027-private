@@ -1230,6 +1230,14 @@ class ConfidenceLiftedEncoder:
             if "effect" in role_scores and role_scores["effect"]["present_fields"]:
                 effect_class = max(effect_class, 0.70 if side_effect_bool else 0.25)
                 write = max(write, side_effect)
+            # Recompute the coupled egress feature after role-conditioned
+            # destination/data updates so the geometry sees the same semantic
+            # projection that is recorded in the trace.
+            privacy_egress = _privacy_egress(
+                data_sensitivity=data_sensitivity,
+                sink_externality=sink_externality,
+                external_destination=external_destination,
+            )
         state_read_necessity = _state_read_necessity(
             action,
             evidence,
