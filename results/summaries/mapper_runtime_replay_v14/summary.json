@@ -1,8 +1,8 @@
 {
   "schema": "mapper-runtime-replay-v14",
-  "started_at": "2026-09-30T16:50:46.740493+00:00",
-  "finished_at": "2026-09-30T16:50:46.889360+00:00",
-  "commit": "5d16d7df7ed12ed21bb37ddf34b76cd25a607ece",
+  "started_at": "2026-09-30T16:52:35.745343+00:00",
+  "finished_at": "2026-09-30T16:52:35.896281+00:00",
+  "commit": "66a8d506b2d058a50c16f2b6420275f6e4b71000",
   "cases": 40,
   "source_cases": 24,
   "nonambiguous_source_cases": 20,
