@@ -748,6 +748,32 @@ def test_encoder_uses_validated_destination_role_for_nonstandard_field_name() ->
     assert vector.get("external_destination_risk") == 1.0
 
 
+def test_role_conditioned_encoder_retains_field_trace_in_certificate() -> None:
+    evidence = RuntimeEvidence(
+        trusted_task="Update the approved object using payload P-17 and owner sink-17.",
+        trusted_state=("resource_key=case-17",),
+        tool_schema={"mutate_record": ("owner", "payload_bytes", "resource_key")},
+        tool_descriptions={"mutate_record": "Update an external record."},
+    )
+    action = ToolAction(
+        id="role_trace",
+        tool_name="mutate_record",
+        arguments={"owner": "sink-17", "payload_bytes": "P-17", "resource_key": "case-17"},
+    )
+    ir = ConstraintIR.from_dict({
+        "tool_name": "mutate_record",
+        "roles": {"owner": "destination", "payload_bytes": "data", "resource_key": "object"},
+    })
+    from clafr.ir_compiler import IRPolicyCompiler
+    selector = ConfidenceLiftedActionSelector(
+        compiler=IRPolicyCompiler(ir, schema_fields=("owner", "payload_bytes", "resource_key"))
+    )
+    result = selector.select((action,), evidence)
+    trace = result.certificates[0].role_projection
+    assert trace["role_bindings"]["owner"]["role"] == "destination"
+    assert trace["role_bindings"]["resource_key"]["source"] == "trusted"
+
+
 def test_authorization_can_scope_trusted_state_parameters_after_user_intent() -> None:
     evidence = RuntimeEvidence(
         trusted_task="Please pay the bill for me.",

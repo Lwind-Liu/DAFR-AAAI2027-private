@@ -106,6 +106,7 @@ class FeatureVector:
 
     names: tuple[str, ...]
     values: tuple[float, ...]
+    metadata: Mapping[str, Any] = field(default_factory=dict)
 
     @classmethod
     def from_mapping(cls, values: Mapping[str, float], *, names: Sequence[str] | None = None) -> "FeatureVector":
@@ -152,6 +153,7 @@ class ActionCertificate:
     interior_score: float
     proximity_penalty: float
     final_score: float
+    trace: Mapping[str, Any] = field(default_factory=dict)
 
     @property
     def violated_constraints(self) -> tuple[str, ...]:
@@ -166,6 +168,11 @@ class ActionCertificate:
         return tuple(
             margin.constraint_id for margin in self.margins if margin.normalized_slack < 0.15
         )
+
+    @property
+    def role_projection(self) -> Mapping[str, Any]:
+        """Auditable semantic projection retained alongside the numeric certificate."""
+        return self.trace.get("role_projection", {})
 
 
 @dataclass(frozen=True, slots=True)

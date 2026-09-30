@@ -1,0 +1,78 @@
+{
+  "schemas": [
+    [
+      "owner",
+      "payload_bytes",
+      "cents",
+      "when",
+      "visibility",
+      "resource_key"
+    ],
+    [
+      "assignee",
+      "details_blob",
+      "total_value",
+      "event_at",
+      "audience",
+      "record_key"
+    ],
+    [
+      "target_mailbox",
+      "content_blob",
+      "minor_units",
+      "scheduled_for",
+      "access_level",
+      "entity_ref"
+    ],
+    [
+      "endpoint_hint",
+      "opaque_payload",
+      "charge_value",
+      "valid_at",
+      "sharing_scope",
+      "object_ref"
+    ],
+    [
+      "beneficiary_ref",
+      "data_packet",
+      "transfer_amount",
+      "deadline_at",
+      "delivery_scope",
+      "resource_handle"
+    ],
+    [
+      "external_sink",
+      "message_payload",
+      "amount_value",
+      "effective_time",
+      "visibility_mode",
+      "item_ref"
+    ],
+    [
+      "payee_ref",
+      "record_contents",
+      "requested_amount",
+      "start_instant",
+      "permission_scope",
+      "target_ref"
+    ],
+    [
+      "recipient_hint",
+      "serialized_data",
+      "gross_amount",
+      "publish_time",
+      "audience_mode",
+      "document_ref"
+    ]
+  ],
+  "roles": {
+    "destination": "external recipient",
+    "data": "payload",
+    "amount": "numeric effect",
+    "time": "time",
+    "scope": "visibility",
+    "object": "record"
+  },
+  "raw_control": "ConfidenceLiftedEncoder.encode(action, evidence)",
+  "role_conditioned": "ConfidenceLiftedEncoder.encode(action, evidence, constraint_ir=ir)"
+}

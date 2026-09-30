@@ -19,7 +19,7 @@
 
 \begin{document}
 \maketitle
-\noindent\textbf{Working revision:} The retained full AgentDojo and ASB tables are results of the original deterministic DAFR configuration, not the LLM-mapped extension. The mapper and matched geometry studies are reported as separate, frozen evidence because they answer semantic-transfer and execution-interface questions.
+\noindent\textbf{Working revision:} The retained full AgentDojo and ASB tables are results of the original deterministic DAFR configuration, not the LLM-mapped extension. The mapper and matched geometry studies are reported as separate, frozen evidence because they answer semantic-transfer and execution-interface questions. The Banking mapper table is a frozen protocol snapshot; the later role-conditioned encoder audit is reported separately after the representation interface was extended.
 
 \noindent\textbf{Protocol-audit status:} The corrected mapper runner withholds hand-written labels, validates role semantics, and checks backend compilation. On a frozen 24-case cross-schema/paraphrase split, Qwen-Max produced 21/22 exact mappings on non-ambiguous cases and correctly abstained on 2/2 ambiguous cases; the matched schema-aware rules baseline produced 1/22 exact and 2/2 abstentions under the same IR/compiler/scorer. These mapper numbers are semantic-transfer evidence, not a replacement for the original full benchmark. On the same `src/clafr` runtime, a 512-case joint-risk suite found 25/512 false allows for independent axis thresholds, while Geometry and its equivalent predicate agreed on 512/512 decisions. In a 256-case executable repair suite, Geometry and Predicate+oracle each recovered 192 actions, while a bool-only predicate recovered none. We therefore claim a unified diagnostic/repair interface, not a security or expressiveness advantage over arbitrary if--else code.
 
@@ -83,7 +83,7 @@ Clean and attack utility measure task completion in the corresponding benchmark 
 \section{Execution Interface and State Update}
 \label{sec:implementation}
 
-DAFR uses the tool-boundary execution state: the trusted task, registered schemas, established facts, completed prerequisites, authorization, and source-tagged observations. A semantic mapper proposes a typed interface from the registered schema and policy text; deterministic validation and abstention precede execution. A deterministic lifting function then converts the call and state into four groups of action--evidence relations:
+DAFR uses the tool-boundary execution state: the trusted task, registered schemas, established facts, completed prerequisites, authorization, and source-tagged observations. A semantic mapper proposes a typed interface from the registered schema and policy text; deterministic validation and abstention precede execution. A role-conditioned action encoder then grounds each concrete call in the validated roles while retaining field-level source and grounding metadata. The encoder converts the call and state into four groups of action--evidence relations:
 
 \begin{center}
 \small
@@ -101,7 +101,7 @@ Effect and state & Consequences of the call and their consistency with the inten
 \label{tab:relation-groups}
 \end{center}
 
-Tool-specific fields are mapped by the validated mapper to shared execution roles, including the affected object, destination, data, effect parameter, and state transition. The original field identity remains attached to its role, so the decision record stays traceable to the concrete call while the geometric evaluator operates over a common representation.
+Tool-specific fields are mapped by the validated mapper to shared execution roles, including the affected object, destination, data, effect parameter, and state transition. The original field identity remains attached to its role, so the decision record stays traceable to the concrete call while the geometric evaluator operates over a common representation. In a controlled 64-case renamed-schema audit, the no-IR encoder marked an external-destination risk in 16/64 cases with opaque destination identifiers, whereas the role-conditioned encoder marked 64/64 and produced complete field-level traces. This audit has no planner or external side effects and is evidence about the mapper--encoder interface rather than task-level security.
 
 At each step, the runtime constructs the current action--evidence point, selects the constraint templates applicable to the proposed effect and state, and computes their signed margins. The minimum active margin determines feasibility. An admitted call proceeds to the trusted executor; the returned observation is projected into source-tagged state records before the next proposal is evaluated. A non-admitted call returns relation-level feedback through the same planner interface. This loop keeps the decision procedure unchanged across tools and planner models.
 

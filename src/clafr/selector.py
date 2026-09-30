@@ -109,6 +109,7 @@ class ConfidenceLiftedActionSelector:
                     interior_score=interior,
                     proximity_penalty=proximity,
                     final_score=final_score,
+                    trace=vector.metadata,
                 )
             )
 
@@ -149,7 +150,24 @@ class ConfidenceLiftedActionSelector:
     ) -> SelectionResult | None:
         """Project a blocked action by dropping unsupported optional fields."""
         required = set(evidence.required_args(action.tool_name))
-        field_scores = critical_field_grounding(action, evidence)
+        ir = getattr(self.compiler, "ir", None)
+        if ir is not None:
+            # Use the same validated role projection as the decision path.
+            # This prevents a renamed schema field from disappearing from the
+            # repair logic merely because it is absent from legacy key lists.
+            encoded = self.encoder.encode(action, evidence, constraint_ir=ir)
+            bindings = encoded.metadata.get("role_projection", {}).get("role_bindings", {})
+            field_scores = {
+                field: float(binding.get("trusted_grounding", 0.0))
+                for field, binding in bindings.items()
+            }
+            field_scores.update({
+                field: score
+                for field, score in critical_field_grounding(action, evidence).items()
+                if field not in field_scores
+            })
+        else:
+            field_scores = critical_field_grounding(action, evidence)
         removable = {
             key
             for key, score in field_scores.items()

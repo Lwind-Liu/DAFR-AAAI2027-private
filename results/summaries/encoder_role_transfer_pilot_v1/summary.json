@@ -1,0 +1,14 @@
+{
+  "pilot": "encoder-role-transfer-v1",
+  "cases": 64,
+  "schemas": 8,
+  "repeats_per_schema": 8,
+  "raw_external_destination_positive": 16,
+  "role_external_destination_positive": 64,
+  "raw_external_destination_coverage": 0.25,
+  "role_external_destination_coverage": 1.0,
+  "role_trace_complete": 64,
+  "expected_external_cases": 48,
+  "scope": "local paired representation audit; no planner and no external side effects",
+  "interpretation": "Role conditioning makes renamed schema fields inspectable; this does not by itself establish task-level security."
+}

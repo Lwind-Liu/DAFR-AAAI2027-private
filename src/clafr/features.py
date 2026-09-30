@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from dataclasses import replace
 import re
 from typing import Any, Iterable, Mapping, TYPE_CHECKING
 
@@ -1056,8 +1057,69 @@ class ConfidenceLiftedEncoder:
         )
         # A validated mapper can narrow the critical field set. The aggregate
         # encoder remains the fallback when no IR is supplied.
+        scope_precision = _scope_precision(action, read_only=read_only_bool)
+        role_projection: dict[str, Any] = {
+            "tool_name": action.tool_name,
+            "mapper_provenance": getattr(constraint_ir, "provenance", None),
+            "fallback_used": constraint_ir is None,
+            "role_bindings": {},
+            "role_aggregates": {},
+        }
         if constraint_ir is not None:
             from .policy_ir import Precondition
+
+            # Keep a field-level semantic trace next to the numeric vector.  It
+            # makes the mapper/encoder boundary inspectable without changing
+            # the geometry API, and is also used by the role-conditioned
+            # aggregates below.  Missing values are explicit rather than
+            # silently guessed from legacy argument-name heuristics.
+            role_fields: dict[str, list[str]] = {}
+            for field, role in constraint_ir.roles.items():
+                role_fields.setdefault(role, []).append(field)
+
+            def field_grounding(field: str) -> tuple[float, float, str]:
+                if field not in action.arguments or action.arguments[field] in (None, ""):
+                    return 0.0, 0.0, "missing"
+                values = tuple(_iter_argument_values(action.arguments[field]))
+                trusted = _clip(min(
+                    (_value_grounding_score(value, trusted_text=trusted_text,
+                                             untrusted_text=untrusted_text)
+                     for value in values),
+                    default=0.55,
+                ))
+                untrusted = _clip(_argument_token_fraction_strict(
+                    {field: action.arguments[field]}, untrusted_text
+                ))
+                if trusted <= 0.0 and untrusted > 0.0:
+                    source = "untrusted"
+                elif trusted >= 0.99:
+                    source = "trusted"
+                elif trusted > 0.0:
+                    source = "mixed_or_implicit"
+                else:
+                    source = "unresolved"
+                return trusted, untrusted, source
+
+            for field, role in constraint_ir.roles.items():
+                trusted_score, untrusted_score, source = field_grounding(field)
+                role_projection["role_bindings"][field] = {
+                    "role": role,
+                    "value_present": field in action.arguments and action.arguments[field] not in (None, ""),
+                    "trusted_grounding": trusted_score,
+                    "untrusted_grounding": untrusted_score,
+                    "source": source,
+                }
+            for role, fields in role_fields.items():
+                present = [role_projection["role_bindings"][field] for field in fields
+                           if role_projection["role_bindings"][field]["value_present"]]
+                role_projection["role_aggregates"][role] = {
+                    "fields": tuple(fields),
+                    "present_fields": tuple(item for item in fields
+                                             if role_projection["role_bindings"][item]["value_present"]),
+                    "grounding": min((item["trusted_grounding"] for item in present), default=0.0),
+                    "untrusted_grounding": max((item["untrusted_grounding"] for item in present), default=0.0),
+                }
+
             def mapped_field_scores(fields: Iterable[str]) -> dict[str, float]:
                 """Score mapper-declared fields independently of legacy key lists.
 
@@ -1131,6 +1193,43 @@ class ConfidenceLiftedEncoder:
                                 authorization = 0.0
                             else:
                                 confirmation = 0.0
+
+            # Role-conditioned aggregation is deliberately applied only after
+            # the validated IR is present.  Without an IR the legacy feature
+            # extractor remains the compatibility fallback.  The aggregates
+            # are monotone risk/support updates: they cannot erase a signal
+            # raised by the existing conservative heuristics.
+            role_scores = role_projection["role_aggregates"]
+            if "object" in role_scores:
+                entity_grounding = _clip(max(entity_grounding, role_scores["object"]["grounding"]))
+                object_uniqueness = _clip(max(object_uniqueness, role_scores["object"]["grounding"]))
+            if "destination" in role_scores and role_scores["destination"]["present_fields"]:
+                if side_effect_bool or _external_effect_tool(action.tool_name):
+                    external_destination = 1.0
+                    sink_externality = max(sink_externality, 1.0)
+            if "data" in role_scores and role_scores["data"]["present_fields"]:
+                data_values = " ".join(
+                    _text(action.arguments[field])
+                    for field in role_scores["data"]["present_fields"]
+                )
+                if SENSITIVE_PATTERNS.search(data_values):
+                    data_sensitivity = max(data_sensitivity, 1.0)
+                    sensitive = data_sensitivity
+            if "amount" in role_scores and role_scores["amount"]["present_fields"]:
+                amount_values = " ".join(
+                    _text(action.arguments[field])
+                    for field in role_scores["amount"]["present_fields"]
+                )
+                if re.search(r"\d", amount_values):
+                    financial = max(financial, 1.0)
+            if "time" in role_scores and role_scores["time"]["present_fields"]:
+                state_freshness = max(state_freshness, role_scores["time"]["grounding"])
+            if "scope" in role_scores and role_scores["scope"]["present_fields"]:
+                scope_precision = max(scope_precision, role_scores["scope"]["grounding"])
+                action_scope = max(action_scope, role_scores["scope"]["grounding"])
+            if "effect" in role_scores and role_scores["effect"]["present_fields"]:
+                effect_class = max(effect_class, 0.70 if side_effect_bool else 0.25)
+                write = max(write, side_effect)
         state_read_necessity = _state_read_necessity(
             action,
             evidence,
@@ -1138,7 +1237,6 @@ class ConfidenceLiftedEncoder:
             tool_match=tool_match,
             prerequisite=prerequisite,
         )
-        scope_precision = _scope_precision(action, read_only=read_only_bool)
         write_authorization = _write_authorization_strength(
             effectful=side_effect_bool or latent_write_bool or sink_externality > 0.0,
             trusted_intent_support=trusted_intent_support,
@@ -1232,4 +1330,14 @@ class ConfidenceLiftedEncoder:
             "write_authorization_strength": write_authorization,
             "scope_precision": scope_precision,
         }
-        return FeatureVector.from_mapping(values, names=self.feature_names)
+        vector = FeatureVector.from_mapping(values, names=self.feature_names)
+        role_projection["feature_bindings"] = {
+            "object": ("entity_grounding_confidence", "object_uniqueness"),
+            "destination": ("sink_externality", "external_destination_risk"),
+            "data": ("data_sensitivity", "privacy_egress"),
+            "amount": ("financial_risk",),
+            "time": ("state_freshness",),
+            "scope": ("scope_precision", "action_scope_match"),
+            "effect": ("effect_class", "write_risk", "irreversible_risk"),
+        }
+        return replace(vector, metadata={"role_projection": role_projection})
