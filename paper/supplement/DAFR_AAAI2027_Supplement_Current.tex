@@ -58,6 +58,8 @@ The second evaluation contains 204 ASB cases and uses DeepSeek V4 Flash. It repo
 \paragraph{Controlled comparison.}
 Each comparison fixes the task instances, registered tools, schemas, and planner. DAFR operates after concrete call generation and before trusted execution. The same mapper configuration, validated IR schema, parameterization and geometric decision procedure are used across all planners and evaluation environments; the mapper is frozen before end-to-end scoring.
 
+The independent mapper test split contains 13 policies over tools absent from the few-shot examples. DeepSeek V4 Flash yielded 8 candidates after deterministic field-role, IR, and compiler validation; all 8 matched the offline field-role and precondition labels. An independent Qwen verifier returned 	extsc{pass} for all 8. The current banking artifact then obtained 4/8 clean utility, 4/8 attack utility, and 0/8 attack success on a paired 8-clean/8-injection smoke run. These numbers quantify conservative semantic transfer and execution compatibility; they are not substituted for the full benchmark table.
+
 \paragraph{Metrics.}
 Clean and attack utility measure task completion in the corresponding benchmark settings. ASR is the benchmark-defined rate of adversarial objective success. Together, the metrics capture retained task progress and execution security.
 

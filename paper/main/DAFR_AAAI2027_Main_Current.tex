@@ -236,6 +236,8 @@ DAFR is placed at the execution boundary, after the planner proposes a concrete 
 \paragraph{Mapper and representation protocol.}
 The training-free mapper is evaluated before end-to-end execution on a disjoint held-out tool split. We report role accuracy, prerequisite recall, omitted-policy rate, unsafe relaxation rate, abstention, latency, and token cost. A mapping that fails structural validation is rejected and is not counted as successful transfer. For the geometry ablation, Boolean predicates, axis-aligned thresholds, weighted halfspaces, and joint-risk cones share the same validated IR, semantic features, evidence state, candidate actions, and repair candidates. The unrestricted predicate control is an implementation-equivalent decision check; therefore any difference in the accept/reject bit is treated as a bug. The comparison targets the restricted axis-threshold baseline, margin-based diagnostics, repair quality, and execution cost.
 
+As a frozen protocol check, the independent 13-case test split uses tool names absent from the few-shot examples. DeepSeek V4 Flash produced 8 candidates that passed the deterministic role/IR gate, and all 8 matched the field-role and precondition labels; candidates rejected by the gate are abstentions rather than successful mappings. An independent Qwen verifier accepted all 8 retained candidates. This result measures conservative transfer after validation, not raw LLM accuracy.
+
 \begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{From_Semantics_to_Execution_Dynamic_Geometric_Constraints_for_Tool-Action_Feasibility_Figure_2.pdf}
