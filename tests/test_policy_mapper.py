@@ -102,6 +102,19 @@ def test_role_semantics_reject_high_confidence_field_mismatch():
                                                   'visibility': 'audience scope'})
 
 
+def test_read_only_empty_grounding_is_vacuous_but_auth_is_not_removed():
+    import json
+    from clafr.policy_mapper import parse_mapper_response
+    ir = parse_mapper_response(json.dumps({'tool_name': 'get_iban', 'roles': {},
+        'preconditions': [{'type': 'trusted_grounding', 'fields': [], 'minimum': 1.0}]}),
+        'get_iban', [], effect_class='read_only')
+    assert ir.preconditions == ()
+    with pytest.raises(ConstraintIRValidationError):
+        parse_mapper_response(json.dumps({'tool_name': 'get_iban', 'roles': {},
+            'preconditions': [{'type': 'authorization', 'fields': [], 'minimum': 1.0}]}),
+            'get_iban', [], effect_class='read_only')
+
+
 @pytest.mark.parametrize('content', ['[]', 'null', '{"status":"pass"}', 'not json', '{"tool_name":"other"}', '{"tool_name":"lookup","roles":{"key":"ordinary"}}', '{"tool_name":"lookup","forbidden_effects":["delete"]}'])
 def test_mapper_rejects_invalid_or_unsupported_output(content):
     from clafr.policy_mapper import parse_mapper_response

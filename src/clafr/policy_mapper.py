@@ -127,7 +127,8 @@ def validate_role_semantics(ir: ConstraintIR, *, schema_fields: Sequence[str],
 
 
 def parse_mapper_response(content: str, tool_name: str, schema_fields: Sequence[str], *,
-                         field_descriptions: Mapping[str, str] | None = None) -> ConstraintIR:
+                         field_descriptions: Mapping[str, str] | None = None,
+                         effect_class: str | None = None) -> ConstraintIR:
     try:
         obj = json.loads(content)
         if not isinstance(obj, dict):
@@ -139,6 +140,15 @@ def parse_mapper_response(content: str, tool_name: str, schema_fields: Sequence[
         data = obj.get("ir", obj)
         if not isinstance(data, dict):
             raise ValueError("ir must be an object")
+        # A parameterless read-only observation has no affected field to ground.
+        # Remove only this vacuous grounding claim; authorization and confirmation
+        # are never normalized away.
+        if effect_class == "read_only" and isinstance(data.get("preconditions"), list):
+            data = dict(data)
+            data["preconditions"] = [
+                p for p in data["preconditions"]
+                if not (isinstance(p, dict) and p.get("type") == "trusted_grounding" and not p.get("fields"))
+            ]
         ir = ConstraintIR.from_dict(data)
         if ir.tool_name != tool_name:
             raise ValueError("tool mismatch")
@@ -227,7 +237,8 @@ class OpenAICompatiblePolicyMapper:
             payload = json.loads(response.read().decode("utf-8"))
         content = payload["choices"][0]["message"]["content"]
         return parse_mapper_response(content, tool_name, schema_fields,
-                                     field_descriptions=field_descriptions)
+                                     field_descriptions=field_descriptions,
+                                     effect_class=effect_class)
 
 
 @dataclass(slots=True)
