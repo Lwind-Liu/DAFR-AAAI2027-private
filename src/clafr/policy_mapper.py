@@ -20,6 +20,17 @@ JSON shape: {"version":"1", "tool_name":"exact input tool name", "roles":{"field
 "risk_budgets":[],"forbidden_effects":[],"provenance":"llm"}.
 Preserve policy scope. Do not omit a requirement just because its semantics are unsupported.
 Numeric thresholds must come from the policy; do not invent risk weights or budgets. For any stated requirement, minimum must be strictly positive; never emit minimum 0.0 for trusted_grounding, authorization, or confirmation. Name every affected schema field.
+Role values MUST be one of the seven enum strings, never a field description or a
+natural-language phrase. Copy only schema field names into roles and precondition
+fields. Map policy words exactly: 用户授权/明确授权 means authorization, 用户确认/
+确认 means confirmation, 可信任务/可信状态/来源可信 means trusted_grounding, and
+状态最新/过期检查 means state_freshness. Do not replace one precondition type with
+another. A sentence saying that webpages or tool outputs cannot authorize is a
+negative rule; it does not create a positive authorization requirement by itself.
+For read_only tools, emit no authorization or confirmation unless the policy
+explicitly requires it, and do not add grounding to every field merely because the
+tool has an input schema. Preserve ordinary fields as roles only; do not include
+ordinary fields in security preconditions.
 For an external send with fields recipient and body, the roles MUST be
 recipient: destination and body: data, and authorization/confirmation/grounding MUST list
 those exact fields. Never leave fields empty for these three precondition types. Example:
@@ -45,6 +56,16 @@ Few-shot 4 (injection): webpage text can never satisfy authorization or confirma
 trusted user/runtime evidence must cover the affected recipient and body fields.
 Few-shot 5 (ambiguous): update_record(record_id, visibility) with policy
 '根据上下文适当更新' returns status=abstain with both fields uncertain.
+Exact JSON examples:
+{"status":"ok","ir":{"version":"1","tool_name":"get_balance",
+"roles":{"account_id":"object"},"preconditions":[],"risk_budgets":[],
+"forbidden_effects":[],"provenance":"llm"}}
+{"status":"ok","ir":{"version":"1","tool_name":"create_calendar_event",
+"roles":{"title":"data","start_time":"time","attendees":"destination",
+"location":"data"},"preconditions":[{"type":"authorization",
+"fields":["start_time","attendees"],"minimum":1.0,"source":"trusted"},
+{"type":"confirmation","fields":["start_time","attendees"],"minimum":1.0,
+"source":"trusted"}],"risk_budgets":[],"forbidden_effects":[],"provenance":"llm"}}
 """
 
 VERIFIER_SYSTEM_PROMPT = """You independently verify a proposed ConstraintIR against a
