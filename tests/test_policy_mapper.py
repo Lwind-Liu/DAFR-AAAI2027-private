@@ -115,6 +115,28 @@ def test_role_semantics_uses_word_boundaries_and_scope_hints():
     assert ir.roles['priority'] == 'scope'
 
 
+def test_role_semantics_covers_cross_schema_scope_and_external_account_hints():
+    import json
+    from clafr.policy_mapper import parse_mapper_response
+    payload = {'tool_name': 'send_credit',
+               'roles': {'counterparty_ref': 'destination',
+                         'include_private': 'data',
+                         'zone_context': 'scope'},
+               'preconditions': []}
+    ir = parse_mapper_response(
+        json.dumps(payload), 'send_credit',
+        ['counterparty_ref', 'include_private', 'zone_context'],
+        field_descriptions={
+            'counterparty_ref': 'external receiving account',
+            'include_private': 'scope flag controlling returned details',
+            'zone_context': 'time zone context',
+        },
+    )
+    assert ir.roles == {'counterparty_ref': 'destination',
+                        'include_private': 'scope',
+                        'zone_context': 'scope'}
+
+
 def test_read_only_empty_grounding_is_vacuous_but_auth_is_not_removed():
     import json
     from clafr.policy_mapper import parse_mapper_response

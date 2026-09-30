@@ -167,3 +167,11 @@ A four-tool smoke pilot with Qwen-Max produced structurally valid, backend-compi
 6. AgentDojo 扩展到足够任务数和多 seed 后，clean utility、attack success、abstention 和成本一起报告。
 
 若第 2 或第 5 条不满足，论文仍可投，但应把故事收缩为“统一语义约束编译和审计接口”，不能声称 LLM mapper 或 geometry 已经全面优于规则和 predicate。当前 5/8 clean、4/8 attack utility、0/8 attack success 只作为 smoke evidence，不能作为最终主表。
+
+## P1--P4 第一轮实际结果（2026-09-30）
+
+P1 的 v12 冻结测试包含 24 个未见工具 schema，其中 22 个非歧义、2 个含糊策略。Qwen-Max 与 schema-aware rules 共用相同 public input、`ConstraintIR` validator、canonicalizer、compiler 和 scorer。Qwen-Max 达到 `21/22` 非歧义 semantic exact、`2/2` 正确 abstain、`1` under-constrained 和 `1` over-constrained；规则 mapper 为 `1/22` exact、`2/2` abstain、`11` under-constrained 和 `5` over-constrained。Qwen-Max 的平均 API 延迟为 5.31 秒；规则 mapper 是本地确定性执行，延迟不做直接横向比较。该结果支持“跨 schema/paraphrase 的语义覆盖优势”，但不是端到端 ASR 证明；唯一 Qwen 错误保留在分母中。
+
+P3/P4 的 matched runtime benchmark 固定同一个 feature vector、constraint object、encoder、compiler、候选动作和 effect verifier。512 个四维联合风险 case 中，Axis-ifelse 放行 `512/512`，其中 `25/512` 是联合预算违规的 false allow；Geometry 和 Equivalent-predicate 都放行 `487/512`，两者决策分歧为 `0/512`。256 个动作级 dry-run case 中，192 个具有可安全删除的不可信 optional destination，64 个 destination 必须保留并应阻断；Geometry 和 Predicate+oracle 都成功恢复 `192/256`，bool-only predicate 为 `0/256`，64 个不可修复 case 均保持阻断，外部副作用为 0。由此可写的归因是：几何区域揭示了朴素逐维分支漏掉的联合风险；修复效用来自可审计的 certificate/margin/provenance/repair 接口，而非几何对任意算术 predicate 的表达能力优势。
+
+这些结果已经写入 `docs/experiments/NAACL_mapper_v12_cross_schema_ZH.md` 和 `docs/experiments/NAACL_geometry_repair_benchmark_v1_ZH.md`。正式主表仍需把 v12 mapper 与更大规模 AgentDojo fresh-seed paired rollouts 对齐，避免用合成 runtime 结果替代任务级安全和效用证据。

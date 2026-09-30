@@ -1,0 +1,33 @@
+{
+  "protocol": {
+    "heldout": "v12",
+    "cases": 24,
+    "nonambiguous": 22,
+    "ambiguous": 2,
+    "gold_withheld": true,
+    "shared_ir_compiler": true
+  },
+  "qwen_max": {
+    "cases": 24,
+    "nonambiguous": 22,
+    "compile_n": 22,
+    "nonambiguous_exact_n": 21,
+    "ambiguous_n": 2,
+    "ambiguous_abstain_n": 2,
+    "underconstrained_n": 1,
+    "overconstrained_n": 1,
+    "mean_latency_sec": 5.305958333333334
+  },
+  "schema_rule_v1": {
+    "cases": 24,
+    "nonambiguous": 22,
+    "compile_n": 14,
+    "nonambiguous_exact_n": 1,
+    "ambiguous_n": 2,
+    "ambiguous_abstain_n": 2,
+    "underconstrained_n": 11,
+    "overconstrained_n": 5,
+    "mean_latency_sec": 0.0
+  },
+  "interpretation": "Qwen-Max and schema-aware rules use the same public inputs, ConstraintIR validator, compiler, canonicalized scorer and tool split. This is mapper semantic evidence, not an end-to-end ASR claim."
+}

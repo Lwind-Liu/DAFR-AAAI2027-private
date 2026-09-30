@@ -25,6 +25,17 @@ a request is prioritized. Use destination for an external recipient, assignee,
 payee, endpoint, or address that receives an effect. Use data for contents being
 transmitted or stored. Read the trusted description; do not infer destination
 from the noun audience alone.
+Paraphrases preserve the policy type: explicit approval, permission, sign-off,
+authorization, 批准, 核准, 允许, and 明确允许 mean authorization; confirm,
+confirmation, go-ahead, acknowledgement, 点头, and 确认 mean confirmation.
+Do not emit both types for one phrase unless the policy states both.  "trusted
+state", "trusted source", "grounded in trusted state", and "来自可信任务状态"
+mean trusted_grounding when they identify affected fields.  A scope flag,
+visibility flag, include_* selector, detail scope, or delivery/format setting is
+scope unless its description explicitly identifies an external recipient.
+When a later clause says "the same fields", "both fields", or "the two fields",
+resolve it to the immediately preceding explicitly enumerated affected fields;
+never replace that set with an object identifier mentioned only for grounding.
 Before emitting JSON, check every role against its trusted description: identifiers
 (`*_id`) are object; policy settings such as retention, delivery mode, access
 level, visibility, audience, format, severity/importance, and timezone context are scope; an instant such as start_time is time;
@@ -77,6 +88,11 @@ urgency level, and assignee to destination. publish_document(document_id,
 audience, content) maps audience to scope when it controls visibility and
 content to data; audience is destination only when the description explicitly
 says it is an external recipient.
+Few-shot 7 (authorization versus confirmation): "用户核准 recipient 后发送"
+means authorization on recipient only; it does not create confirmation.
+"用户确认 recipient 后发送" means confirmation on recipient only.
+"用户授权并确认 recipient" emits both. English "approve", "permission", and
+"sign off" follow authorization; "confirm" and "go-ahead" follow confirmation.
 Exact JSON examples:
 {"status":"ok","ir":{"version":"1","tool_name":"get_balance",
 "roles":{"account_id":"object"},"preconditions":[],"risk_budgets":[],
@@ -133,10 +149,10 @@ def validate_role_semantics(ir: ConstraintIR, *, schema_fields: Sequence[str],
     hints.update({f: (hints.get(f, "") + " " + f.lower()).strip() for f in schema_fields})
     expected = {
         "object": ("_id", " id", "identifier", "record", "resource", "account", "path", "origin"),
-        "destination": ("recipient", "destination", "attendee", "payee", "endpoint"),
+        "destination": ("recipient", "destination", "attendee", "payee", "endpoint", "beneficiary", "mailbox", "receiving account"),
         "amount": ("amount", "passenger", "quantity"),
         "time": ("date", "time", "timestamp"),
-        "scope": ("visibility", "scope", "permission", "include_sensitive", "audience", "priority", "urgency", "retention", "delivery_mode", "setting", "format", "timezone"),
+        "scope": ("visibility", "scope", "permission", "scope flag", "detail scope", "visibility flag", "include_sensitive", "audience", "priority", "urgency", "retention", "delivery_mode", "setting", "format", "timezone", "time zone"),
         "data": ("body", "content", "comment", "memo", "subject", "reason", "payload", "text", "details", "summary", "note", "message"),
     }
     def contains_hint(text: str, word: str) -> bool:
@@ -168,9 +184,9 @@ def canonicalize_role_semantics(ir: ConstraintIR, *, schema_fields: Sequence[str
         # Resolve known collisions from descriptions before generic matching.
         if re.search(r"(^|[_ -])timezone($|[_ -])|time zone context|time zone setting", text):
             candidates = {"scope"}
-        elif re.search(r"external .*?(recipient|endpoint)|publication endpoint|assigned (operator|support)|external recipient", text):
+        elif re.search(r"external .*?(recipient|endpoint|account|mailbox|payee|beneficiary)|publication endpoint|assigned (operator|support)|external recipient", text):
             candidates = {"destination"}
-        elif re.search(r"urgency|priority|visibility|audience|severity|importance|access (level|setting)|permission|retention policy|delivery .*setting|policy setting|file format", text):
+        elif re.search(r"scope flag|detail scope|visibility flag|include_(?:private|sensitive|metadata|line_items|phone)|urgency|priority|visibility|audience|severity|importance|access (level|setting)|permission|retention policy|delivery .*setting|policy setting|file format", text):
             candidates = {"scope"}
         elif re.search(r"event instant|start[_ -]?at|start[_ -]?time|remind[_ -]?at|timestamp", text):
             candidates = {"time"}
