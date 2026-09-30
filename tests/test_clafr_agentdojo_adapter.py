@@ -237,6 +237,20 @@ def test_agentdojo_runtime_identity_adapter_is_not_part_of_projection_ablation()
     assert executor.enable_geometry_conditioned_observation is True
 
 
+def test_agentdojo_mapper_roles_only_mode_keeps_legacy_hard_envelope(monkeypatch) -> None:
+    from agentdojo.agent_pipeline.clafr_defense import CLAFRToolsExecutor
+
+    monkeypatch.setenv("CLAFR_MAPPER_EXECUTION_MODE", "roles_only")
+    executor = CLAFRToolsExecutor()
+
+    # The mode is an explicit execution protocol switch.  Artifact presence,
+    # role validation, and the legacy PolicyCompiler remain active; only IR
+    # preconditions and risk budgets are omitted from the duplicate hard
+    # compiler facets when an artifact is loaded.
+    assert executor._mapper_execution_mode == "roles_only"
+    assert executor._base_compiler.enable_schema_verifier is True
+
+
 def test_agentdojo_clafr_dynamic_geometry_ablation_removes_region_facets() -> None:
     from agentdojo.agent_pipeline.clafr_defense import CLAFRToolsExecutor
 

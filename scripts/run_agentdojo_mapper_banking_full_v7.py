@@ -41,7 +41,12 @@ def _read_platform_env(path: Path) -> dict[str, str]:
     return values
 
 
-def _configured_env(platform_env: Path, *, mapper_artifact: Path | None) -> dict[str, str]:
+def _configured_env(
+    platform_env: Path,
+    *,
+    mapper_artifact: Path | None,
+    mapper_execution_mode: str = "strict",
+) -> dict[str, str]:
     cfg = _read_platform_env(platform_env)
     required = ("API_BASE_URL", "ACCESS_KEY", "APP_NAME", "QUOTA_ID", "USER_ID")
     missing = [key for key in required if not cfg.get(key)]
@@ -83,8 +88,10 @@ def _configured_env(platform_env: Path, *, mapper_artifact: Path | None) -> dict
     )
     if mapper_artifact is not None:
         env["CLAFR_MAPPER_ARTIFACT"] = str(mapper_artifact)
+        env["CLAFR_MAPPER_EXECUTION_MODE"] = mapper_execution_mode
     else:
         env.pop("CLAFR_MAPPER_ARTIFACT", None)
+        env.pop("CLAFR_MAPPER_EXECUTION_MODE", None)
     return env
 
 
@@ -198,6 +205,12 @@ def main() -> int:
         action="store_true",
         help="只用于公平同 planner/runtime 对照：不加载语义映射 artifact。",
     )
+    parser.add_argument(
+        "--mapper-execution-mode",
+        choices=("strict", "roles_only"),
+        default="strict",
+        help="strict 编译 IR 前置条件；roles_only 仅注入已验证 roles，保留 legacy runtime 硬约束。",
+    )
     args = parser.parse_args()
     # Keep the venv launcher path intact. Resolving its symlink to the shared
     # interpreter would drop the venv site-packages (notably ``click``).
@@ -209,7 +222,11 @@ def main() -> int:
         raise RuntimeError(f"missing mapper artifact: {MAPPER}")
     out_root = args.out_root.resolve()
     out_root.mkdir(parents=True, exist_ok=True)
-    env = _configured_env(args.platform_env, mapper_artifact=None if args.disable_mapper else MAPPER)
+    env = _configured_env(
+        args.platform_env,
+        mapper_artifact=None if args.disable_mapper else MAPPER,
+        mapper_execution_mode=args.mapper_execution_mode,
+    )
     protocol = {
         "schema": "agentdojo-mapper-banking-full-v7-v1",
         "suite": SUITE,
@@ -218,6 +235,7 @@ def main() -> int:
         "model": "qwen-max",
         "defense": "clafr",
         "mapper_artifact": None if args.disable_mapper else str(MAPPER.resolve()),
+        "mapper_execution_mode": None if args.disable_mapper else args.mapper_execution_mode,
         "clean_user_tasks": [f"user_task_{i}" for i in range(16)],
         "attack_user_tasks": [f"user_task_{i}" for i in range(16)],
         "injection_tasks": [f"injection_task_{i}" for i in range(9)],

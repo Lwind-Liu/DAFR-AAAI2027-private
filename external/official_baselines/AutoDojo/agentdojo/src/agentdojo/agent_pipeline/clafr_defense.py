@@ -5,6 +5,7 @@ import os
 import re
 import sys
 from ast import literal_eval
+from dataclasses import replace
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
@@ -30,7 +31,7 @@ _add_method_paths()
 
 from clafr import ConfidenceLiftedActionSelector, PolicyCompiler, RuntimeEvidence, ToolAction, project_action_format
 from clafr.ir_compiler import IRPolicyCompiler
-from clafr.policy_ir import ConstraintIR  # noqa: E402
+from clafr.policy_ir import ConstraintIR, validate_constraint_ir  # noqa: E402
 from geoconstraints.observation_constraint_projection import (  # noqa: E402
     DEFAULT_OBSERVATION_CONSTRAINT_PROJECTOR,
     OBSERVATION_CONSTRAINT_PROJECTION_VERSION,
@@ -560,14 +561,25 @@ class CLAFRToolsExecutor(BasePipelineElement):
         self._base_compiler = compiler
         self.selector = ConfidenceLiftedActionSelector(compiler=compiler)
         self._mapper_irs: dict[str, ConstraintIR | None] = {}
+        self._mapper_fields: dict[str, tuple[str, ...]] = {}
+        mapper_execution_mode = os.environ.get("CLAFR_MAPPER_EXECUTION_MODE", "strict").strip().lower()
+        if mapper_execution_mode not in {"strict", "roles_only"}:
+            raise ValueError(
+                "CLAFR_MAPPER_EXECUTION_MODE must be 'strict' or 'roles_only'"
+            )
+        self._mapper_execution_mode = mapper_execution_mode
         artifact_path = os.environ.get("CLAFR_MAPPER_ARTIFACT")
         if artifact_path:
             for line in Path(artifact_path).read_text(encoding="utf-8").splitlines():
                 record = json.loads(line)
+                tool_name = str(record["tool_name"])
+                self._mapper_fields[tool_name] = tuple(
+                    str(field) for field in record.get("fields", ())
+                )
                 if record.get("status") == "allow_to_compile" and record.get("ir"):
-                    self._mapper_irs[str(record["tool_name"])] = ConstraintIR.from_dict(record["ir"])
+                    self._mapper_irs[tool_name] = ConstraintIR.from_dict(record["ir"])
                 else:
-                    self._mapper_irs[str(record["tool_name"])] = None
+                    self._mapper_irs[tool_name] = None
         self._mapper_artifact_enabled = bool(artifact_path)
         self._opaque_state_bindings: dict[str, str] = {}
         self._untrusted_provenance_blocks: list[str] = []
@@ -627,7 +639,43 @@ class CLAFRToolsExecutor(BasePipelineElement):
                 if tool_name not in self._mapper_irs or mapper_ir is None:
                     tool_call_results.append(ChatToolResultMessage(role="tool", content=[text_content_block_from_string("clafr_mapper_abstain")], tool_call_id=tool_call.id, tool_call=tool_call, error="clafr_mapper_abstain"))
                     continue
-                self.selector.compiler = IRPolicyCompiler(mapper_ir, schema_fields=tuple(args.keys()) or evidence.tool_schema.get(tool_name, ()), baseline=self._base_compiler)
+                # Validate the frozen mapper IR against the complete tool
+                # schema.  A call normally contains only a subset of optional
+                # arguments, so using ``args.keys()`` here incorrectly rejects
+                # valid role mappings (for example ``recipient`` and
+                # ``recurring`` when the current call only supplies ``id``).
+                # The action evaluator still checks the concrete call's
+                # supplied arguments downstream; this validation only checks
+                # that the mapper artifact is compatible with the tool.
+                evidence_fields = tuple(evidence.tool_schema.get(tool_name, ()) or ())
+                artifact_fields = self._mapper_fields.get(tool_name, ())
+                call_fields = tuple(args.keys())
+                schema_fields = tuple(dict.fromkeys((*artifact_fields, *evidence_fields, *call_fields)))
+                # Always validate the mapper artifact itself.  In roles_only
+                # mode only validated role semantics are injected into the
+                # encoder; the legacy deterministic compiler remains the hard
+                # execution envelope and mapper preconditions/budgets do not
+                # become duplicate hard facets.
+                validate_constraint_ir(
+                    mapper_ir,
+                    schema_fields=schema_fields or tuple(mapper_ir.roles.keys()),
+                )
+                execution_ir = mapper_ir
+                if self._mapper_execution_mode == "roles_only":
+                    if mapper_ir.forbidden_effects:
+                        tool_call_results.append(ChatToolResultMessage(role="tool", content=[text_content_block_from_string("clafr_mapper_abstain")], tool_call_id=tool_call.id, tool_call=tool_call, error="clafr_mapper_abstain"))
+                        continue
+                    execution_ir = replace(
+                        mapper_ir,
+                        preconditions=(),
+                        risk_budgets=(),
+                        provenance=f"{mapper_ir.provenance}:roles_only",
+                    )
+                self.selector.compiler = IRPolicyCompiler(
+                    execution_ir,
+                    schema_fields=schema_fields or tuple(mapper_ir.roles.keys()),
+                    baseline=self._base_compiler,
+                )
             if self.enable_action_evidence_lifting:
                 selection = self.selector.select([selected_input_action], evidence)
                 _record_clafr_certificate(selection, selected_input_action)
