@@ -35,6 +35,7 @@ __all__ = [
 ]
 from .policy_ir import ConstraintIR, ConstraintIRValidationError, Precondition, RiskBudget, validate_constraint_ir
 from .policy_mapper import (
+    canonicalize_role_semantics,
     OpenAICompatiblePolicyMapper,
     OpenAICompatiblePolicyVerifier,
     StaticPolicyMapper,
@@ -49,5 +50,6 @@ __all__ += [
     "RiskBudget",
     "StaticPolicyMapper",
     "build_mapper_system_prompt",
+    "canonicalize_role_semantics",
     "validate_constraint_ir",
 ]

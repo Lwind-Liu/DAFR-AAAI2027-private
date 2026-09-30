@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 import os
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from typing import Any, Mapping, Protocol, Sequence
 from urllib.request import Request, urlopen
 
@@ -27,7 +27,7 @@ transmitted or stored. Read the trusted description; do not infer destination
 from the noun audience alone.
 Before emitting JSON, check every role against its trusted description: identifiers
 (`*_id`) are object; policy settings such as retention, delivery mode, access
-level, visibility, audience, format, and timezone context are scope; an instant such as start_time is time;
+level, visibility, audience, format, severity/importance, and timezone context are scope; an instant such as start_time is time;
 an external recipient or assignee is destination; textual payloads are data.
 Preserve policy scope. Do not omit a requirement just because its semantics are unsupported.
 Numeric thresholds must come from the policy; do not invent risk weights or budgets. For any stated requirement, minimum must be strictly positive; never emit minimum 0.0 for trusted_grounding, authorization, or confirmation. Name every affected schema field.
@@ -133,7 +133,7 @@ def validate_role_semantics(ir: ConstraintIR, *, schema_fields: Sequence[str],
         "amount": ("amount", "passenger", "quantity"),
         "time": ("date", "time", "timestamp"),
         "scope": ("visibility", "scope", "permission", "include_sensitive", "audience", "priority", "urgency", "retention", "delivery_mode", "setting", "format", "timezone"),
-        "data": ("body", "content", "comment", "memo", "subject", "reason", "payload"),
+        "data": ("body", "content", "comment", "memo", "subject", "reason", "payload", "text", "details", "summary", "note", "message"),
     }
     def contains_hint(text: str, word: str) -> bool:
         # Avoid substring collisions such as ``update`` -> ``date`` and
@@ -147,6 +147,38 @@ def validate_role_semantics(ir: ConstraintIR, *, schema_fields: Sequence[str],
         if len(matches) == 1 and role not in matches:
             raise ConstraintIRValidationError(f"role {field}={role} conflicts with schema semantics {next(iter(matches))}")
     return ir
+
+
+def canonicalize_role_semantics(ir: ConstraintIR, *, schema_fields: Sequence[str],
+                                field_descriptions: Mapping[str, str] | None = None) -> ConstraintIR:
+    """Correct only high-confidence LLM role slips using trusted descriptions.
+
+    This is a deterministic encoder guard, not a second policy author: it never
+    invents a role for an ambiguous field and leaves uncertain mappings for the
+    verifier/abstention path.  The original LLM provenance remains in the IR.
+    """
+    descriptions = {str(k): str(v) for k, v in (field_descriptions or {}).items()}
+    roles = dict(ir.roles)
+    for field, role in list(roles.items()):
+        text = f"{field} {descriptions.get(field, '')}".lower()
+        # Resolve known collisions from descriptions before generic matching.
+        if re.search(r"(^|[_ -])timezone($|[_ -])|time zone context|time zone setting", text):
+            candidates = {"scope"}
+        elif re.search(r"external .*?(recipient|endpoint)|publication endpoint|assigned (operator|support)|external recipient", text):
+            candidates = {"destination"}
+        elif re.search(r"urgency|priority|visibility|audience|severity|importance|access (level|setting)|permission|retention policy|delivery .*setting|policy setting|file format", text):
+            candidates = {"scope"}
+        elif re.search(r"event instant|start[_ -]?at|start[_ -]?time|remind[_ -]?at|timestamp", text):
+            candidates = {"time"}
+        elif re.search(r"(^|[_ -])(?:[a-z]+_)?id($|[_ -])|identifier|existing (?:record|resource|account|project|workspace|profile|dataset|document|invoice|case|member)", text):
+            candidates = {"object"}
+        elif re.search(r"body|content|comment|memo|subject|reason|payload|text|details|summary|note|message", text):
+            candidates = {"data"}
+        else:
+            candidates = set()
+        if len(candidates) == 1 and role != next(iter(candidates)):
+            roles[field] = next(iter(candidates))
+    return replace(ir, roles=roles)
 
 
 def parse_mapper_response(content: str, tool_name: str, schema_fields: Sequence[str], *,
@@ -176,6 +208,8 @@ def parse_mapper_response(content: str, tool_name: str, schema_fields: Sequence[
         if ir.tool_name != tool_name:
             raise ValueError("tool mismatch")
         validate_constraint_ir(ir, schema_fields=schema_fields)
+        ir = canonicalize_role_semantics(ir, schema_fields=schema_fields,
+                                         field_descriptions=field_descriptions)
         validate_role_semantics(ir, schema_fields=schema_fields, field_descriptions=field_descriptions)
         from .ir_compiler import IRPolicyCompiler
         IRPolicyCompiler(ir, schema_fields=schema_fields).compile()
