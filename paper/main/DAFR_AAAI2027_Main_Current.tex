@@ -104,6 +104,8 @@ For each tool $f$, a role map
 \end{equation}
 maps tool-specific fields to execution roles in $\mathcal U$, including destination, object, data, amount, time, and effect. In the training-free setting, $B_f$ is supplied by the validated mapper output rather than a hand-written per-tool table. Recipients, payment accounts, and sharing targets map to the destination role; records, files, messages, and transaction details map to data or object roles; and reads, writes, disclosures, transfers, and deletions map to effect roles. The original field and value are retained so that feedback can name the exact argument that requires revision.
 
+The encoder consumes the validated role map before applying legacy name heuristics. In particular, a mapped destination such as an owner or assignee contributes to external-sink risk even when its field name does not contain recipient-like tokens; this keeps semantic transfer and feature extraction on the same typed interface.
+
 The evidence used by these relations is maintained in the execution state. After an admitted call returns $o_{t+1}$, an evidence projection operator converts it into source-tagged factual and risk records:
 \begin{equation}
  P(o_{t+1})=\left(S_{t+1}^{+},R_{t+1}^{+}\right),
