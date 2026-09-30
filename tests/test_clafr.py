@@ -3,6 +3,7 @@ from __future__ import annotations
 from clafr import (
     ConfidenceLiftedActionSelector,
     ConfidenceLiftedEncoder,
+    ConstraintIR,
     FeatureVector,
     RiskBudgetCone,
     RuntimeEvidence,
@@ -710,6 +711,22 @@ def test_numeric_side_effect_value_can_be_derived_from_trusted_evidence() -> Non
     vector = ConfidenceLiftedEncoder().encode(action, evidence)
 
     assert vector.get("critical_argument_grounding") >= 0.8
+
+
+def test_encoder_uses_validated_destination_role_for_nonstandard_field_name() -> None:
+    evidence = RuntimeEvidence(
+        trusted_task="Create a support ticket for the approved operator.",
+        trusted_state=("The approved operator is Alice.",),
+        tool_schema={"open_ticket": ("details", "owner")},
+        tool_descriptions={"open_ticket": "Create an external support ticket."},
+    )
+    action = ToolAction(id="mapped_owner", tool_name="open_ticket",
+                        arguments={"details": "Issue", "owner": "Alice"})
+    ir = ConstraintIR.from_dict({"tool_name": "open_ticket",
+        "roles": {"details": "data", "owner": "destination"},
+        "preconditions": []})
+    vector = ConfidenceLiftedEncoder().encode(action, evidence, constraint_ir=ir)
+    assert vector.get("external_destination_risk") == 1.0
 
 
 def test_untrusted_numeric_value_is_not_rescued_by_arithmetic_coincidence() -> None:

@@ -1023,6 +1023,18 @@ class ConfidenceLiftedEncoder:
         # encoder remains the fallback when no IR is supplied.
         if constraint_ir is not None:
             from .policy_ir import Precondition
+            # Prefer validated mapper roles over name heuristics for fields such
+            # as ``owner`` or ``assignee`` that encode an external sink without
+            # containing the legacy destination keywords.
+            mapped_destination_fields = [
+                field for field, role in constraint_ir.roles.items()
+                if role == "destination"
+            ]
+            if mapped_destination_fields and any(
+                field in action.arguments and action.arguments[field] not in (None, "")
+                for field in mapped_destination_fields
+            ):
+                external_destination = 1.0 if side_effect_bool else external_destination
             for precondition in constraint_ir.preconditions:
                 if precondition.type == "trusted_grounding" and precondition.fields:
                     field_scores = critical_field_grounding(action, evidence)
