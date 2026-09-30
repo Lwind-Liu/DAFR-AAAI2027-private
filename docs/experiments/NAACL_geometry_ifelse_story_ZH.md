@@ -48,3 +48,16 @@
 ## 2026-09-30 实现审计更正
 
 当前 clafr 的 repair 是删除缺乏支持的可选字段，不是最近可行工具动作求解器。SOC 的 normalized_slack 是缩放残差，不能当作精确欧氏距离。predicate 也可以共用约束对象输出 margin、失败规则和来源，不能声称它必然需要复制维护逻辑。上述投影、维护优势属于待验证设计假设。
+
+## 同一 clafr runtime 的 v2 pilot
+
+`run_geometry_predicate_execution_pilot.py` 在同一 encoder/compiler/candidate/evidence 上运行 64 个决策 case，并增加 16 个可执行删除可选字段的 repair case：
+
+- geometry/predicate decision disagreement：0/64；
+- geometry allow：32/64，predicate allow：32/64；
+- 平均耗时：geometry 0.292 ms，predicate 0.290 ms；
+- 两者共用 repair 实现时，repair success 都是 16/16；
+- bool-only predicate 没有诊断和 repair 接口，因此对应为 0/16，但这只是接口比较，不是表达能力比较；
+- 外部副作用：0。
+
+这组结果支持的故事是：几何可作为统一的 margin/violated-constraint/certificate 接口，且能与执行修复直接连接。它不支持“几何比等价 predicate 更安全”或“几何天然更快”。如果 predicate 也实现同样的诊断和 repair oracle，预期结果应当相同。
