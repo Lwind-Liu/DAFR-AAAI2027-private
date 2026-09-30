@@ -32,8 +32,8 @@
       "ci95_high": 0.07108702959678084
     },
     "geometry_predicate_disagreements": 0,
-    "geometry_mean_latency_ms": 0.00822296686919799,
-    "predicate_mean_latency_ms": 0.0027330193574925943,
+    "geometry_mean_latency_ms": 0.004765039193443954,
+    "predicate_mean_latency_ms": 0.001411406174156582,
     "scope": "same FeatureVector and RiskBudgetCone; no external side effects"
   },
   "action_repair": {
@@ -68,6 +68,20 @@
       "ci95_low": 0.6935238434514225,
       "ci95_high": 0.7990839606877146
     },
+    "geometry_candidate_set_safe_selection": {
+      "successes": 192,
+      "total": 256,
+      "rate": 0.75,
+      "ci95_low": 0.6935238434514225,
+      "ci95_high": 0.7990839606877146
+    },
+    "predicate_candidate_set_safe_selection": {
+      "successes": 192,
+      "total": 256,
+      "rate": 0.75,
+      "ci95_low": 0.6935238434514225,
+      "ci95_high": 0.7990839606877146
+    },
     "bool_only_predicate_repair_success": {
       "successes": 0,
       "total": 256,
@@ -83,10 +97,10 @@
       "ci95_high": 0.014784391721725852
     },
     "geometry_predicate_block_disagreements": 0,
-    "geometry_mean_latency_ms": 0.7752251059400805,
-    "predicate_mean_latency_ms": 0.7616148665192668,
-    "geometry_repair_mean_latency_ms": 0.5392900459355587,
-    "predicate_oracle_repair_mean_latency_ms": 0.5778412783001841,
+    "geometry_mean_latency_ms": 0.6619109582288729,
+    "predicate_mean_latency_ms": 0.6687345157843083,
+    "geometry_repair_mean_latency_ms": 0.4865374135079037,
+    "predicate_oracle_repair_mean_latency_ms": 0.5042081426154255,
     "unsafe_external_side_effects": 0,
     "scope": "same clafr encoder/compiler/action candidate; in-process only; no external side effects"
   },
