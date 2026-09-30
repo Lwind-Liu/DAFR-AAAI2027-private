@@ -1,0 +1,44 @@
+{
+  "schema": "renamed-schema-runtime-benchmark-v1",
+  "schemas": [
+    [
+      "resource_key",
+      "blob"
+    ],
+    [
+      "entity_ref",
+      "data_blob"
+    ],
+    [
+      "record_key",
+      "packet"
+    ],
+    [
+      "opaque_object",
+      "details"
+    ],
+    [
+      "subject_handle",
+      "payload_bytes"
+    ],
+    [
+      "case_locator",
+      "content_block"
+    ],
+    [
+      "item_ref",
+      "state_blob"
+    ],
+    [
+      "object_token",
+      "opaque_data"
+    ]
+  ],
+  "legacy": "ConfidenceLiftedActionSelector(PolicyCompiler()).select(action,evidence)",
+  "mapper_encoder": "ConfidenceLiftedActionSelector(IRPolicyCompiler(ConstraintIR, baseline=PolicyCompiler())).select(action,evidence)",
+  "oracle": "clean approved object => ALLOW; renamed ungrounded object => BLOCK_OR_CLARIFY",
+  "precondition": "trusted_grounding on the mapped object field, minimum=0.55",
+  "paired_input": "Each row invokes both arms with the same serialized ToolAction and RuntimeEvidence.",
+  "external_execution": false,
+  "api_calls": false
+}
