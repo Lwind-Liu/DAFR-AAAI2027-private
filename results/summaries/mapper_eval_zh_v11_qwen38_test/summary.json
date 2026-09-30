@@ -1,0 +1,17 @@
+{
+  "model": "qwen3.8-max",
+  "split": "v11",
+  "cases": 6,
+  "raw_ok": 5,
+  "raw_exact_non_abstained": "5/5",
+  "canonical_exact_non_abstained": "5/5",
+  "expected_abstain": "1/1",
+  "average_latency_sec_all_cases": 31.1868,
+  "total_tokens_all_cases": 15772,
+  "comparison": {
+    "deepseek-v4-flash_raw_exact_non_abstained": "5/5",
+    "deepseek-v4-flash_average_latency_sec_all_cases": 8.8608,
+    "deepseek-v4-flash_total_tokens_all_cases": 11386
+  },
+  "protocol": "same v11 held-out tools, prompt, compiler and scoring as DeepSeek comparison"
+}
