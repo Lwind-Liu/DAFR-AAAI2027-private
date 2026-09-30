@@ -19,7 +19,7 @@
 
 \begin{document}
 \maketitle
-\noindent\textbf{Working revision:} The retained full AgentDojo and ASB tables are results of the original deterministic DAFR configuration, not the LLM-mapped extension. The mapper and matched geometry studies are reported as separate, frozen evidence because they answer semantic-transfer and execution-interface questions. The Banking mapper table is a frozen protocol snapshot; the later role-conditioned encoder audit is reported separately after the representation interface was extended.
+\noindent\textbf{Working revision:} The retained full AgentDojo and ASB tables are results of the original deterministic DAFR configuration, not the LLM-mapped extension. The mapper and matched geometry studies are reported as separate evidence because they answer semantic-transfer and execution-interface questions. The current Banking table is a post-role-trace re-evaluation; earlier pre-extension mapper snapshots remain in the experiment archive.
 
 \noindent\textbf{Protocol-audit status:} The corrected mapper runner withholds hand-written labels, validates role semantics, and checks backend compilation. On a frozen 24-case cross-schema/paraphrase split, Qwen-Max produced 21/22 exact mappings on non-ambiguous cases and correctly abstained on 2/2 ambiguous cases; the matched schema-aware rules baseline produced 1/22 exact and 2/2 abstentions under the same IR/compiler/scorer. These mapper numbers are semantic-transfer evidence, not a replacement for the original full benchmark. On the same `src/clafr` runtime, a 512-case joint-risk suite found 25/512 false allows for independent axis thresholds, while Geometry and its equivalent predicate agreed on 512/512 decisions. In a 256-case executable repair suite, Geometry and Predicate+oracle each recovered 192 actions, while a bool-only predicate recovered none. We therefore claim a unified diagnostic/repair interface, not a security or expressiveness advantage over arbitrary if--else code.
 
@@ -62,7 +62,7 @@ Each comparison fixes the task instances, registered tools, schemas, and planner
 
 The independent mapper test split contains 24 policies over tools absent from the few-shot examples. Qwen-Max yielded 22 compilable candidates; 21/22 non-ambiguous cases matched the offline field-role and precondition labels, and both ambiguous cases abstained. The schema-aware rules control yielded 14 compilable candidates and 1/22 exact. A separate banking artifact obtained 5/8 clean utility, 4/8 attack utility, and 0/8 attack success on a paired 8-clean/8-injection smoke run. These numbers quantify semantic transfer and execution compatibility; they are not substituted for the full benchmark table.
 
-For a task-level transfer audit, we then fixed the Qwen-Max planner, Banking suite, CLAFR runtime, and complete 16-clean/144-attack denominator. The strict mapper mode obtained 8/16 clean utility and 73/144 attack utility; the same planner with no mapper obtained 9/16 and 71/144; and the roles-only mode obtained 10/16 and 77/144. Every configuration had 0/144 observed ASR. Roles-only keeps the validated field roles for semantic lifting but does not add mapper-generated preconditions or risk budgets to the deterministic runtime envelope. We report this as a controlled Banking extension and do not extrapolate it to the full multi-suite benchmark.
+For a task-level transfer audit, we fixed the Qwen-Max planner, Banking suite, CLAFR runtime, and complete 16-clean/144-attack denominator after the role-trace extension. The roles-only mode obtained 9/16 clean utility and 75/144 attack utility; the same planner with no mapper obtained 8/16 and 80/144. Both configurations had 0/144 observed ASR. Roles-only keeps the validated field roles for semantic lifting but does not add mapper-generated preconditions or risk budgets to the deterministic runtime envelope. The mapper improves clean utility by 6.25 points in this run but lowers attack utility by 3.47 points, so this is reported as a semantic-transfer trade-off rather than a universal utility improvement.
 
 \begin{center}
 \small
@@ -70,9 +70,8 @@ For a task-level transfer audit, we then fixed the Qwen-Max planner, Banking sui
 \toprule
 Configuration & Clean utility & Attack utility & ASR \\
 \midrule
-Qwen-Max + strict mapper & 8/16 & 73/144 & 0/144 \\
-Qwen-Max + no mapper & 9/16 & 71/144 & 0/144 \\
-Qwen-Max + roles-only mapper & 10/16 & 77/144 & 0/144 \\
+Qwen-Max + no mapper & 8/16 & 80/144 & 0/144 \\
+Qwen-Max + roles-only mapper & 9/16 & 75/144 & 0/144 \\
 \bottomrule
 \end{tabular}
 \end{center}
