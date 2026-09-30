@@ -1194,50 +1194,15 @@ class ConfidenceLiftedEncoder:
                             else:
                                 confirmation = 0.0
 
-            # Role-conditioned aggregation is deliberately applied only after
-            # the validated IR is present.  Without an IR the legacy feature
-            # extractor remains the compatibility fallback.  The aggregates
-            # are monotone risk/support updates: they cannot erase a signal
-            # raised by the existing conservative heuristics.
+            # The validated IR changes only the security-critical destination
+            # and field-grounding path used by the frozen runtime envelope.
+            # The remaining role aggregates are retained as an auditable
+            # semantic projection, but are not allowed to silently retune
+            # legacy risk weights before a dedicated role-ablation study.
             role_scores = role_projection["role_aggregates"]
-            if "object" in role_scores:
-                entity_grounding = _clip(max(entity_grounding, role_scores["object"]["grounding"]))
-                object_uniqueness = _clip(max(object_uniqueness, role_scores["object"]["grounding"]))
             if "destination" in role_scores and role_scores["destination"]["present_fields"]:
                 if side_effect_bool or _external_effect_tool(action.tool_name):
                     external_destination = 1.0
-                    sink_externality = max(sink_externality, 1.0)
-            if "data" in role_scores and role_scores["data"]["present_fields"]:
-                data_values = " ".join(
-                    _text(action.arguments[field])
-                    for field in role_scores["data"]["present_fields"]
-                )
-                if SENSITIVE_PATTERNS.search(data_values):
-                    data_sensitivity = max(data_sensitivity, 1.0)
-                    sensitive = data_sensitivity
-            if "amount" in role_scores and role_scores["amount"]["present_fields"]:
-                amount_values = " ".join(
-                    _text(action.arguments[field])
-                    for field in role_scores["amount"]["present_fields"]
-                )
-                if re.search(r"\d", amount_values):
-                    financial = max(financial, 1.0)
-            if "time" in role_scores and role_scores["time"]["present_fields"]:
-                state_freshness = max(state_freshness, role_scores["time"]["grounding"])
-            if "scope" in role_scores and role_scores["scope"]["present_fields"]:
-                scope_precision = max(scope_precision, role_scores["scope"]["grounding"])
-                action_scope = max(action_scope, role_scores["scope"]["grounding"])
-            if "effect" in role_scores and role_scores["effect"]["present_fields"]:
-                effect_class = max(effect_class, 0.70 if side_effect_bool else 0.25)
-                write = max(write, side_effect)
-            # Recompute the coupled egress feature after role-conditioned
-            # destination/data updates so the geometry sees the same semantic
-            # projection that is recorded in the trace.
-            privacy_egress = _privacy_egress(
-                data_sensitivity=data_sensitivity,
-                sink_externality=sink_externality,
-                external_destination=external_destination,
-            )
         state_read_necessity = _state_read_necessity(
             action,
             evidence,
