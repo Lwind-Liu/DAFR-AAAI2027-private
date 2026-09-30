@@ -90,6 +90,18 @@ def test_mapper_envelope_and_explicit_abstention():
         parse_mapper_response('{"status":"abstain","reason":"ambiguous"}', 'lookup', ['key'])
 
 
+def test_role_semantics_reject_high_confidence_field_mismatch():
+    import json
+    from clafr.policy_mapper import parse_mapper_response
+    bad = json.dumps({'tool_name': 'post_comment',
+                      'roles': {'post_id': 'destination', 'visibility': 'data'},
+                      'preconditions': []})
+    with pytest.raises(ConstraintIRValidationError):
+        parse_mapper_response(bad, 'post_comment', ['post_id', 'visibility'],
+                              field_descriptions={'post_id': 'existing post identifier',
+                                                  'visibility': 'audience scope'})
+
+
 @pytest.mark.parametrize('content', ['[]', 'null', '{"status":"pass"}', 'not json', '{"tool_name":"other"}', '{"tool_name":"lookup","roles":{"key":"ordinary"}}', '{"tool_name":"lookup","forbidden_effects":["delete"]}'])
 def test_mapper_rejects_invalid_or_unsupported_output(content):
     from clafr.policy_mapper import parse_mapper_response

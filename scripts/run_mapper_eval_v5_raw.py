@@ -10,8 +10,8 @@ from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
 CFG = Path('/Users/haomin/Desktop/code/distill/playground-batch-annotate/platform.env')
-DATA = ROOT / 'data/mapper_eval_zh_v5_heldout.jsonl'
-OUT = ROOT / 'results/summaries/mapper_eval_zh_v5_heldout'
+DATA = ROOT / (sys.argv[1] if len(sys.argv) > 1 else 'data/mapper_eval_zh_v5_heldout.jsonl')
+OUT = ROOT / (sys.argv[2] if len(sys.argv) > 2 else 'results/summaries/mapper_eval_zh_v5_heldout')
 OUT.mkdir(parents=True, exist_ok=True)
 
 cfg = {}

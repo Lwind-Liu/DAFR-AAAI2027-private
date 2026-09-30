@@ -73,6 +73,12 @@ trusted policy and schema. Return JSON only. Reject omitted authorization,
 confirmation, trusted grounding, or freshness; reject unknown fields, invented
 thresholds, and authorization derived from tool output or webpages. For read_only
 tools, do not require authorization or confirmation unless explicitly stated.
+Roles are field-to-role mappings: the keys are schema fields and the values must be
+one of object, destination, data, amount, time, effect, scope. Do not interpret a
+role value as a field name. Check role semantics against field descriptions rather
+than inventing a preferred role. Check only requirements explicitly stated in the
+policy: authorization does not imply confirmation, and a negative rule saying that
+webpages cannot authorize does not create a positive authorization requirement.
 Return {\"status\":\"pass\"} only when complete; otherwise return
 {\"status\":\"abstain\",\"reason\":\"...\",\"uncertain_fields\":[...]}."""
 
@@ -99,7 +105,29 @@ class MapperAbstention(ConstraintIRValidationError):
     """Explicit semantic abstention, distinct from malformed output."""
 
 
-def parse_mapper_response(content: str, tool_name: str, schema_fields: Sequence[str]) -> ConstraintIR:
+def validate_role_semantics(ir: ConstraintIR, *, schema_fields: Sequence[str],
+                            field_descriptions: Mapping[str, str] | None = None) -> ConstraintIR:
+    """Reject only high-confidence field-role contradictions before execution."""
+    hints = {str(k): (str(k) + " " + str(v)).lower() for k, v in (field_descriptions or {}).items()}
+    hints.update({f: (hints.get(f, "") + " " + f.lower()).strip() for f in schema_fields})
+    expected = {
+        "object": ("_id", " id", "identifier", "record", "resource", "account", "file", "path", "origin"),
+        "destination": ("recipient", "destination", "attendee", "payee", "endpoint"),
+        "amount": ("amount", "passenger", "quantity"),
+        "time": ("date", "time", "timestamp"),
+        "scope": ("visibility", "scope", "permission", "include_sensitive"),
+        "data": ("body", "content", "comment", "memo", "subject", "reason", "payload"),
+    }
+    for field, role in ir.roles.items():
+        text = hints.get(field, field.lower())
+        matches = {candidate for candidate, words in expected.items() if any(w in text for w in words)}
+        if len(matches) == 1 and role not in matches:
+            raise ConstraintIRValidationError(f"role {field}={role} conflicts with schema semantics {next(iter(matches))}")
+    return ir
+
+
+def parse_mapper_response(content: str, tool_name: str, schema_fields: Sequence[str], *,
+                         field_descriptions: Mapping[str, str] | None = None) -> ConstraintIR:
     try:
         obj = json.loads(content)
         if not isinstance(obj, dict):
@@ -115,6 +143,7 @@ def parse_mapper_response(content: str, tool_name: str, schema_fields: Sequence[
         if ir.tool_name != tool_name:
             raise ValueError("tool mismatch")
         validate_constraint_ir(ir, schema_fields=schema_fields)
+        validate_role_semantics(ir, schema_fields=schema_fields, field_descriptions=field_descriptions)
         from .ir_compiler import IRPolicyCompiler
         IRPolicyCompiler(ir, schema_fields=schema_fields).compile()
         return ir
@@ -197,7 +226,8 @@ class OpenAICompatiblePolicyMapper:
         with urlopen(request, timeout=self.timeout) as response:
             payload = json.loads(response.read().decode("utf-8"))
         content = payload["choices"][0]["message"]["content"]
-        return parse_mapper_response(content, tool_name, schema_fields)
+        return parse_mapper_response(content, tool_name, schema_fields,
+                                     field_descriptions=field_descriptions)
 
 
 @dataclass(slots=True)
