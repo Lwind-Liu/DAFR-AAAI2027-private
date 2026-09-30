@@ -61,3 +61,15 @@
 - 外部副作用：0。
 
 这组结果支持的故事是：几何可作为统一的 margin/violated-constraint/certificate 接口，且能与执行修复直接连接。它不支持“几何比等价 predicate 更安全”或“几何天然更快”。如果 predicate 也实现同样的诊断和 repair oracle，预期结果应当相同。
+
+## 联合风险的可证伪 pilot
+
+为了让“几何优于 ifelse”的故事不依赖抽象描述，新增 `run_geometry_joint_risk_pilot.py`。它固定同一个 `FeatureVector` 和同一个二维 `RiskBudgetCone`，比较三种判定：
+
+- `Axis-ifelse`：两个独立阈值 `privacy <= 0.8 and financial <= 0.8`；
+- `Geometry`：联合 L2 风险预算；
+- `Equivalent-predicate`：复用完全相同的 cone membership。
+
+32 个边界附近 case 中，Axis-ifelse 放行 32/32，Geometry 放行 23/32，其中 9 个 case 每一维都没有超过独立阈值，但联合风险范数超过 1；Geometry 与 equivalent predicate 的分歧为 0/32。平均耗时约为 0.0023 ms 与 0.0017 ms，样本极小，只用于证明联合风险漏检机制，不用于速度结论。
+
+因此可讲的精确故事是：朴素的逐维 ifelse 会漏掉耦合风险，几何约束把耦合预算写成一个可检查的 region；对于能够表达同一联合 predicate 的 ifelse，决策应当完全一致，几何的额外价值在 margin、违规 facet、provenance 和 repair 接口。论文不能把这个结果扩大为“几何优于任意程序”。

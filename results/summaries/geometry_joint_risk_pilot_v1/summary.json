@@ -1,0 +1,11 @@
+{
+  "cases": 32,
+  "axis_ifelse_allow": 32,
+  "geometry_allow": 23,
+  "equivalent_predicate_allow": 23,
+  "axis_false_allow_joint_risk": 9,
+  "geometry_predicate_disagreements": 0,
+  "geometry_mean_latency_ms": 0.002317686266906094,
+  "predicate_mean_latency_ms": 0.0017056254364433698,
+  "scope": "same FeatureVector and RiskBudgetCone; in-process only; no external side effects"
+}
