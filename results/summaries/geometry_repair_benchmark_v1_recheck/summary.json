@@ -1,0 +1,113 @@
+{
+  "benchmark": "geometry_repair_benchmark_v1",
+  "seed": 20260930,
+  "joint_risk": {
+    "cases": 512,
+    "axis_ifelse": {
+      "successes": 512,
+      "total": 512,
+      "rate": 1.0,
+      "ci95_low": 0.9925527526279385,
+      "ci95_high": 1.0
+    },
+    "geometry": {
+      "successes": 487,
+      "total": 512,
+      "rate": 0.951171875,
+      "ci95_low": 0.9289129704032191,
+      "ci95_high": 0.9667108024758972
+    },
+    "equivalent_predicate": {
+      "successes": 487,
+      "total": 512,
+      "rate": 0.951171875,
+      "ci95_low": 0.9289129704032191,
+      "ci95_high": 0.9667108024758972
+    },
+    "axis_false_allow_joint_risk": {
+      "successes": 25,
+      "total": 512,
+      "rate": 0.048828125,
+      "ci95_low": 0.033289197524102775,
+      "ci95_high": 0.07108702959678084
+    },
+    "geometry_predicate_disagreements": 0,
+    "geometry_mean_latency_ms": 0.003222799080049299,
+    "predicate_mean_latency_ms": 0.0010121322588929615,
+    "scope": "same FeatureVector and RiskBudgetCone; no external side effects"
+  },
+  "action_repair": {
+    "cases": 256,
+    "repairable_cases": 192,
+    "nonrepairable_cases": 64,
+    "geometry_blocked": {
+      "successes": 256,
+      "total": 256,
+      "rate": 1.0,
+      "ci95_low": 0.9852156082782743,
+      "ci95_high": 1.0
+    },
+    "predicate_blocked": {
+      "successes": 256,
+      "total": 256,
+      "rate": 1.0,
+      "ci95_low": 0.9852156082782743,
+      "ci95_high": 1.0
+    },
+    "geometry_repair_success": {
+      "successes": 192,
+      "total": 256,
+      "rate": 0.75,
+      "ci95_low": 0.6935238434514225,
+      "ci95_high": 0.7990839606877146
+    },
+    "predicate_oracle_repair_success": {
+      "successes": 192,
+      "total": 256,
+      "rate": 0.75,
+      "ci95_low": 0.6935238434514225,
+      "ci95_high": 0.7990839606877146
+    },
+    "geometry_candidate_set_safe_selection": {
+      "successes": 192,
+      "total": 256,
+      "rate": 0.75,
+      "ci95_low": 0.6935238434514225,
+      "ci95_high": 0.7990839606877146
+    },
+    "predicate_candidate_set_safe_selection": {
+      "successes": 192,
+      "total": 256,
+      "rate": 0.75,
+      "ci95_low": 0.6935238434514225,
+      "ci95_high": 0.7990839606877146
+    },
+    "bool_only_predicate_repair_success": {
+      "successes": 0,
+      "total": 256,
+      "rate": 0.0,
+      "ci95_low": 0.0,
+      "ci95_high": 0.014784391721725852
+    },
+    "block_only_safe_effect_preserved": {
+      "successes": 0,
+      "total": 256,
+      "rate": 0.0,
+      "ci95_low": 0.0,
+      "ci95_high": 0.014784391721725852
+    },
+    "geometry_predicate_block_disagreements": 0,
+    "geometry_mean_latency_ms": 0.3711329999305235,
+    "predicate_mean_latency_ms": 0.3742320818673761,
+    "geometry_repair_mean_latency_ms": 0.268078754970702,
+    "predicate_oracle_repair_mean_latency_ms": 0.2834246455449829,
+    "unsafe_external_side_effects": 0,
+    "scope": "same clafr encoder/compiler/action candidate; in-process only; no external side effects"
+  },
+  "interpretation": {
+    "axis_ifelse": "independent thresholds miss coupled risk; this is the intentionally limited ifelse baseline",
+    "equivalent_predicate": "must match geometry; a difference indicates a bug, not a contribution",
+    "predicate_oracle": "fair repair control; a tie with geometry means repair is not intrinsically geometric",
+    "bool_only_predicate": "interface baseline with no repair or diagnostic output"
+  }
+}

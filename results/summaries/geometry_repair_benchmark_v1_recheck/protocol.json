@@ -1,0 +1,6 @@
+{
+  "benchmark": "geometry_repair_benchmark_v1",
+  "seed": 20260930,
+  "implementation_revision": "0976213",
+  "scope": "same FeatureVector/geometry runtime; no external effects; recheck after role trace extension"
+}
