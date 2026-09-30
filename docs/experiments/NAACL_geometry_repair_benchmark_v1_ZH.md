@@ -8,7 +8,7 @@
 2. **几何判决是否与等价 predicate 一致**：`Equivalent-predicate` 复用同一 `RiskBudgetCone` 的约束，理论上必须与 Geometry 完全一致；若不一致，说明实现错误，不能算作方法收益。
 3. **修复收益是否来自几何本身**：`Predicate+oracle` 与 Geometry 使用同一个可执行字段删除修复器；如果二者相同，不能声称几何天然提供更强修复能力。`Bool-only predicate` 只返回真假，用于展示没有诊断/修复接口时的基线行为。
 
-所有动作候选、encoder、compiler 和可信/不可信证据对各后端相同。实验只在进程内运行，不调用真实外部工具，因此没有外部副作用。
+所有动作候选、encoder、compiler 和可信/不可信证据对各后端相同。修复成功还要通过本地 dry-run effect model：记录 id 必须保持为 `7`，目标 amount 必须保持为该 case 的可信目标值；实验只在进程内运行，不调用真实外部工具，因此没有外部副作用。
 
 ## 运行命令
 
