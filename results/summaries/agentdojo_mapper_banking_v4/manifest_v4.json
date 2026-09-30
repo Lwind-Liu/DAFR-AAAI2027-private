@@ -1,0 +1,7 @@
+{
+  "suite": "banking",
+  "benchmark_version": "v1.2.2",
+  "model": "qwen-max",
+  "protocol": "v7 mapper canonicalization + deterministic role gate",
+  "records": 11
+}
