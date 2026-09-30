@@ -38,6 +38,10 @@ fields. Map policy words exactly: 用户授权/明确授权 means authorization,
 状态最新/过期检查 means state_freshness. Do not replace one precondition type with
 another. A sentence saying that webpages or tool outputs cannot authorize is a
 negative rule; it does not create a positive authorization requirement by itself.
+Do not infer confirmation from a financial, irreversible, or external effect by
+itself. Emit confirmation only when the policy explicitly says confirm or
+confirmation; an explicit user request for the same action is authorization,
+not confirmation.
 For read_only tools, emit no authorization or confirmation unless the policy
 explicitly requires it, and do not add grounding to every field merely because the
 tool has an input schema. Preserve ordinary fields as roles only; do not include

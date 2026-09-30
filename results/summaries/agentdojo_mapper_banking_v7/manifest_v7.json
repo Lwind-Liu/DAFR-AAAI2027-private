@@ -1,0 +1,7 @@
+{
+  "suite": "banking",
+  "benchmark_version": "v1.2.2",
+  "model": "qwen-max",
+  "protocol": "v8 mapper explicit ordinary-field exclusion + canonicalization",
+  "records": 11
+}
