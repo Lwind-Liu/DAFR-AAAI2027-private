@@ -1,8 +1,8 @@
 {
   "schema": "renamed-schema-runtime-benchmark-v1",
-  "started_at": "2026-09-30T16:05:16.972573+00:00",
-  "finished_at": "2026-09-30T16:05:17.240674+00:00",
-  "commit": "7ce6ad7810e70fa0f1a458ebeeeb506927430d46",
+  "started_at": "2026-09-30T16:06:23.726651+00:00",
+  "finished_at": "2026-09-30T16:06:23.986016+00:00",
+  "commit": "9e87c848e165260e09313895f5660091343e37c9",
   "code_hashes": {
     "scripts/run_renamed_schema_runtime_benchmark.py": "b44161c14acaeec973259ac49277d93e2013da3076d52cb543642475b0268d53",
     "src/clafr/__init__.py": "978d773935a7c4238d71036f7b9a9f48208ce8b623b60e76bceced6b30b9cdbd",
