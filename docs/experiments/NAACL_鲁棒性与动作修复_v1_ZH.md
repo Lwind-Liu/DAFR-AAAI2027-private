@@ -40,6 +40,7 @@ results/summaries/naacl_robustness_repair_v1/
 | 正确决策 | 64/64（100%，Wilson 95% CI [94.34%, 100%]）|
 | 合法动作放行 | 32/32 |
 | 攻击动作阻断 | 32/32 |
+| no-defense 直接执行攻击 | 32/32 |
 
 这一结果只证明：经过验证的 role-aware IR 在这些字段改名和措辞变体下保持运行时
 行为。它不等价于 LLM mapper 在未见 schema 上的 exact accuracy；后者由 v12
@@ -63,6 +64,7 @@ mapper set 单独测量。
 | adaptive injection 阻断 | 64/64 |
 | freshness ≥ 0.8 的攻击仍阻断 | 32/32 |
 | freshness < 0.8 的 stale state 阻断 | 32/32 |
+| no-defense 直接执行攻击 | 64/64 |
 
 不可信文本从未进入 `trusted_authorizations` 或 `trusted_state`，所以不能满足
 授权。该 suite 不能替代 AgentDojo/ASB 的自适应攻击，只能证明 provenance
