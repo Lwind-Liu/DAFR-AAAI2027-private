@@ -32,9 +32,9 @@ joint-risk geometry → execution certificate
 | 方法 | 编译通过 | 非歧义 exact | 歧义正确 abstain | under/over-constrained |
 |---|---:|---:|---:|---:|
 | Schema-aware rules | 14/24 | 1/22 | 2/2 | 11/5 |
-| Qwen-Max + validator + canonicalizer | 22/24 | **22/22** | **2/2** | 0/0 |
+| Qwen-Max + validator + canonicalizer（原冻结 v12） | 22/24 | **21/22** | **2/2** | 1/1 |
 
-结果文件：`results/summaries/mapper_eval_zh_v12_qwen_test/summary.json` 与 `results.jsonl`。本次 `results.jsonl` SHA-256 为 `7af3f6f21d623005133561bef57d83fa9662c66c267266992313ac622f30f731`。
+结果文件：`results/summaries/mapper_eval_zh_v12_qwen_test/summary.json` 与 `results.jsonl`。原冻结 v12 结果沿用 21/22；之后在同一 v12 上改 prompt 的 22/22 重跑仅作为开发诊断，不计入泛化主表。独立无污染复核见 v14 文档。
 
 ### Mapper→Encoder 角色迁移
 

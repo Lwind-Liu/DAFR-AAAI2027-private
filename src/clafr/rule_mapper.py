@@ -42,19 +42,21 @@ def _role_for_field(field: str, description: str) -> str | None:
         if re.search(r"delivery channel(?! setting)|external (?:delivery )?channel", text):
             return "destination"
         return "scope"
-    if re.search(r"external (?:[a-z]+ )?(?:recipient|destination|endpoint|operator|account|storage)|assigned (?:[a-z]+ )*(?:recipient|operator|owner|assignee|responder)|external (?:event )?(?:guest|attendee)", text):
+    if re.search(r"external (?:[a-z]+ )*(?:recipient|destination|endpoint|operator|account|storage|gateway|supplier|payee|route)|assigned (?:[a-z]+ )*(?:recipient|operator|owner|assignee|responder)|external (?:event )?(?:guest|attendee)|account whose access is changed", text):
         return "destination"
     if re.search(r"departure airport", text):
         return "object"
     if re.search(r"delivery region|routing queue|queue setting", text):
         return "scope"
-    if re.search(r"(?:money|credit|payment|transfer) amount|passenger count|\bamount\b|\bquantity\b", text):
+    if re.search(r"(?:scope|permission|visibility|access|tenant|region|retention|maximum number|quantity limit)", text):
+        return "scope"
+    if re.search(r"(?:money|credit|payment|transfer|monetary|refund|purchase) amount|passenger count|\bamount\b|\bquantity\b", text):
         return "amount"
-    if re.search(r"event instant|(?:travel|reminder|meeting|event|execution) (?:date|time|instant)|time zone context", text):
+    if re.search(r"event instant|(?:travel|reminder|meeting|event|execution|deployment|activation|cutover|publication|signing|approval|archive|release|delivery|refund|remittance|expiration|expiry)(?: [a-z]+)* (?:date|time|instant)|\b(?:start|end|cutover|activation|publication|approval|archive|delivery|refund|remittance|expiration|expiry) (?:date|time|instant)\b|\b(?:time|instant)\b|time zone context", text):
         return "time" if "time zone context" not in text else "scope"
-    if re.search(r"(?:body|content|comment|memo|subject|reason|payload|text|details?|summary|note|message|title|description)", text):
+    if re.search(r"(?:body|content|comment|memo|subject|reason|payload|text|details?|summary|note|message|title|description|data|blob|manifest|material|explanation)", text):
         return "data"
-    if re.search(r"(?:existing|local) (?:[a-z]+ )?(?:resource|record|file|account|document|dataset|profile|case|member|project|workspace)|\b(?:identifier|resource id|record id|file id|document id|dataset id|profile id|case id|member id|team id|event id|task id|credit id|asset id|notice id|report id|post id|contact id|tracking id|transfer id|workspace id)\b", text):
+    if re.search(r"(?:existing|local) (?:[a-z]+ )*(?:resource|record|file|account|document|dataset|profile|case|member|project|workspace|grant|membership|invoice|quote|contract|signature|purchase|catalog|build|release)|\b(?:identifier|resource id|record id|file id|document id|dataset id|profile id|case id|member id|team id|event id|task id|credit id|asset id|notice id|report id|post id|contact id|tracking id|transfer id|workspace id|anchor|handle|context)\b", text):
         return "object"
     # Conservative fallbacks for common schema names. Unknown fields cause an
     # explicit abstention instead of silently dropping a security-relevant role.

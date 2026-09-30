@@ -1,0 +1,14 @@
+{
+  "model": "qwen-max",
+  "cases": 24,
+  "nonambiguous": 20,
+  "compile_n": 18,
+  "semantic_exact_n": 16,
+  "nonambiguous_exact_n": 16,
+  "ambiguous_n": 4,
+  "ambiguous_abstain_n": 4,
+  "underconstrained_n": 0,
+  "overconstrained_n": 0,
+  "mean_latency_sec": 4.9587916666666665,
+  "protocol": "gold withheld; Qwen-Max; shared parser/canonicalizer/compiler/scorer; v14 frozen"
+}

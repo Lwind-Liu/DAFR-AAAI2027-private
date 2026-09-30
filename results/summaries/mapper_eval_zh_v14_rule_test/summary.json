@@ -1,0 +1,9 @@
+{
+  "model": "schema_rule_v2",
+  "cases": 24,
+  "compile_n": 20,
+  "nonambiguous_exact_n": 1,
+  "ambiguous_abstain_n": 4,
+  "underconstrained_n": 18,
+  "overconstrained_n": 1
+}
