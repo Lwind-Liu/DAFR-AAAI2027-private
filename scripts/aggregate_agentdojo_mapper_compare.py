@@ -93,8 +93,16 @@ def _mapper_metrics(run_root: Path, *, allow_partial: bool) -> dict[str, Any]:
     clean_u = count(clean, "utility")
     attack_u = count(attack, "utility")
     attack_success = sum(row.get("security") is True for row in attack)
+    protocol_path = run_root / "protocol.json"
+    execution_mode = "strict"
+    if protocol_path.exists():
+        try:
+            execution_mode = str(json.loads(protocol_path.read_text(encoding="utf-8")).get("mapper_execution_mode") or "strict")
+        except (OSError, ValueError, TypeError):
+            execution_mode = "strict"
     return {
-        "method": "Qwen-Max mapper + CLAFR runtime",
+        "method": f"Qwen-Max mapper + CLAFR ({execution_mode})",
+        "mapper_execution_mode": execution_mode,
         "source": source,
         "complete": complete,
         "expected_denominator": expected,
@@ -230,7 +238,7 @@ def _write_doc(path: Path, report: dict[str, Any]) -> None:
         "",
         "| 方法 | Clean utility | Attack utility | ASR |",
         "|---|---:|---:|---:|",
-        f"| Qwen-Max mapper + CLAFR | {_pct(mapper['clean_utility']['rate'])} [{_pct(mapper['clean_utility']['low'])}, {_pct(mapper['clean_utility']['high'])}] | {_pct(mapper['attack_utility']['rate'])} [{_pct(mapper['attack_utility']['low'])}, {_pct(mapper['attack_utility']['high'])}] | {_pct(mapper['attack_success_asr']['rate'])} [{_pct(mapper['attack_success_asr']['low'])}, {_pct(mapper['attack_success_asr']['high'])}] |",
+        f"| {mapper['method']} | {_pct(mapper['clean_utility']['rate'])} [{_pct(mapper['clean_utility']['low'])}, {_pct(mapper['clean_utility']['high'])}] | {_pct(mapper['attack_utility']['rate'])} [{_pct(mapper['attack_utility']['low'])}, {_pct(mapper['attack_utility']['high'])}] | {_pct(mapper['attack_success_asr']['rate'])} [{_pct(mapper['attack_success_asr']['low'])}, {_pct(mapper['attack_success_asr']['high'])}] |",
         f"| 原始 deterministic CLAFR | {_pct(baseline['clean_utility']['rate'])} [{_pct(baseline['clean_utility']['low'])}, {_pct(baseline['clean_utility']['high'])}] | {_pct(baseline['attack_utility']['rate'])} [{_pct(baseline['attack_utility']['low'])}, {_pct(baseline['attack_utility']['high'])}] | {_pct(baseline['attack_success_asr']['rate'])} [{_pct(baseline['attack_success_asr']['low'])}, {_pct(baseline['attack_success_asr']['high'])}] |",
     ]
     if same_planner is not None:

@@ -62,6 +62,21 @@ Each comparison fixes the task instances, registered tools, schemas, and planner
 
 The independent mapper test split contains 24 policies over tools absent from the few-shot examples. Qwen-Max yielded 22 compilable candidates; 21/22 non-ambiguous cases matched the offline field-role and precondition labels, and both ambiguous cases abstained. The schema-aware rules control yielded 14 compilable candidates and 1/22 exact. A separate banking artifact obtained 5/8 clean utility, 4/8 attack utility, and 0/8 attack success on a paired 8-clean/8-injection smoke run. These numbers quantify semantic transfer and execution compatibility; they are not substituted for the full benchmark table.
 
+For a task-level transfer audit, we then fixed the Qwen-Max planner, Banking suite, CLAFR runtime, and complete 16-clean/144-attack denominator. The strict mapper mode obtained 8/16 clean utility and 73/144 attack utility; the same planner with no mapper obtained 9/16 and 71/144; and the roles-only mode obtained 10/16 and 77/144. Every configuration had 0/144 observed ASR. Roles-only keeps the validated field roles for semantic lifting but does not add mapper-generated preconditions or risk budgets to the deterministic runtime envelope. We report this as a controlled Banking extension and do not extrapolate it to the full multi-suite benchmark.
+
+\begin{center}
+\small
+\begin{tabular}{lrrr}
+\toprule
+Configuration & Clean utility & Attack utility & ASR \\
+\midrule
+Qwen-Max + strict mapper & 8/16 & 73/144 & 0/144 \\
+Qwen-Max + no mapper & 9/16 & 71/144 & 0/144 \\
+Qwen-Max + roles-only mapper & 10/16 & 77/144 & 0/144 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
 \paragraph{Metrics.}
 Clean and attack utility measure task completion in the corresponding benchmark settings. ASR is the benchmark-defined rate of adversarial objective success. Together, the metrics capture retained task progress and execution security.
 
@@ -134,6 +149,9 @@ Boolean-only predicate & 0/256 & 64/64 & 0\\
 \end{center}
 
 Geometry and Predicate+oracle have identical repair success, which is expected when they share the same repair oracle. The measurable interface contribution is that the geometric decision record exposes signed margins, violated facets, and provenance links used by that oracle; a Boolean-only predicate supplies no such repair signal.
+
+\paragraph{Schema and state robustness.}
+We additionally generated paired local cases with renamed fields and paraphrased policies. Among 64 cases, 32/32 legitimate calls were allowed and 32/32 adversarial calls were blocked. A second 64-case stale-state/adaptive-injection suite (fresh and stale states crossed with four adaptive injection families) blocked 64/64 attacks, whereas the no-defense executor performed all 64 injected writes. These are controlled runtime tests with a local effect model and no external side effects; they complement, rather than replace, the AgentDojo and ASB task-level measurements.
 
 \section{Complete AgentDojo Results}
 

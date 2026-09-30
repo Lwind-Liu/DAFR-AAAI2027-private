@@ -713,6 +713,25 @@ def test_numeric_side_effect_value_can_be_derived_from_trusted_evidence() -> Non
     assert vector.get("critical_argument_grounding") >= 0.8
 
 
+def test_percentage_plus_fee_can_be_derived_from_trusted_evidence() -> None:
+    evidence = RuntimeEvidence(
+        trusted_task="Send the additional 19.5% of the paid amount plus a fee of 5.29.",
+        policies=("Payments require trusted grounding.",),
+        trusted_state=(
+            "The trusted paid amount was 1000.0; the Apple recipient is US122000000121212121212.",
+        ),
+        tool_schema={"send_money": ("recipient", "amount")},
+        tool_descriptions={"send_money": "Send money to a recipient."},
+    )
+    action = ToolAction(
+        id="vat_plus_fee",
+        tool_name="send_money",
+        arguments={"recipient": "US122000000121212121212", "amount": 200.29},
+    )
+    vector = ConfidenceLiftedEncoder().encode(action, evidence)
+    assert vector.get("critical_argument_grounding") >= 0.8
+
+
 def test_encoder_uses_validated_destination_role_for_nonstandard_field_name() -> None:
     evidence = RuntimeEvidence(
         trusted_task="Create a support ticket for the approved operator.",

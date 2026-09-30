@@ -1,0 +1,160 @@
+{
+  "schema": "agentdojo-mapper-comparison-v1",
+  "protocol": {
+    "suite": "banking",
+    "benchmark_version": "v1.2.2",
+    "attack": "important_instructions",
+    "clean_denominator": 16,
+    "attack_denominator": 144,
+    "confidence_interval": "Wilson 95%"
+  },
+  "mapper": {
+    "method": "Qwen-Max mapper + CLAFR (roles_only)",
+    "mapper_execution_mode": "roles_only",
+    "source": "per_episode_json",
+    "complete": true,
+    "expected_denominator": {
+      "clean": 16,
+      "attack": 144
+    },
+    "observed_denominator": {
+      "clean": 16,
+      "attack": 144
+    },
+    "clean_utility": {
+      "successes": 10,
+      "trials": 16,
+      "rate": 0.625,
+      "low": 0.38641040545502714,
+      "high": 0.8151876744113636
+    },
+    "attack_utility": {
+      "successes": 77,
+      "trials": 144,
+      "rate": 0.5347222222222222,
+      "low": 0.45341232301081896,
+      "high": 0.6142277021875813
+    },
+    "attack_success_asr": {
+      "successes": 0,
+      "trials": 144,
+      "rate": 0.0,
+      "low": 0.0,
+      "high": 0.025983637143036746
+    },
+    "attack_safe": {
+      "successes": 144,
+      "trials": 144,
+      "rate": 1.0,
+      "low": 0.9740163628569635,
+      "high": 1.0
+    },
+    "mapper_abstain_messages": 0,
+    "mapper_abstain_episodes": 0,
+    "message_error_count": 50,
+    "non_mapper_error_count": 50,
+    "episodes_with_non_mapper_error": 40
+  },
+  "baseline": {
+    "method": "Original deterministic CLAFR",
+    "source": "/Users/haomin/Desktop/code/agent算法/DAFR/DAFR-AAAI2027-private/results/summaries/agentdojo_v122_clafr_final_full_4suite_v1/autodojo_table_aggregate.json",
+    "complete": true,
+    "expected_denominator": {
+      "clean": 16,
+      "attack": 144
+    },
+    "observed_denominator": {
+      "clean": 16,
+      "attack": 144
+    },
+    "clean_utility": {
+      "successes": 15,
+      "trials": 16,
+      "rate": 0.9375,
+      "low": 0.7167126242970107,
+      "high": 0.9888806552353576
+    },
+    "attack_utility": {
+      "successes": 123,
+      "trials": 144,
+      "rate": 0.8541666666666666,
+      "low": 0.7873328546140447,
+      "high": 0.9025954024096375
+    },
+    "attack_success_asr": {
+      "successes": 0,
+      "trials": 144,
+      "rate": 0.0,
+      "low": 0.0,
+      "high": 0.025983637143036746
+    },
+    "attack_safe": {
+      "successes": 144,
+      "trials": 144,
+      "rate": 1.0,
+      "low": 0.9740163628569635,
+      "high": 1.0
+    },
+    "mapper_abstain_messages": null,
+    "mapper_abstain_episodes": null,
+    "message_error_count": null,
+    "non_mapper_error_count": null,
+    "episodes_with_non_mapper_error": null
+  },
+  "delta": {
+    "clean_utility_rate": -0.3125,
+    "attack_utility_rate": -0.3194444444444444,
+    "attack_asr_rate": 0.0
+  },
+  "same_planner_baseline": {
+    "method": "Qwen-Max planner + deterministic CLAFR (no mapper)",
+    "source": "results/runs/agentdojo_qwen_nomapper_banking_full",
+    "complete": true,
+    "expected_denominator": {
+      "clean": 16,
+      "attack": 144
+    },
+    "observed_denominator": {
+      "clean": 16,
+      "attack": 144
+    },
+    "clean_utility": {
+      "successes": 9,
+      "trials": 16,
+      "rate": 0.5625,
+      "low": 0.331785563988119,
+      "high": 0.7690134759450765
+    },
+    "attack_utility": {
+      "successes": 71,
+      "trials": 144,
+      "rate": 0.4930555555555556,
+      "low": 0.4126463655407692,
+      "high": 0.5738256294195508
+    },
+    "attack_success_asr": {
+      "successes": 0,
+      "trials": 144,
+      "rate": 0.0,
+      "low": 0.0,
+      "high": 0.025983637143036746
+    },
+    "attack_safe": {
+      "successes": 144,
+      "trials": 144,
+      "rate": 1.0,
+      "low": 0.9740163628569635,
+      "high": 1.0
+    },
+    "mapper_abstain_messages": null,
+    "mapper_abstain_episodes": null,
+    "message_error_count": 39,
+    "non_mapper_error_count": 39,
+    "episodes_with_non_mapper_error": 28
+  },
+  "same_planner_delta": {
+    "clean_utility_rate": 0.0625,
+    "attack_utility_rate": 0.04166666666666663,
+    "attack_asr_rate": 0.0
+  }
+}

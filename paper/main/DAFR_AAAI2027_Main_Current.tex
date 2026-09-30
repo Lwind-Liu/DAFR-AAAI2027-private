@@ -242,6 +242,8 @@ The mapper is evaluated before end-to-end execution on a disjoint held-out tool 
 
 As the primary mapper comparison, the frozen v12 split contains 24 tools absent from the few-shot examples and includes renamed fields plus approval/confirmation paraphrases. Qwen-Max produced 22 compilable candidates and 21/22 exact non-ambiguous mappings, while the matched schema-aware rules control produced 14 compilable candidates and 1/22 exact. Both methods abstained on the two ambiguous policies. These numbers measure semantic transfer after validation, not end-to-end attack success; the full AgentDojo and ASB tables therefore remain separate.
 
+As a task-level transfer check, we froze the same Qwen-Max planner, Banking tasks, CLAFR runtime, and 16-clean/144-attack denominator while changing only the mapper execution mode. The strict IR mode obtained 8/16 clean and 73/144 attack utility; a matched no-mapper runtime obtained 9/16 and 71/144; and \emph{roles-only} semantic lifting, which retains validated roles but leaves the final envelope to the deterministic runtime, obtained 10/16 and 77/144. All three configurations had 0/144 observed ASR. This is a Banking-only extension rather than a replacement for the full deterministic multi-suite table, but it shows why the mapper should provide a typed semantic interface instead of duplicating hard execution gates.
+
 \begin{table}[ht]
 \centering
 \small

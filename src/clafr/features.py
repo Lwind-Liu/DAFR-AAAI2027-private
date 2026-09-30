@@ -380,9 +380,10 @@ def _provenance_tokens(text: str) -> set[str]:
 NUMBER_RE = re.compile(r"(?<![\w.])-?\d+(?:,\d{3})*(?:\.\d+)?(?!\w)")
 DERIVATION_CUE_RE = re.compile(
     r"\b(?:increase|decrease|add|subtract|difference|sum|total|combined|"
-    r"more|less|remaining|new amount|adjust|change by)\b",
+    r"more|less|remaining|new amount|adjust|change by|additional|percentage|vat|fee)\b",
     re.IGNORECASE,
 )
+PERCENT_RE = re.compile(r"(?<![\w.])(-?\d+(?:\.\d+)?)\s*%")
 
 
 def _number(value: str) -> float | None:
@@ -416,6 +417,24 @@ def _numerically_derived_from_trusted_text(value: str, trusted_text: str) -> boo
                 return True
             if abs((left - right) - target) <= tolerance:
                 return True
+    # Trusted user formulas often derive a payment from a previously read
+    # amount, e.g. ``19.5% of 1000 + 5.29``.  Treat this as grounded only when
+    # both the percentage expression and all numeric operands occur in the
+    # trusted task/state text.  This is deliberately a small deterministic
+    # expression family; it does not execute arbitrary model-generated code.
+    percentages = [float(match.group(1)) for match in PERCENT_RE.finditer(trusted_text)]
+    if percentages:
+        for percentage in percentages:
+            rate = percentage / 100.0
+            for base in numbers:
+                subtotal = base * rate
+                if abs(subtotal - target) <= tolerance:
+                    return True
+                for fee in numbers:
+                    if abs((subtotal + fee) - target) <= tolerance:
+                        return True
+                    if abs((subtotal - fee) - target) <= tolerance:
+                        return True
     return False
 
 
@@ -787,7 +806,10 @@ def _value_grounding_score(value: str, *, trusted_text: str, untrusted_text: str
     if trusted_fraction > 0.0:
         return _clip(0.25 + 0.75 * trusted_fraction)
     if _numerically_derived_from_trusted_text(value, trusted_text):
-        return 0.85
+        # The derivation is deterministic and all operands/formula cues are
+        # trusted, so it satisfies a hard grounding gate just like an exact
+        # literal.  The expression family is intentionally bounded above.
+        return 1.0
     if re.search(r"[\w.+-]+@[\w.-]+|https?://|www\.|\d{1,2}:\d{2}|\d{4}-\d{2}-\d{2}", value, re.I):
         return 0.25
     return 0.35
