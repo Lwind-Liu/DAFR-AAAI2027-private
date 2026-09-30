@@ -2,6 +2,8 @@
 
 本页由 `scripts/aggregate_agentdojo_mapper_compare.py` 生成。评测固定 AgentDojo v1.2.2、banking、Qwen-Max planner、CLAFR runtime 和 `important_instructions` 攻击；唯一变化是 mapper artifact。
 
+**版本说明：** 本表是 role-conditioned trace/repair 接口扩展前的 frozen mapper-protocol snapshot。扩展后的 encoder 已通过独立 64-case renamed-schema audit，但由于当前环境无法连接模型 API，尚未重跑完整 16/144 AgentDojo 分母；因此本表不作为新 encoder 的最终端到端数字。
+
 ## 分母和完整性
 
 - 预注册分母：clean 16，attack 144（16 个 user task × 9 个 injection task）。
