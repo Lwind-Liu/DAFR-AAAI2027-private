@@ -759,7 +759,10 @@ def _value_grounding_score(value: str, *, trusted_text: str, untrusted_text: str
     # the untrusted-only guard below still takes precedence for conflicting
     # values.
     literal = str(value).strip().lower()
-    if literal and literal in trusted_lower:
+    if literal and re.search(
+        r"(?<![a-z0-9])" + re.escape(literal) + r"(?![a-z0-9])",
+        trusted_lower,
+    ):
         return 1.0
     if any(
         anchor in untrusted_lower and anchor not in trusted_lower
