@@ -2,7 +2,7 @@ from __future__ import annotations
 import hashlib,json,re,time,sys
 from pathlib import Path
 from urllib.request import Request,urlopen
-from clafr.policy_mapper import MAPPER_SYSTEM_PROMPT
+from clafr.policy_mapper import build_mapper_system_prompt
 from clafr.policy_ir import ConstraintIR,validate_constraint_ir
 from clafr.ir_compiler import IRPolicyCompiler
 ROOT=Path(__file__).resolve().parents[1]; CFG=Path('/Users/haomin/Desktop/code/distill/playground-batch-annotate/platform.env')
@@ -16,10 +16,12 @@ for line in CFG.read_text().splitlines():
 CASES=[json.loads(x) for x in (ROOT/f'data/mapper_eval_zh_{VERSION}.jsonl').read_text().splitlines()]
 MODELS=['qwen-max','deepseek-v4-flash']
 def public_case(case):
- return {'id':case['id'],'tool_name':case['tool_name'],'fields':case['fields'],'policy':case['policy']}
+ return {'id':case['id'],'tool_name':case['tool_name'],'fields':case['fields'],'policy':case['policy'],
+         'effect_class':case.get('effect_class'),
+         'field_descriptions':case.get('field_descriptions',{})}
 def call(case,model):
  public=public_case(case)
- payload={'model':model,'messages':[{'role':'system','content':MAPPER_SYSTEM_PROMPT},{'role':'user','content':json.dumps(public,ensure_ascii=False)}],'max_tokens':2200,'stream':False,'app':cfg['APP_NAME'],'quota_id':cfg['QUOTA_ID'],'user_id':cfg['USER_ID'],'access_key':cfg['ACCESS_KEY']}
+ payload={'model':model,'messages':[{'role':'system','content':build_mapper_system_prompt(effect_class=case.get('effect_class'), field_descriptions=case.get('field_descriptions',{}))},{'role':'user','content':json.dumps(public,ensure_ascii=False)}],'max_tokens':2200,'stream':False,'app':cfg['APP_NAME'],'quota_id':cfg['QUOTA_ID'],'user_id':cfg['USER_ID'],'access_key':cfg['ACCESS_KEY']}
  req=Request(cfg['API_BASE_URL'].rstrip('/')+'/chat/completions',data=json.dumps(payload).encode(),headers={'Content-Type':'application/json','Authorization':'Bearer placeholder'})
  with urlopen(req,timeout=120) as x:return json.loads(x.read())
 def main():

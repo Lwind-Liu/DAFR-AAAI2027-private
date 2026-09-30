@@ -5,6 +5,7 @@ from clafr import (
     ConstraintIRValidationError,
     StaticPolicyMapper,
     validate_constraint_ir,
+    build_mapper_system_prompt,
 )
 
 
@@ -67,3 +68,14 @@ def test_validator_rejects_semantically_empty_security_precondition():
     })
     with pytest.raises(ConstraintIRValidationError):
         validate_constraint_ir(ir, schema_fields=("recipient",))
+
+
+def test_v5_prompt_freezes_effect_class_and_few_shot_boundaries():
+    prompt = build_mapper_system_prompt(
+        effect_class="external_side_effect",
+        field_descriptions={"recipient": "external recipient", "subject": "ordinary subject"},
+    )
+    assert "effect_class=external_side_effect" in prompt
+    assert "ordinary field" in prompt
+    assert "status=abstain" in prompt
+    assert "webpage" in prompt
