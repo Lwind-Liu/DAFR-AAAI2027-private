@@ -22,6 +22,7 @@ def test_agentdojo_clafr_executor_resets_state_between_cases() -> None:
     executor = CLAFRToolsExecutor()
     executor._opaque_state_bindings = {"old_alias": "old raw state"}
     executor._untrusted_provenance_blocks = ["old hidden injection"]
+    executor._mapper_fallback_count = 3
 
     query, runtime, env, messages, extra_args = executor.query(
         "new task",
@@ -37,6 +38,7 @@ def test_agentdojo_clafr_executor_resets_state_between_cases() -> None:
     assert extra_args == {}
     assert executor._opaque_state_bindings == {}
     assert executor._untrusted_provenance_blocks == []
+    assert executor._mapper_fallback_count == 0
 
 
 def test_agentdojo_clafr_executor_keeps_state_within_active_case() -> None:
@@ -249,6 +251,42 @@ def test_agentdojo_mapper_roles_only_mode_keeps_legacy_hard_envelope(monkeypatch
     # compiler facets when an artifact is loaded.
     assert executor._mapper_execution_mode == "roles_only"
     assert executor._base_compiler.enable_schema_verifier is True
+
+
+def test_agentdojo_mapper_roles_only_falls_back_for_missing_artifact(monkeypatch, tmp_path) -> None:
+    from agentdojo.agent_pipeline.clafr_defense import CLAFRToolsExecutor
+    from agentdojo.functions_runtime import FunctionCall
+
+    artifact = tmp_path / "mapper.jsonl"
+    artifact.write_text(
+        '{"tool_name":"other_tool","fields":[],"status":"abstain"}\n',
+        encoding="utf-8",
+    )
+    monkeypatch.setenv("CLAFR_MAPPER_EXECUTION_MODE", "roles_only")
+    monkeypatch.setenv("CLAFR_MAPPER_ARTIFACT", str(artifact))
+    executor = CLAFRToolsExecutor(enable_action_evidence_lifting=False)
+
+    class Runtime:
+        functions = {"read_item": SimpleNamespace(description="Read an item", required_args=())}
+
+        @staticmethod
+        def run_function(env, tool_name, args):
+            assert tool_name == "read_item"
+            return "item", None
+
+    call = FunctionCall(function="read_item", args={}, id="call-1")
+    _, _, _, messages, _ = executor.query(
+        "read the item",
+        Runtime(),
+        messages=(
+            {"role": "user", "content": "Read the item."},
+            {"role": "assistant", "content": None, "tool_calls": [call]},
+        ),
+        extra_args={},
+    )
+
+    assert executor._mapper_fallback_count == 1
+    assert messages[-1]["error"] is None
 
 
 def test_agentdojo_clafr_dynamic_geometry_ablation_removes_region_facets() -> None:

@@ -37,7 +37,7 @@ diagnostic, and repair logic must be maintained separately.
 
 ## Proposed method
 
-We investigate a training-free semantic mapper that translates trusted policy text and
+We investigate a semantic mapper that translates trusted policy text and
 tool schemas into a typed constraint representation. Structural and semantic-completeness validation checks the
 representation; it does not establish full semantic fidelity. Security preconditions must
 name their affected fields and use positive thresholds; failures abstain rather than being
@@ -51,8 +51,8 @@ The current adapter supports field-scoped grounding and authorization through th
 feature encoder, and aggregate nonnegative risk budgets over existing features. Field-scoped
 risk budgets and forbidden effects are rejected explicitly.
 Role labels are supplied by a large-language-model semantic mapper and then checked before
-entering the feature encoder. If this mapper transfers to held-out tools without parameter
-updates, the evidence supports training-free cross-tool semantic adaptation. It does not
+entering the feature encoder. If this frozen mapper transfers to held-out tools, the evidence supports
+cross-tool semantic adaptation through a typed interface. It does not
 imply that a trained encoder will work; a trained encoder is a separate distilled,
 low-latency implementation of the same IR interface and requires its own evaluation.
 
@@ -155,7 +155,7 @@ A four-tool smoke pilot with Qwen-Max produced structurally valid, backend-compi
 
 ## 论文包装和停止条件
 
-摘要中的贡献可以写成“policy-to-execution semantic lifting”和“joint-risk execution certificates”，突出两个层次：第一层把自然语言策略迁移到未见工具，第二层把跨字段风险编译为可组合的执行证书。正文中可以使用“training-free semantic adaptation”作为方法属性，但不要把它写成未经大规模验证的普适优势；真正的卖点是低人工配置、跨 schema 迁移、显式 abstention 和可审计执行。
+摘要中的贡献可以写成“policy-to-execution semantic lifting”和“joint-risk execution certificates”，突出两个层次：第一层把自然语言策略迁移到未见工具，第二层把跨字段风险编译为可组合的执行证书。正文应把 frozen mapper 视为可替换的语义接口，而不是把是否训练参数当成卖点；真正的卖点是低人工配置、跨 schema 迁移、显式 abstention、确定性安全包络和可审计执行。
 
 只有满足下面的停止条件，才把主线定稿：
 
