@@ -729,6 +729,22 @@ def test_encoder_uses_validated_destination_role_for_nonstandard_field_name() ->
     assert vector.get("external_destination_risk") == 1.0
 
 
+def test_authorization_can_scope_trusted_state_parameters_after_user_intent() -> None:
+    evidence = RuntimeEvidence(
+        trusted_task="Please pay the bill for me.",
+        trusted_state=("recipient: GB29NWBK60161331926819 amount: 12.00",),
+        tool_schema={"send_money": ("recipient", "amount")},
+        tool_descriptions={"send_money": "Send money to a recipient."},
+    )
+    action = ToolAction(id="scoped_payment", tool_name="send_money",
+                        arguments={"recipient": "GB29NWBK60161331926819", "amount": 12.0})
+    ir = ConstraintIR.from_dict({"tool_name": "send_money",
+        "roles": {"recipient": "destination", "amount": "amount"},
+        "preconditions": [{"type": "authorization", "fields": ["recipient", "amount"], "minimum": 1.0}]})
+    vector = ConfidenceLiftedEncoder().encode(action, evidence, constraint_ir=ir)
+    assert vector.get("trusted_authorization") == 1.0
+
+
 def test_untrusted_numeric_value_is_not_rescued_by_arithmetic_coincidence() -> None:
     evidence = RuntimeEvidence(
         trusted_task="Increase the approved budget by 25.",

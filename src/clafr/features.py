@@ -1050,6 +1050,24 @@ class ConfidenceLiftedEncoder:
                                 {field: action.arguments[field]}, auth_text
                             )
                         ]
+                        # A user can authorize an action in the task message
+                        # while a later trusted read supplies its concrete
+                        # recipient/amount.  Treat that combination as scoped
+                        # authorization; untrusted observations never enter
+                        # ``trusted_state`` and therefore cannot satisfy it.
+                        if precondition.type == "authorization" and trusted_intent_alignment >= 0.8:
+                            before_state_scope = len(missing_field_support)
+                            missing_field_support = [
+                                field for field in missing_field_support
+                                if not (
+                                    _argument_token_fraction_strict(
+                                        {field: action.arguments[field]},
+                                        " ".join(evidence.trusted_state),
+                                    ) > 0.0
+                                )
+                            ]
+                            if len(missing_field_support) < before_state_scope:
+                                authorization = 1.0
                         if missing_field_support:
                             if precondition.type == "authorization":
                                 authorization = 0.0
