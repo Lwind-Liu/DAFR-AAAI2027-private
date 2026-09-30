@@ -18,11 +18,16 @@ import time
 
 ROOT = Path(__file__).resolve().parents[1]
 AUTO = ROOT / "external" / "official_baselines" / "AutoDojo"
-PYTHON = Path("/tmp/dafr-jianghao-venv/bin/python3")
+PYTHON = Path(os.environ.get("DAFR_AGENTDOJO_PYTHON", str(ROOT / ".venv/bin/python")))
 BENCHMARK = "v1.2.2"
 SUITE = "banking"
 ATTACK = "important_instructions"
-MAPPER = ROOT / "results/summaries/agentdojo_mapper_banking_v7/artifact_v7.jsonl"
+MAPPER = Path(
+    os.environ.get(
+        "DAFR_MAPPER_ARTIFACT",
+        str(ROOT / "results/summaries/agentdojo_mapper_banking_v2/artifact_v2.jsonl"),
+    )
+)
 
 
 def _read_platform_env(path: Path) -> dict[str, str]:
@@ -36,7 +41,7 @@ def _read_platform_env(path: Path) -> dict[str, str]:
     return values
 
 
-def _configured_env(platform_env: Path) -> dict[str, str]:
+def _configured_env(platform_env: Path, *, mapper_artifact: Path | None) -> dict[str, str]:
     cfg = _read_platform_env(platform_env)
     required = ("API_BASE_URL", "ACCESS_KEY", "APP_NAME", "QUOTA_ID", "USER_ID")
     missing = [key for key in required if not cfg.get(key)]
@@ -66,7 +71,6 @@ def _configured_env(platform_env: Path) -> dict[str, str]:
             "PYTHONIOENCODING": "utf-8",
             "NO_COLOR": "1",
             "TERM": "dumb",
-            "CLAFR_MAPPER_ARTIFACT": str(MAPPER.resolve()),
             "PYTHONPATH": os.pathsep.join(
                 (
                     str(AUTO / "agentdojo/src"),
@@ -77,6 +81,10 @@ def _configured_env(platform_env: Path) -> dict[str, str]:
             ),
         }
     )
+    if mapper_artifact is not None:
+        env["CLAFR_MAPPER_ARTIFACT"] = str(mapper_artifact)
+    else:
+        env.pop("CLAFR_MAPPER_ARTIFACT", None)
     return env
 
 
@@ -109,7 +117,7 @@ def _benchmark_command(out_root: Path, *, attack: bool, force: bool) -> list[str
     return command
 
 
-def _collect(out_root: Path) -> dict[str, object]:
+def _collect(out_root: Path, *, mapper_artifact: Path | None) -> dict[str, object]:
     base = out_root / "qwen-max" / "clafr" / SUITE
     rows = []
     for path in sorted(base.glob("user_task_*/*/*.json")) if base.exists() else []:
@@ -140,7 +148,7 @@ def _collect(out_root: Path) -> dict[str, object]:
         "benchmark_version": BENCHMARK,
         "model": "qwen-max",
         "defense": "clafr",
-        "mapper_artifact": str(MAPPER.relative_to(ROOT)),
+        "mapper_artifact": (str(mapper_artifact.relative_to(ROOT)) if mapper_artifact is not None else None),
         "clean_n": len(clean),
         "clean_utility": sum(row["utility"] for row in clean),
         "clean_utility_rate": (sum(row["utility"] for row in clean) / len(clean)) if clean else None,
@@ -157,6 +165,7 @@ def _collect(out_root: Path) -> dict[str, object]:
 
 
 def main() -> int:
+    global PYTHON, MAPPER
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--out-root",
@@ -171,14 +180,36 @@ def main() -> int:
     parser.add_argument("--skip-clean", action="store_true")
     parser.add_argument("--skip-attack", action="store_true")
     parser.add_argument("--no-force", action="store_true")
+    parser.add_argument(
+        "--mapper-artifact",
+        type=Path,
+        default=MAPPER,
+        help="冻结的语义映射产物；默认使用当前 v2 Qwen-Max 产物。",
+    )
+    parser.add_argument(
+        "--python",
+        dest="python_path",
+        type=Path,
+        default=PYTHON,
+        help="AgentDojo 运行时 Python；默认使用仓库 .venv。",
+    )
+    parser.add_argument(
+        "--disable-mapper",
+        action="store_true",
+        help="只用于公平同 planner/runtime 对照：不加载语义映射 artifact。",
+    )
     args = parser.parse_args()
+    # Keep the venv launcher path intact. Resolving its symlink to the shared
+    # interpreter would drop the venv site-packages (notably ``click``).
+    PYTHON = args.python_path.absolute()
+    MAPPER = args.mapper_artifact.resolve()
     if not PYTHON.exists():
         raise RuntimeError(f"missing benchmark runtime: {PYTHON}")
-    if not MAPPER.exists():
+    if not args.disable_mapper and not MAPPER.exists():
         raise RuntimeError(f"missing mapper artifact: {MAPPER}")
     out_root = args.out_root.resolve()
     out_root.mkdir(parents=True, exist_ok=True)
-    env = _configured_env(args.platform_env)
+    env = _configured_env(args.platform_env, mapper_artifact=None if args.disable_mapper else MAPPER)
     protocol = {
         "schema": "agentdojo-mapper-banking-full-v7-v1",
         "suite": SUITE,
@@ -186,7 +217,7 @@ def main() -> int:
         "attack": ATTACK,
         "model": "qwen-max",
         "defense": "clafr",
-        "mapper_artifact": str(MAPPER.resolve()),
+        "mapper_artifact": None if args.disable_mapper else str(MAPPER.resolve()),
         "clean_user_tasks": [f"user_task_{i}" for i in range(16)],
         "attack_user_tasks": [f"user_task_{i}" for i in range(16)],
         "injection_tasks": [f"injection_task_{i}" for i in range(9)],
@@ -214,7 +245,10 @@ def main() -> int:
             # Keep the partial files for audit, then continue to write a
             # summary that distinguishes missing rows from failed jobs.
             break
-    summary = _collect(out_root)
+    summary = _collect(
+        out_root,
+        mapper_artifact=None if args.disable_mapper else MAPPER,
+    )
     (out_root / "summary.json").write_text(
         json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
