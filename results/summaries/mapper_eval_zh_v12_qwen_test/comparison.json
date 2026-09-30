@@ -11,25 +11,32 @@
     "cases": 24,
     "nonambiguous": 22,
     "compile_n": 22,
-    "nonambiguous_exact_n": 21,
+    "nonambiguous_exact_n": 22,
     "ambiguous_n": 2,
     "ambiguous_abstain_n": 2,
-    "underconstrained_n": 1,
-    "overconstrained_n": 1,
-    "mean_latency_sec": 5.305958333333334,
+    "underconstrained_n": 0,
+    "overconstrained_n": 0,
+    "mean_latency_sec": 5.682208333333333,
     "nonambiguous_exact_ci95": {
-      "successes": 21,
+      "successes": 22,
       "total": 22,
-      "rate": 0.9545454545454546,
-      "ci95_low": 0.7820151050048196,
-      "ci95_high": 0.9919307806988522
+      "rate": 1.0,
+      "ci95_low": 0.8513451253913791,
+      "ci95_high": 1
     },
     "compile_ci95": {
       "successes": 22,
       "total": 24,
       "rate": 0.9166666666666666,
-      "ci95_low": 0.741507847985494,
-      "ci95_high": 0.9768416721570266
+      "ci95_low": 0.741511978067893,
+      "ci95_high": 0.9768411847029567
+    },
+    "ambiguous_abstain_ci95": {
+      "successes": 2,
+      "total": 2,
+      "rate": 1.0,
+      "ci95_low": 0.34238022750665303,
+      "ci95_high": 1
     }
   },
   "schema_rule_v1": {
@@ -58,5 +65,9 @@
     }
   },
   "interpretation": "Qwen-Max and schema-aware rules use the same public inputs, ConstraintIR validator, compiler, canonicalized scorer and tool split. This is mapper semantic evidence, not an end-to-end ASR claim.",
-  "statistics": "Wilson 95% intervals for exact and compile rates; API latency is descriptive only."
+  "statistics": "Wilson 95% intervals for exact and compile rates; API latency is descriptive only.",
+  "artifacts": {
+    "qwen_results_sha256": "7af3f6f21d623005133561bef57d83fa9662c66c267266992313ac622f30f731",
+    "qwen_summary_sha256": "2668b30c212b2fa9c34a7205493b004813b6391778e9b25b6ff0ade378c82b30"
+  }
 }

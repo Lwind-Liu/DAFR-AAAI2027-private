@@ -3,12 +3,12 @@
   "cases": 24,
   "nonambiguous": 22,
   "compile_n": 22,
-  "semantic_exact_n": 21,
-  "nonambiguous_exact_n": 21,
+  "semantic_exact_n": 22,
+  "nonambiguous_exact_n": 22,
   "ambiguous_n": 2,
   "ambiguous_abstain_n": 2,
-  "underconstrained_n": 1,
-  "overconstrained_n": 1,
-  "mean_latency_sec": 5.305958333333334,
+  "underconstrained_n": 0,
+  "overconstrained_n": 0,
+  "mean_latency_sec": 5.682208333333333,
   "protocol": "gold withheld; Qwen-Max; shared parser/canonicalizer/compiler/scorer"
 }

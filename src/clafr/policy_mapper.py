@@ -33,6 +33,14 @@ state", "trusted source", "grounded in trusted state", and "来自可信任务�
 mean trusted_grounding when they identify affected fields.  A scope flag,
 visibility flag, include_* selector, detail scope, or delivery/format setting is
 scope unless its description explicitly identifies an external recipient.
+Count-like controls such as n, count, limit, page_size, offset, top_k, or number
+are scope (query extent or pagination), never amount.  A field is amount only
+when its trusted description explicitly says it is a monetary/resource amount,
+price, value, or quantity being transferred or consumed.
+When a policy refers to “the same fields” or “both fields” after naming a
+destination and amount, copy that exact named set.  Never replace a named
+destination with an object/account/claim handle merely because its name contains
+credit, account, or record.
 When a later clause says "the same fields", "both fields", or "the two fields",
 resolve it to the immediately preceding explicitly enumerated affected fields;
 never replace that set with an object identifier mentioned only for grounding.
@@ -93,6 +101,14 @@ means authorization on recipient only; it does not create confirmation.
 "用户确认 recipient 后发送" means confirmation on recipient only.
 "用户授权并确认 recipient" emits both. English "approve", "permission", and
 "sign off" follow authorization; "confirm" and "go-ahead" follow confirmation.
+Few-shot 8 (query controls): get_most_recent_transactions(n) uses n only to
+control how many records are returned.  Map n to scope and leave security
+preconditions empty; never map a count/limit/page_size field to amount.
+Few-shot 9 (conservative native fallback): when a schema field has an obvious
+legacy meaning (recipient, amount, body, account_id), preserve that meaning.
+Use the semantic role to extend coverage only for a renamed or otherwise
+unrecognized field; do not add a new security precondition for an ordinary
+field merely because the tool is a write.
 Exact JSON examples:
 {"status":"ok","ir":{"version":"1","tool_name":"get_balance",
 "roles":{"account_id":"object"},"preconditions":[],"risk_budgets":[],
@@ -152,7 +168,7 @@ def validate_role_semantics(ir: ConstraintIR, *, schema_fields: Sequence[str],
         "destination": ("recipient", "destination", "attendee", "payee", "endpoint", "beneficiary", "mailbox", "receiving account"),
         "amount": ("amount", "passenger", "quantity"),
         "time": ("date", "time", "timestamp"),
-        "scope": ("visibility", "scope", "permission", "scope flag", "detail scope", "visibility flag", "include_sensitive", "audience", "priority", "urgency", "retention", "delivery_mode", "setting", "format", "timezone", "time zone"),
+        "scope": ("visibility", "scope", "permission", "scope flag", "detail scope", "visibility flag", "include_sensitive", "audience", "priority", "urgency", "retention", "delivery_mode", "setting", "format", "timezone", "time zone", "count", "limit", "page_size", "offset", "top_k", "number of"),
         "data": ("body", "content", "comment", "memo", "subject", "reason", "payload", "text", "details", "summary", "note", "message"),
     }
     def contains_hint(text: str, word: str) -> bool:
@@ -192,8 +208,12 @@ def canonicalize_role_semantics(ir: ConstraintIR, *, schema_fields: Sequence[str
             candidates = {"time"}
         elif re.search(r"(^|[_ -])(?:[a-z]+_)?id($|[_ -])|identifier|existing (?:record|resource|account|project|workspace|profile|dataset|document|invoice|case|member)", text):
             candidates = {"object"}
-        elif re.search(r"body|content|comment|memo|subject|reason|payload|text|details|summary|note|message", text):
+        elif re.search(r"body|content|comment|memo|subject|reason|payload|text|details|summary|note|message|password", text):
             candidates = {"data"}
+        elif re.search(r"amount|price|monetary|payment amount|refund amount|transfer quantity|numeric .*quantity|resource quantity|quantity being (?:transferred|consumed)", text):
+            candidates = {"amount"}
+        elif re.search(r"(^|[_ -])(n|count|limit|page[_ -]?size|offset|top[_ -]?k|number)($|[_ -])|number of|maximum number|page size", text):
+            candidates = {"scope"}
         else:
             candidates = set()
         if len(candidates) == 1 and role != next(iter(candidates)):

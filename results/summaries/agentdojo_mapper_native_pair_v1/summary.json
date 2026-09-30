@@ -1,0 +1,10 @@
+{
+  "schema": "mapper-native-paired-audit-v1",
+  "mapper_run": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated",
+  "baseline_run": "results/runs/agentdojo_no_mapper_banking_reencode_full",
+  "common_tool_argument_occurrences": 190,
+  "execution_field_exact": 190,
+  "execution_field_disagreements": 0,
+  "feature_payload_disagreements": 7,
+  "interpretation": "Live planner traces are not replayed; exact matches support native-schema non-degradation only. Feature payload differences can reflect planner text."
+}

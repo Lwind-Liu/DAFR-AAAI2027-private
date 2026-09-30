@@ -748,6 +748,23 @@ def test_encoder_uses_validated_destination_role_for_nonstandard_field_name() ->
     assert vector.get("external_destination_risk") == 1.0
 
 
+def test_mapper_destination_role_is_conservative_on_native_field_names() -> None:
+    evidence = RuntimeEvidence(
+        trusted_task="Send the approved report to the approved recipient.",
+        trusted_state=("recipient=alice@example.com",),
+        tool_schema={"send_email": ("recipient", "body")},
+        tool_descriptions={"send_email": "Send an external email."},
+    )
+    action = ToolAction(id="native_recipient", tool_name="send_email",
+                        arguments={"recipient": "alice@example.com", "body": "Report"})
+    baseline = ConfidenceLiftedEncoder().encode(action, evidence)
+    ir = ConstraintIR.from_dict({"tool_name": "send_email",
+        "roles": {"recipient": "destination", "body": "data"},
+        "preconditions": []})
+    mapped = ConfidenceLiftedEncoder().encode(action, evidence, constraint_ir=ir)
+    assert mapped.values == baseline.values
+
+
 def test_role_conditioned_encoder_retains_field_trace_in_certificate() -> None:
     evidence = RuntimeEvidence(
         trusted_task="Update the approved object using payload P-17 and owner sink-17.",

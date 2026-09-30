@@ -1150,10 +1150,20 @@ class ConfidenceLiftedEncoder:
                 field for field, role in constraint_ir.roles.items()
                 if role == "destination"
             ]
-            if mapped_destination_fields and any(
-                field in action.arguments and action.arguments[field] not in (None, "")
-                for field in mapped_destination_fields
-            ):
+            # Conservative semantic backoff: native argument names already
+            # covered by the deterministic encoder keep their legacy score.
+            # The mapper is applied only when it supplies a destination role
+            # for a schema field that the legacy name heuristic cannot see
+            # (e.g. ``target_mailbox`` or ``beneficiary_ref``).  This makes
+            # the semantic lift monotone on paired native calls while still
+            # extending coverage to renamed schemas.
+            mapped_destination_fallback_fields = [
+                field for field in mapped_destination_fields
+                if field in action.arguments
+                and action.arguments[field] not in (None, "")
+                and not has_destination
+            ]
+            if mapped_destination_fallback_fields:
                 external_destination = 1.0 if side_effect_bool else external_destination
             for precondition in constraint_ir.preconditions:
                 if precondition.type == "trusted_grounding" and precondition.fields:
@@ -1200,7 +1210,7 @@ class ConfidenceLiftedEncoder:
             # semantic projection, but are not allowed to silently retune
             # legacy risk weights before a dedicated role-ablation study.
             role_scores = role_projection["role_aggregates"]
-            if "destination" in role_scores and role_scores["destination"]["present_fields"]:
+            if mapped_destination_fallback_fields:
                 if side_effect_bool or _external_effect_tool(action.tool_name):
                     external_destination = 1.0
         state_read_necessity = _state_read_necessity(

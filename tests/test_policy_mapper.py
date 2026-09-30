@@ -137,6 +137,20 @@ def test_role_semantics_covers_cross_schema_scope_and_external_account_hints():
                         'zone_context': 'scope'}
 
 
+def test_role_semantics_distinguishes_payment_quantity_from_query_count():
+    import json
+    from clafr.policy_mapper import parse_mapper_response
+    ir = parse_mapper_response(
+        json.dumps({'tool_name': 'settle_claim',
+                    'roles': {'unit_count': 'scope', 'n': 'amount'},
+                    'preconditions': []}),
+        'settle_claim', ['unit_count', 'n'],
+        field_descriptions={'unit_count': 'payment amount',
+                            'n': 'number of records to return'},
+    )
+    assert ir.roles == {'unit_count': 'amount', 'n': 'scope'}
+
+
 def test_read_only_empty_grounding_is_vacuous_but_auth_is_not_removed():
     import json
     from clafr.policy_mapper import parse_mapper_response
