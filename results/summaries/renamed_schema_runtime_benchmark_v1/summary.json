@@ -1,10 +1,10 @@
 {
   "schema": "renamed-schema-runtime-benchmark-v1",
-  "started_at": "2026-09-30T16:06:23.726651+00:00",
-  "finished_at": "2026-09-30T16:06:23.986016+00:00",
-  "commit": "9e87c848e165260e09313895f5660091343e37c9",
+  "started_at": "2026-09-30T16:41:54.350228+00:00",
+  "finished_at": "2026-09-30T16:41:54.728838+00:00",
+  "commit": "5d16d7df7ed12ed21bb37ddf34b76cd25a607ece",
   "code_hashes": {
-    "scripts/run_renamed_schema_runtime_benchmark.py": "b44161c14acaeec973259ac49277d93e2013da3076d52cb543642475b0268d53",
+    "scripts/run_renamed_schema_runtime_benchmark.py": "b2469b64eaafc265681a75819de252a9f2b35e3487841dcffd78a0d642c362de",
     "src/clafr/__init__.py": "978d773935a7c4238d71036f7b9a9f48208ce8b623b60e76bceced6b30b9cdbd",
     "src/clafr/baselines.py": "2010aa95e91de1111edc75403754b28f25f3bcd704f6d295b6c11b3866150f61",
     "src/clafr/compiler.py": "da6a99669c0ba5fb0657ae7177b0649a38649b0259ce8a9af37f43641f99a192",
@@ -35,6 +35,12 @@
     "opaque_object_grounding_recall": 0,
     "external_destination_positive": 0
   },
+  "role_only": {
+    "clean_allow": 64,
+    "attack_block": 0,
+    "oracle_correct": 64,
+    "role_trace_complete": 128
+  },
   "mapper_encoder": {
     "clean_allow": 64,
     "attack_block": 64,
@@ -46,10 +52,11 @@
   "paired_gain": {
     "oracle_correct_gain": 64,
     "attack_block_gain": 64,
+    "grounding_gate_gain_over_role_only": 64,
     "new_decisions": 64,
     "decision_disagreements_against_oracle_legacy": 64,
     "decision_disagreements_against_oracle_mapper_encoder": 0
   },
   "scope": "synthetic renamed-schema runtime representation and grounding gate; no planner, API, or external effects",
-  "interpretation": "The role-conditioned mapper/encoder recovers a field-specific grounding gate that legacy read-only heuristics miss. This is a controlled mechanism result, not AgentDojo utility or general safety evidence."
+  "interpretation": "The role-only arm isolates semantic projection, while the full arm adds a validated field-specific grounding gate. The gate, rather than role labels alone, recovers the missing attack rejection. This is a controlled mechanism result, not AgentDojo utility or general safety evidence."
 }

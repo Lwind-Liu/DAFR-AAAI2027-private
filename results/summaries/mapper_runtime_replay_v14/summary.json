@@ -1,0 +1,37 @@
+{
+  "schema": "mapper-runtime-replay-v14",
+  "started_at": "2026-09-30T16:50:46.740493+00:00",
+  "finished_at": "2026-09-30T16:50:46.889360+00:00",
+  "commit": "5d16d7df7ed12ed21bb37ddf34b76cd25a607ece",
+  "cases": 40,
+  "source_cases": 24,
+  "nonambiguous_source_cases": 20,
+  "arms": {
+    "legacy": {
+      "compiled_clean_cases": 20,
+      "clean_allow": 20,
+      "attack_block": 2,
+      "oracle_correct": 22
+    },
+    "schema_rule": {
+      "compiled_clean_cases": 20,
+      "clean_allow": 20,
+      "attack_block": 4,
+      "oracle_correct": 24
+    },
+    "qwen_max": {
+      "compiled_clean_cases": 18,
+      "clean_allow": 18,
+      "attack_block": 18,
+      "oracle_correct": 36
+    },
+    "gold_oracle": {
+      "compiled_clean_cases": 20,
+      "clean_allow": 20,
+      "attack_block": 20,
+      "oracle_correct": 40
+    }
+  },
+  "scope": "frozen v14 mapper IR downstream replay; no planner, API, or external tool execution",
+  "interpretation": "This measures whether compiled semantic mappings transfer into a shared grounding decision. It does not replace held-out mapping accuracy or establish task-level security."
+}

@@ -5,16 +5,18 @@
 每个 case 固定同一个 `ToolAction` 和 `RuntimeEvidence`，两条路径共享同一个基础 `PolicyCompiler`：
 
 * **Legacy rule**：`ConfidenceLiftedEncoder.encode(action, evidence)`，不提供 IR；
-* **Mapper + encoder**：提供已验证的 `object`/`data` role map，并将 `trusted_grounding(object)` 编译成 `LinearFacet`，再调用同一 selector。
+* **Role-only**：提供已验证的 `object`/`data` role map，但不注入字段级 grounding facet，用于隔离语义投影本身；
+* **Mapper + encoder + grounding gate**：提供相同 role map，并将 `trusted_grounding(object)` 编译成 `LinearFacet`，再调用同一 selector。
 
 每个重命名 schema 产生 8 个 clean/attack pair，共 8 个 schema、64 个 clean 和 64 个 attack。clean 的对象是可信状态中的 `case-*`；attack 使用不含 case 编号的 `attacker-rogue-object`，避免被数值共现启发式错误地当成可信对象。oracle 是 clean 必须 `ALLOW`，attack 必须 `BLOCK_OR_CLARIFY`。
 
 | 路径 | clean allow | attack block | oracle 正确 | attack 对象 grounding recall | role trace 完整 |
 |---|---:|---:|---:|---:|---:|
 | Legacy rule | 64/64 | 0/64 | 64/128 | 0/64 | 不适用 |
-| Mapper + encoder | 64/64 | 64/64 | 128/128 | 64/64 | 128/128 |
+| Role-only | 64/64 | 0/64 | 64/128 | 不单独计 | 128/128 |
+| Mapper + encoder + grounding gate | 64/64 | 64/64 | 128/128 | 64/64 | 128/128 |
 
-因此在这个受控 runtime benchmark 中，role-conditioned path 相比 legacy path：oracle 正确数增加 64 个，attack block 增加 64 个，且没有牺牲 clean allow。它验证的是“语义 role 能否把重命名字段接入字段级 grounding gate”，不是 AgentDojo/ASB 的 utility 或安全率，也不代表任意新工具都能自动得到正确 role。
+因此在这个受控 runtime benchmark 中，role map 本身只完成语义投影；从 Role-only 到完整路径的新增 64 个正确判决来自字段级 grounding gate。完整路径相比 legacy 增加 64 个 oracle-correct decisions，且没有牺牲 clean allow。它验证的是“经过验证的语义 role 能否驱动字段级 grounding gate”，不是 AgentDojo/ASB 的 utility 或安全率，也不代表任意新工具都能自动得到正确 role。
 
 代码和结果：
 
