@@ -1,0 +1,93 @@
+{
+  "aggregate": {
+    "ambiguous_abstain_n": 5,
+    "ambiguous_n": 5,
+    "compile_n": 37,
+    "n": 42,
+    "nonambiguous_exact_n": 37,
+    "nonambiguous_n": 37,
+    "overconstrained_n": 0,
+    "semantic_exact_n": 37,
+    "underconstrained_n": 0
+  },
+  "baseline": "schema_rule_v1",
+  "input_sha256": "2c127b6cbc278eb7c73c55f68ee77a9d6ab63929050bfd4a3b9afbe878f22b69",
+  "protocol": {
+    "gold_not_visible_to_mapper": true,
+    "input_fields": [
+      "tool_name",
+      "fields",
+      "policy",
+      "description",
+      "field_descriptions",
+      "effect_class"
+    ],
+    "shared_compiler": "clafr.ir_compiler.IRPolicyCompiler",
+    "shared_scorer": "clafr.mapper_evaluation.score",
+    "shared_validator": "clafr.policy_ir.validate_constraint_ir",
+    "versions": [
+      "v7",
+      "v8",
+      "v9",
+      "v10",
+      "v11"
+    ]
+  },
+  "versions": {
+    "v10": {
+      "ambiguous_abstain_n": 1,
+      "ambiguous_n": 1,
+      "compile_n": 7,
+      "n": 8,
+      "nonambiguous_exact_n": 7,
+      "nonambiguous_n": 7,
+      "overconstrained_n": 0,
+      "semantic_exact_n": 7,
+      "underconstrained_n": 0
+    },
+    "v11": {
+      "ambiguous_abstain_n": 1,
+      "ambiguous_n": 1,
+      "compile_n": 5,
+      "n": 6,
+      "nonambiguous_exact_n": 5,
+      "nonambiguous_n": 5,
+      "overconstrained_n": 0,
+      "semantic_exact_n": 5,
+      "underconstrained_n": 0
+    },
+    "v7": {
+      "ambiguous_abstain_n": 1,
+      "ambiguous_n": 1,
+      "compile_n": 9,
+      "n": 10,
+      "nonambiguous_exact_n": 9,
+      "nonambiguous_n": 9,
+      "overconstrained_n": 0,
+      "semantic_exact_n": 9,
+      "underconstrained_n": 0
+    },
+    "v8": {
+      "ambiguous_abstain_n": 1,
+      "ambiguous_n": 1,
+      "compile_n": 9,
+      "n": 10,
+      "nonambiguous_exact_n": 9,
+      "nonambiguous_n": 9,
+      "overconstrained_n": 0,
+      "semantic_exact_n": 9,
+      "underconstrained_n": 0
+    },
+    "v9": {
+      "ambiguous_abstain_n": 1,
+      "ambiguous_n": 1,
+      "compile_n": 7,
+      "n": 8,
+      "nonambiguous_exact_n": 7,
+      "nonambiguous_n": 7,
+      "overconstrained_n": 0,
+      "semantic_exact_n": 7,
+      "underconstrained_n": 0
+    }
+  }
+}

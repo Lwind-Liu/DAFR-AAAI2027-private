@@ -53,3 +53,5 @@ __all__ += [
     "canonicalize_role_semantics",
     "validate_constraint_ir",
 ]
+from .rule_mapper import SchemaRulePolicyMapper
+__all__ += ["SchemaRulePolicyMapper"]
