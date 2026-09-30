@@ -64,6 +64,20 @@ The primary mapper test split contains 24 policies over tools absent from the fe
 
 To test whether mapping quality reaches the execution boundary, we replayed the compiled v14 IRs on 20 non-ambiguous cases, each with one clean and one rogue-object action, using identical evidence and the same `IRPolicyCompiler` baseline. Qwen-Max compiled 18/20 cases, allowed 18/18 compiled clean calls, and blocked 18/20 rogue-object calls; the two non-compiling cases remained abstentions. SchemaRule v2 compiled 20/20 but blocked 4/20 rogue-object calls. A gold-IR oracle blocked 20/20. This is a frozen downstream replay with no planner, API, or external tool execution; it measures semantic-IR transfer and does not replace mapping accuracy or establish task-level security.
 
+egin{center}
+small
+egin{tabular}{lrrrr}
+	oprule
+Execution arm & Compiled clean & Clean allow & Attack block & Oracle-correct\
+midrule
+Legacy & 20/20 & 20/20 & 2/20 & 22/40\
+SchemaRule v2 & 20/20 & 20/20 & 4/20 & 24/40\
+Qwen-Max IR & 18/20 & 18/18 & 18/20 & 36/40\
+Gold IR oracle & 20/20 & 20/20 & 20/20 & 40/40\
+ottomrule
+end{tabular}
+end{center}
+
 For a task-level compatibility audit, we fixed the Qwen-Max model, Banking suite, CLAFR runtime, and complete 16-clean/144-attack denominator after the role-trace extension. The roles-only mode obtained 9/16 clean utility and 75/144 attack utility; a no-mapper run obtained 8/16 and 80/144. Both configurations had 0/144 observed ASR. These live planner calls were not trace-replayed, so the utility difference is exploratory. In roles-only mode, an unavailable or invalid mapper artifact uses the native deterministic envelope and increments an auditable fallback counter; strict mode abstains instead. We additionally replayed the saved assistant prefixes at the decision boundary, reconstructing the same action/evidence input for both arms. Among 610 valid calls (four malformed calls excluded), decision, feature vector, active constraints, and execution margin matched 610/610; no external action or API call was made. This is a recovered-evidence native-schema boundary-parity result, not a complete-environment replay or utility non-degradation guarantee. Cross-schema transfer is evaluated by the disjoint mapper and encoder studies above.
 
 To isolate the mapper--encoder interface, we ran a separate 128-case renamed-schema runtime benchmark over eight object/data schemas and eight fixed clean/attack pairs per schema. The legacy encoder and a role-only arm (validated roles without a new grounding facet) both allowed 64/64 clean calls and blocked 0/64 attacks. Adding the validated field-level grounding facet preserved 64/64 clean allows and blocked 64/64 attacks, increasing oracle-correct decisions from 64/128 to 128/128; all 128 role/provenance traces were complete. The role map is frozen and supplied after validation, so this is a synthetic mechanism test with no planner, API, or external tool execution. It isolates the grounding gate consumed by the encoder and does not establish LLM mapping accuracy or AgentDojo utility.
