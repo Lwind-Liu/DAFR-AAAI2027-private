@@ -13,7 +13,7 @@
 \setcounter{secnumdepth}{0}
 \newcommand{\method}{\textsc{DAFR}}
 
-\title{From Semantics to Execution: Dynamic Geometric Constraints for Tool-Action Feasibility\\Supplementary Evidence}
+\title{From Policy Semantics to Safe Tool Execution: Semantic Lifting and Joint-Risk Certificates\\Supplementary Evidence}
 \author{Anonymous Submission}
 \affiliations{}
 
@@ -68,7 +68,7 @@ Clean and attack utility measure task completion in the corresponding benchmark 
 \section{Execution Interface and State Update}
 \label{sec:implementation}
 
-DAFR uses the tool-boundary execution state: the trusted task, registered schemas, established facts, completed prerequisites, authorization, and source-tagged observations. A training-free semantic mapper first converts the registered schema and policy text into a validated typed interface. A deterministic lifting function then converts the call and state into four groups of action--evidence relations:
+DAFR uses the tool-boundary execution state: the trusted task, registered schemas, established facts, completed prerequisites, authorization, and source-tagged observations. A semantic mapper proposes a typed interface from the registered schema and policy text; deterministic validation and abstention precede execution. A deterministic lifting function then converts the call and state into four groups of action--evidence relations:
 
 \begin{center}
 \small
@@ -86,7 +86,7 @@ Effect and state & Consequences of the call and their consistency with the inten
 \label{tab:relation-groups}
 \end{center}
 
-Tool-specific fields are mapped by the validated training-free mapper to shared execution roles, including the affected object, destination, data, effect parameter, and state transition. The original field identity remains attached to its role, so the decision record stays traceable to the concrete call while the geometric evaluator operates over a common representation.
+Tool-specific fields are mapped by the validated mapper to shared execution roles, including the affected object, destination, data, effect parameter, and state transition. The original field identity remains attached to its role, so the decision record stays traceable to the concrete call while the geometric evaluator operates over a common representation.
 
 At each step, the runtime constructs the current action--evidence point, selects the constraint templates applicable to the proposed effect and state, and computes their signed margins. The minimum active margin determines feasibility. An admitted call proceeds to the trusted executor; the returned observation is projected into source-tagged state records before the next proposal is evaluated. A non-admitted call returns relation-level feedback through the same planner interface. This loop keeps the decision procedure unchanged across tools and planner models.
 
@@ -95,6 +95,45 @@ For $C_t$ active constraints and $d$ relation coordinates, the geometric evaluat
 O(C_t d)
 \end{equation}
 operations for a proposed call. Each constraint reads only its participating coordinates, while the complete active set is evaluated before execution.
+
+\section{Matched Representation and Repair Studies}
+\label{sec:matched-geometry}
+
+The representation study uses the same validated IR, action--evidence vectors, constraints, candidate actions, and effect verifier for every row. It therefore tests the execution interface rather than changing the upstream mapper or planner. Independent axis checks use one threshold per risk coordinate; the joint region uses the shared risk budget in Eq.~(\ref{eq:joint-region}); the equivalent predicate is an implementation-equivalent membership check.
+
+\begin{center}
+\small
+\begin{tabular}{lrrr}
+\toprule
+Decision interface & Allowed & Joint-risk false allows & Disagreement\\
+\midrule
+Axis-ifelse & 512/512 & 25/512 & --\\
+Joint Geometry & 487/512 & 0/512 & 0/512\\
+Equivalent predicate & 487/512 & 0/512 & 0/512\\
+\bottomrule
+\end{tabular}
+\captionof{table}{Four-dimensional joint-risk suite. Axis-ifelse checks each coordinate independently; Geometry and the equivalent predicate share the same joint boundary.}
+\label{tab:joint-risk}
+\end{center}
+
+The axis control accepts every candidate because every individual coordinate is below its local threshold, including 25 candidates whose joint norm exceeds the shared budget. Geometry and the equivalent predicate reject the same candidates, so this study isolates the failure mode of independent branches rather than claiming that geometry is more expressive than general arithmetic code.
+
+\begin{center}
+\small
+\begin{tabular}{lrrr}
+\toprule
+Interface & Safe recoveries & Expected blocks & External effects\\
+\midrule
+Geometry + native repair & 192/256 & 64/64 & 0\\
+Predicate + same oracle & 192/256 & 64/64 & 0\\
+Boolean-only predicate & 0/256 & 64/64 & 0\\
+\bottomrule
+\end{tabular}
+\captionof{table}{Action-level dry-run repair suite. The first two rows use the same executable candidate set and effect verifier.}
+\label{tab:repair-suite}
+\end{center}
+
+Geometry and Predicate+oracle have identical repair success, which is expected when they share the same repair oracle. The measurable interface contribution is that the geometric decision record exposes signed margins, violated facets, and provenance links used by that oracle; a Boolean-only predicate supplies no such repair signal.
 
 \section{Complete AgentDojo Results}
 
