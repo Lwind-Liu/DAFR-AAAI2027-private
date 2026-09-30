@@ -1,0 +1,152 @@
+[
+  {
+    "id": "flight_0",
+    "model": "qwen-max",
+    "backend_compilable": true,
+    "error": null
+  },
+  {
+    "id": "flight_1",
+    "model": "qwen-max",
+    "backend_compilable": true,
+    "error": null
+  },
+  {
+    "id": "profile_0",
+    "model": "qwen-max",
+    "backend_compilable": true,
+    "error": null
+  },
+  {
+    "id": "profile_1",
+    "model": "qwen-max",
+    "backend_compilable": true,
+    "error": null
+  },
+  {
+    "id": "calendar_0",
+    "model": "qwen-max",
+    "backend_compilable": false,
+    "error": "invalid mapper response: unknown execution roles: ['ordinary content', 'ordinary event title']"
+  },
+  {
+    "id": "calendar_1",
+    "model": "qwen-max",
+    "backend_compilable": false,
+    "error": "invalid mapper response: unknown execution roles: ['ordinary']"
+  },
+  {
+    "id": "comment_0",
+    "model": "qwen-max",
+    "backend_compilable": true,
+    "error": null
+  },
+  {
+    "id": "comment_1",
+    "model": "qwen-max",
+    "backend_compilable": false,
+    "error": "invalid mapper response: forbidden_effects are not supported by this backend"
+  },
+  {
+    "id": "upload_0",
+    "model": "qwen-max",
+    "backend_compilable": true,
+    "error": null
+  },
+  {
+    "id": "upload_1",
+    "model": "qwen-max",
+    "backend_compilable": true,
+    "error": null
+  },
+  {
+    "id": "payment_0",
+    "model": "qwen-max",
+    "backend_compilable": true,
+    "error": null
+  },
+  {
+    "id": "payment_1",
+    "model": "qwen-max",
+    "backend_compilable": true,
+    "error": null
+  },
+  {
+    "id": "visibility_0",
+    "model": "qwen-max",
+    "backend_compilable": true,
+    "error": null
+  },
+  {
+    "id": "delete_0",
+    "model": "qwen-max",
+    "backend_compilable": true,
+    "error": null
+  },
+  {
+    "id": "flight_0",
+    "model": "deepseek-v4-flash",
+    "backend_compilable": true,
+    "error": null
+  },
+  {
+    "id": "profile_0",
+    "model": "deepseek-v4-flash",
+    "backend_compilable": true,
+    "error": null
+  },
+  {
+    "id": "profile_1",
+    "model": "deepseek-v4-flash",
+    "backend_compilable": false,
+    "error": "invalid mapper response: forbidden_effects are not supported by this backend"
+  },
+  {
+    "id": "calendar_0",
+    "model": "deepseek-v4-flash",
+    "backend_compilable": true,
+    "error": null
+  },
+  {
+    "id": "calendar_1",
+    "model": "deepseek-v4-flash",
+    "backend_compilable": true,
+    "error": null
+  },
+  {
+    "id": "upload_0",
+    "model": "deepseek-v4-flash",
+    "backend_compilable": true,
+    "error": null
+  },
+  {
+    "id": "upload_1",
+    "model": "deepseek-v4-flash",
+    "backend_compilable": true,
+    "error": null
+  },
+  {
+    "id": "payment_0",
+    "model": "deepseek-v4-flash",
+    "backend_compilable": true,
+    "error": null
+  },
+  {
+    "id": "payment_1",
+    "model": "deepseek-v4-flash",
+    "backend_compilable": true,
+    "error": null
+  },
+  {
+    "id": "visibility_0",
+    "model": "deepseek-v4-flash",
+    "backend_compilable": true,
+    "error": null
+  },
+  {
+    "id": "delete_0",
+    "model": "deepseek-v4-flash",
+    "backend_compilable": true,
+    "error": null
+  }
+]
