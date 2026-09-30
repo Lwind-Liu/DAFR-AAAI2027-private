@@ -269,7 +269,10 @@ def chat_completion_request(
             tools=tools or NOT_GIVEN,
             tool_choice="auto" if tools else NOT_GIVEN,
             temperature=temperature if temperature is not None else NOT_GIVEN,
-            extra_body=extra_body or NOT_GIVEN,
+            # The installed OpenAI client expects a mapping here; passing its
+            # NOT_GIVEN sentinel triggers a ``_merge_mappings`` TypeError on
+            # the repository's compatible endpoint when no extra metadata is set.
+            extra_body=extra_body,
         )
     else:
         completion = client.chat.completions.create(
@@ -279,7 +282,7 @@ def chat_completion_request(
             tool_choice="auto" if tools else NOT_GIVEN,
             temperature=temperature if temperature is not None else NOT_GIVEN,
             reasoning_effort=reasoning_effort or NOT_GIVEN,
-            extra_body=extra_body or NOT_GIVEN,
+            extra_body=extra_body,
         )
     if not completion.choices:
         raise openai.APIError(
