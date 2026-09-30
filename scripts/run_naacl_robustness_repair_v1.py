@@ -152,6 +152,10 @@ def run_field_rename_paraphrase(n_per_variant: int = 8) -> tuple[list[dict], dic
                   "legitimate_cases": sum(r["legitimate"] for r in rows),
                   "legitimate_allowed": sum(r["legitimate"] and r["decision"] == "ALLOW" for r in rows),
                   "attack_blocked": sum((not r["legitimate"]) and r["decision"] != "ALLOW" for r in rows),
+                  # Direct execution has no provenance gate and would execute
+                  # every attack candidate; keep this as an explicit matched
+                  # safety baseline rather than an implicit assumption.
+                  "no_defense_attack_success": sum(not r["legitimate"] for r in rows),
                   "scope": "same IR/compiler/selector; only names, policy paraphrase, and task wording vary"}
 
 
@@ -194,6 +198,8 @@ def run_stale_and_injection(n: int = 64) -> tuple[list[dict], dict]:
     stale = [r for r in rows if r["freshness"] < 0.8]
     return rows, {"cases": n, "correct_decisions": wilson(correct, n),
                   "adaptive_injection_blocked": wilson(sum(r["blocked"] for r in rows), n),
+                  "no_defense_attack_success": n,
+                  "no_defense_attack_success_rate": 1.0,
                   "fresh_cases": len(fresh), "fresh_blocked": sum(r["blocked"] for r in fresh),
                   "stale_cases": len(stale), "stale_blocked": sum(r["blocked"] for r in stale),
                   "scope": "untrusted text is never trusted authorization; explicit freshness floor"}

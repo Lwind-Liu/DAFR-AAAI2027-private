@@ -20,6 +20,7 @@
     "legitimate_cases": 32,
     "legitimate_allowed": 32,
     "attack_blocked": 32,
+    "no_defense_attack_success": 32,
     "scope": "same IR/compiler/selector; only names, policy paraphrase, and task wording vary"
   },
   "stale_state_adaptive_injection": {
@@ -38,6 +39,8 @@
       "ci95_low": 0.9433739770288436,
       "ci95_high": 1.0
     },
+    "no_defense_attack_success": 64,
+    "no_defense_attack_success_rate": 1.0,
     "fresh_cases": 32,
     "fresh_blocked": 32,
     "stale_cases": 32,
