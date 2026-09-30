@@ -9,6 +9,34 @@ are a restricted hypothesis class, not an equivalent implementation of the same 
 The equivalent-predicate control shares constraints, features, evidence and candidate
 ranking with the geometric backend. Its acceptance decisions should coincide.
 
+## Why keep geometry instead of a boolean if--else gate?
+
+The claim is about the execution interface, not about the expressive power of
+arithmetic. An unrestricted predicate can reproduce every current halfspace and
+second-order cone, so the predicate control is required to match the geometry
+decision. Geometry is retained because one typed region exposes four quantities
+from the same object: (i) joint feasibility across fields, (ii) a signed and
+normalized margin for every violated facet, (iii) the closest repair direction
+under the declared constraint, and (iv) a provenance-bearing certificate that
+can be composed when a new policy facet is added. A boolean gate returns only
+true/false; implementing these quantities with if--else requires separate,
+manually synchronized code and an extra optimization objective.
+
+This is a falsifiable systems claim. We will compare geometry and an equivalent
+predicate with the same feature vector, constraints, candidates and repair
+budget. The primary metrics are decision disagreement (should be zero), boundary
+ranking agreement, constraint-localization accuracy, executable repair success,
+unsafe repair rate, clarification count, and added latency. If a predicate
+implementation is augmented with the same margin and repair oracle, any geometry
+advantage should disappear; that result is expected and will be reported as a
+representation/maintenance advantage rather than a security guarantee.
+
+The motivating failure mode is a coupled budget: two individually acceptable
+fields can exceed a joint risk budget. Geometry represents this as one cone and
+reports the joint slack. A collection of independent if--else thresholds misses
+the interaction; a hand-written predicate can encode it, but then the coupling,
+diagnostic, and repair logic must be maintained separately.
+
 ## Proposed method
 
 We investigate a training-free semantic mapper that translates trusted policy text and

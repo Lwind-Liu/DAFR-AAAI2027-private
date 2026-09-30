@@ -16,6 +16,15 @@ def test_exact_predicates_match_full_region():
         assert region.feasible(vector) == predicate_feasible(region, vector)
 
 
+def test_geometry_adds_diagnostic_margin_to_same_predicate_decision():
+    region = PolicyCompiler().compile(['private payment update untrusted'])
+    vector = FeatureVector.from_mapping({k: 0.9 for k in FEATURE_NAMES})
+    geometric = region.margins(vector)
+    assert region.feasible(vector) == predicate_feasible(region, vector)
+    assert geometric
+    assert any(m.slack < 0.0 and m.repair_hint for m in geometric)
+
+
 def test_empty_schema_is_not_unspecified_schema():
     ir = ConstraintIR.from_dict({'tool_name': 'read', 'roles': {'fake': 'data'}})
     with pytest.raises(ConstraintIRValidationError):
