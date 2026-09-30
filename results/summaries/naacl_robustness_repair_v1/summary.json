@@ -1,0 +1,83 @@
+{
+  "benchmark": "naacl_robustness_repair_v1",
+  "seed": 20261001,
+  "field_rename_paraphrase": {
+    "cases": 64,
+    "correct_decisions": {
+      "successes": 64,
+      "total": 64,
+      "rate": 1.0,
+      "ci95_low": 0.9433739770288436,
+      "ci95_high": 1.0
+    },
+    "allow": {
+      "successes": 32,
+      "total": 64,
+      "rate": 0.5,
+      "ci95_low": 0.38101888493214947,
+      "ci95_high": 0.6189811150678505
+    },
+    "legitimate_cases": 32,
+    "legitimate_allowed": 32,
+    "attack_blocked": 32,
+    "scope": "same IR/compiler/selector; only names, policy paraphrase, and task wording vary"
+  },
+  "stale_state_adaptive_injection": {
+    "cases": 64,
+    "correct_decisions": {
+      "successes": 64,
+      "total": 64,
+      "rate": 1.0,
+      "ci95_low": 0.9433739770288436,
+      "ci95_high": 1.0
+    },
+    "adaptive_injection_blocked": {
+      "successes": 64,
+      "total": 64,
+      "rate": 1.0,
+      "ci95_low": 0.9433739770288436,
+      "ci95_high": 1.0
+    },
+    "fresh_cases": 32,
+    "fresh_blocked": 32,
+    "stale_cases": 32,
+    "stale_blocked": 32,
+    "scope": "untrusted text is never trusted authorization; explicit freshness floor"
+  },
+  "multi_tool_repair": {
+    "cases": 256,
+    "repairable_cases": 192,
+    "nonrepairable_cases": 64,
+    "geometry_repair_success": {
+      "successes": 192,
+      "total": 256,
+      "rate": 0.75,
+      "ci95_low": 0.6935238434514225,
+      "ci95_high": 0.7990839606877146
+    },
+    "predicate_oracle_repair_success": {
+      "successes": 192,
+      "total": 256,
+      "rate": 0.75,
+      "ci95_low": 0.6935238434514225,
+      "ci95_high": 0.7990839606877146
+    },
+    "bool_only_repair_success": {
+      "successes": 0,
+      "total": 256,
+      "rate": 0.0,
+      "ci95_low": 0.0,
+      "ci95_high": 0.014784391721725852
+    },
+    "geometry_predicate_disagreements": 0,
+    "effect_preserved": 192,
+    "unsafe_repairs": 0,
+    "external_side_effects": 0,
+    "scope": "four write-tool aliases, local effect model, no external calls"
+  },
+  "interpretation": {
+    "rename": "semantic roles survive field aliases when supplied through validated IR; errors are counted per case",
+    "stale_injection": "untrusted claims never satisfy authorization; stale state is blocked by explicit freshness precondition",
+    "repair": "geometry and matched predicate oracle should tie; the contribution is a certificate/repair interface, not intrinsic predicate expressiveness"
+  }
+}

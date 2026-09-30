@@ -751,6 +751,16 @@ def _critical_literal_anchors(value: str) -> tuple[str, ...]:
 def _value_grounding_score(value: str, *, trusted_text: str, untrusted_text: str) -> float:
     trusted_lower = trusted_text.lower()
     untrusted_lower = untrusted_text.lower()
+    # Exact literals from trusted state are valid evidence even when an
+    # identifier is short or contains punctuation (for example ``R-7`` or
+    # ``case/17``).  Token-only matching drops these separators and previously
+    # assigned a spurious 0.55 score, which made validated IR grounding fail
+    # after a field rename.  Check the literal before anchor/token heuristics;
+    # the untrusted-only guard below still takes precedence for conflicting
+    # values.
+    literal = str(value).strip().lower()
+    if literal and literal in trusted_lower:
+        return 1.0
     if any(
         anchor in untrusted_lower and anchor not in trusted_lower
         for anchor in _critical_literal_anchors(value)
@@ -1023,6 +1033,29 @@ class ConfidenceLiftedEncoder:
         # encoder remains the fallback when no IR is supplied.
         if constraint_ir is not None:
             from .policy_ir import Precondition
+            def mapped_field_scores(fields: Iterable[str]) -> dict[str, float]:
+                """Score mapper-declared fields independently of legacy key lists.
+
+                The generic repair helper intentionally recognizes common
+                argument names (``recipient``, ``body``, ``amount``).  A
+                validated mapper can instead declare arbitrary schema names
+                such as ``target_mailbox`` or ``payload_bytes``.  Reusing the
+                name-only helper here turned those fields into a zero score and
+                made otherwise grounded renamed schemas fail the IR floor.
+                """
+                scores: dict[str, float] = {}
+                for field in fields:
+                    if field not in action.arguments:
+                        scores[field] = 0.0
+                        continue
+                    values = tuple(_iter_argument_values(action.arguments[field]))
+                    scores[field] = _clip(min(
+                        (_value_grounding_score(value, trusted_text=trusted_text,
+                                                 untrusted_text=untrusted_text)
+                         for value in values),
+                        default=0.55,
+                    ))
+                return scores
             # Prefer validated mapper roles over name heuristics for fields such
             # as ``owner`` or ``assignee`` that encode an external sink without
             # containing the legacy destination keywords.
@@ -1037,13 +1070,13 @@ class ConfidenceLiftedEncoder:
                 external_destination = 1.0 if side_effect_bool else external_destination
             for precondition in constraint_ir.preconditions:
                 if precondition.type == "trusted_grounding" and precondition.fields:
-                    field_scores = critical_field_grounding(action, evidence)
+                    field_scores = mapped_field_scores(precondition.fields)
                     mapped_scores = [field_scores.get(field, 0.0) for field in precondition.fields]
                     critical_grounding = _clip(min(critical_grounding, min(mapped_scores, default=0.0)))
                 elif precondition.type in {"authorization", "confirmation"}:
                     auth_text = " ".join((*evidence.trusted_authorizations, *evidence.trusted_confirmations))
                     if precondition.fields:
-                        field_scores = critical_field_grounding(action, evidence)
+                        field_scores = mapped_field_scores(precondition.fields)
                         missing_field_support = [
                             field for field in precondition.fields
                             if field in action.arguments and not _argument_token_fraction_strict(
