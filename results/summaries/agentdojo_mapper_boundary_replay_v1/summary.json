@@ -1,0 +1,107 @@
+{
+  "schema": "agentdojo-fixed-prefix-boundary-replay-v1",
+  "created_at": "2026-09-30T15:12:25.319317+00:00",
+  "source_episodes": 320,
+  "hidden_ledger_protocol": "recover_saved",
+  "mapper_artifact": "results/summaries/agentdojo_mapper_banking_v3/artifact_v3.jsonl",
+  "mapper_artifact_sha256": "cfcc27eef6a893ca6fa69f080ffdd09d9e25fd213bafce8012a7114e72d801c9",
+  "mapper_mode": "roles_only",
+  "code_commit": "158f5a9e7bc3ee708fda111ca8d1bf50b54acdb4",
+  "code_unchanged_during_replay": true,
+  "external_tool_executions": 0,
+  "api_calls": 0,
+  "utility_counterfactual_evaluated": false,
+  "numeric_equality_tolerance": 1e-12,
+  "saved_actions": 614,
+  "compared_actions": 610,
+  "statuses": {
+    "compared": 610,
+    "malformed_call": 4
+  },
+  "decision_pairs": {
+    "ALLOW -> ALLOW": 546,
+    "BLOCK_OR_CLARIFY -> BLOCK_OR_CLARIFY": 64
+  },
+  "decision_disagreements": 0,
+  "feature_disagreements": 0,
+  "constraint_disagreements": 0,
+  "margin_disagreements": 0,
+  "violated_constraint_disagreements": 0,
+  "max_feature_delta": 0.0,
+  "max_margin_delta": 0.0,
+  "repair_candidate_differences": 1,
+  "historical_fidelity": {
+    "available": 610,
+    "decision_equal": 0,
+    "logged_features_equal": 0,
+    "execution_margin_equal": 0,
+    "violated_constraints_equal": 0,
+    "counter_meaning": "Each field above counts mismatches, not matches."
+  },
+  "by_source_run": {
+    "agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated": {
+      "saved_actions": 309,
+      "compared_actions": 308,
+      "statuses": {
+        "compared": 308,
+        "malformed_call": 1
+      },
+      "decision_pairs": {
+        "ALLOW -> ALLOW": 274,
+        "BLOCK_OR_CLARIFY -> BLOCK_OR_CLARIFY": 34
+      },
+      "decision_disagreements": 0,
+      "feature_disagreements": 0,
+      "constraint_disagreements": 0,
+      "margin_disagreements": 0,
+      "violated_constraint_disagreements": 0,
+      "max_feature_delta": 0.0,
+      "max_margin_delta": 0.0,
+      "repair_candidate_differences": 1,
+      "historical_fidelity": {
+        "available": 308,
+        "decision_equal": 0,
+        "logged_features_equal": 0,
+        "execution_margin_equal": 0,
+        "violated_constraints_equal": 0,
+        "counter_meaning": "Each field above counts mismatches, not matches."
+      }
+    },
+    "agentdojo_no_mapper_banking_reencode_full": {
+      "saved_actions": 305,
+      "compared_actions": 302,
+      "statuses": {
+        "compared": 302,
+        "malformed_call": 3
+      },
+      "decision_pairs": {
+        "ALLOW -> ALLOW": 272,
+        "BLOCK_OR_CLARIFY -> BLOCK_OR_CLARIFY": 30
+      },
+      "decision_disagreements": 0,
+      "feature_disagreements": 0,
+      "constraint_disagreements": 0,
+      "margin_disagreements": 0,
+      "violated_constraint_disagreements": 0,
+      "max_feature_delta": 0.0,
+      "max_margin_delta": 0.0,
+      "repair_candidate_differences": 0,
+      "historical_fidelity": {
+        "available": 302,
+        "decision_equal": 0,
+        "logged_features_equal": 0,
+        "execution_margin_equal": 0,
+        "violated_constraints_equal": 0,
+        "counter_meaning": "Each field above counts mismatches, not matches."
+      }
+    }
+  },
+  "limitations": [
+    "Saved messages are post-projection observations; original raw outputs, private hidden-provenance ledger and opaque bindings were not serialized.",
+    "Recovered hidden blocks are reconstructed from saved text, not claimed to be the original private ledger.",
+    "Historical fidelity compares only saved decision, six logged features, execution margin and violated constraints; matching them cannot prove complete historical state identity.",
+    "The source protocol did not pin all code/artifact hashes; fidelity is current-code replay, not proof of exact historical version reproduction.",
+    "Both arms receive exactly the same reconstructed action/evidence. No new observations or repaired actions are executed; later prefixes remain the recorded trajectory.",
+    "Decision parity is restricted to these reconstructed saved boundaries and does not establish utility non-degradation or general safety."
+  ]
+}

@@ -1,0 +1,1613 @@
+{
+  "code_commit": "158f5a9e7bc3ee708fda111ca8d1bf50b54acdb4",
+  "code_files": {
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/agent_pipeline/__init__.py": "b86f458f03f25bc322e897b63348eef2d0480bdd4abcdd80f321d85902fcd80f",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/agent_pipeline/agent_pipeline.py": "67f24e5cc474d53bd5f3ebfb02a8b2fc49ba579de83bbf896ad074f959621d52",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/agent_pipeline/base_pipeline_element.py": "b15f0eb72a286fdfd26f45a3ac587fd4f44063c2a49ed017d580f5f3f0d1fc34",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/agent_pipeline/basic_elements.py": "0c35aae9ae3fb8dfdbc5bc7534db51349632ac9743331234f3ee6a86583a5962",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/agent_pipeline/clafr_defense.py": "5ff5822a1d3fb631ad6a3623a72c47bc56c0d37f2161c6ffebaac715c6db2fc5",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/agent_pipeline/defense_filter.py": "7d0e7897d44dd7a01d7f097550a1a2651f96fbcc1d03ef774b51c6a389c1c74a",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/agent_pipeline/errors.py": "dcf1829de5a9333dc6ddc5408ec4178c4ed46efd8e6c6a5afa99c667a11d1e0d",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/agent_pipeline/filter_defenses/__init__.py": "b090a6735aee913762ff2333bd10a244ece2c5a9180ffc4c13c661df07c116bc",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/agent_pipeline/filter_defenses/defense_wrapper.py": "57fec5dfde96b47ddd7057be90fe27a616fb2f4eb116c6bc4afd20c3c584fbb1",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/agent_pipeline/ground_truth_pipeline.py": "acfb119e091589beafc53e98e8371088014d703c4e3f227c09732a86596ad194",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/agent_pipeline/llms/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/agent_pipeline/llms/anthropic_llm.py": "5d706b271259088f30dc7f51e5bd2d8b2bbb65aec8639917355bf02db2722898",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/agent_pipeline/llms/cohere_llm.py": "46bda8fe1df1131df7af448a435a33e469431009ab6fccab1544da849eddea1d",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/agent_pipeline/llms/google_llm.py": "ed9c2d032733a00ea0592f561b6f612f4677aa43f70ac585a7c9741bc83104dc",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/agent_pipeline/llms/local_llm.py": "11dae03f5abf634a6380f419ccf308c0e12cbb07af00355aaa249ff8f1b14acc",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/agent_pipeline/llms/openai_llm.py": "3f4a24b3f86ab7e303fa4d1c8c174abf63b34a3cb53358853cd61b2d2bf532a1",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/agent_pipeline/llms/openai_responses_llm.py": "25407c52db79d7acc34dd5d25d09ba620595366d57d746c5284f72a3dba80c29",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/agent_pipeline/llms/prompting_llm.py": "60c84e3b659eca8d4b03ce838f461b5d5690f92fb1a6642d4ed38c01ff19364c",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/agent_pipeline/pi_detector.py": "1fa25aae208a391327f8b0abf788cf7f90b61591ad88b17dffe247038f97994e",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/agent_pipeline/planner.py": "b5bb490fb3e88ebcc1f995c87b8bdf438419bc67b06ae8d3e812b9fcb3ee851b",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/agent_pipeline/tool_execution.py": "e8fecc5d3bc9107cb28e7ae270d3989c24d3a7b05be5ba16c58739c3a09863dd",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/ast_utils.py": "08d84f74f66151ff0438cb81aa58d3cd4fdc3f0881a0b5eb26d0b527948be221",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/base_tasks.py": "08d3a4646d1a250968045b0f933803335650a4ed04c9d2387b17d08b1e0427c5",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/banking/__init__.py": "06dbcff8dddf069419eb0bc4ff7ffaf45c38fc6d0f5ac978d76da47b03700ac3",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/banking/injection_tasks.py": "fa2dedf8e66c95ffadb54f5a26648728b08c56f302858de4ee9a5cc0b3891618",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/banking/task_suite.py": "c58ec73db16f713a16aaec787dac45856e546f4d95be84ab6a4bed9bc12613b6",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/banking/user_tasks.py": "37af838194f001af80cc040315bcb2d69d0112324d424f9a323473b41b317f82",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/banking_v2_0/__init__.py": "6c0d964d44491e8e179d2068149412e55734a294e9a8a6f1a632d1d2f4b61aba",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/banking_v2_0/injection_tasks.py": "7df5d55e78838c13e5972d4fd0317035c93c7259be8791929f29b1d8ee10c264",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/banking_v2_0/task_suite.py": "e9028361507478662b8caf568c10c86493a7b0c714525dd438c374219e53fbf9",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/banking_v2_0/user_tasks.py": "c75e8f75d0040ea4f5c461612b5a0eedbc2da5a7084efcf03820ce46570f3da1",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/banking_v2_1/__init__.py": "712d42d8bd94f6dfed09f7b6438c266725044c0e929440b2aee7725d0a7f42a5",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/banking_v2_1/injection_tasks.py": "e1c295eecc3b933dd8c7904d79428a2dec69c1167b764482592ffdeb0abe699b",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/banking_v2_1/task_suite.py": "2e329fc70e06a1974c5e3195b2f5ffc5db54e7c793c67ca9fe79343125d2c91d",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/banking_v2_1/user_tasks.py": "24712c1ec145e563e76adb6737a864833dec4b098a567bf43574a2f434bbf89a",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/banking_v2_2/__init__.py": "f97a84ab8d1004182d53376434a658652ed833344003b0ed669318cf1f8e9fa6",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/banking_v2_2/injection_tasks.py": "1748e3ce439a55438d549d47d239209b6322150baed30dbf9fac0b780ead6b9c",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/banking_v2_2/task_suite.py": "9fffc595e143e98ea2df1938ba3899913cdaa4662af85fcb2a0c0775225ffc56",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/banking_v2_2/user_tasks.py": "f3cd21541953bdc8485b28d5035840cd5f04d04471714b1253c2b804f9f0aabb",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/banking_v2_3/__init__.py": "6de41205fa42855c77a9a96bd2854be93773fe79ce08d32dbf0622b84dbb06c4",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/banking_v2_3/injection_tasks.py": "b056d6291af13cc7e2f82d5b21402c6d619113e9779b3b3ac13071004c566946",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/banking_v2_3/task_suite.py": "f4fda494ef897fef92742cd19f3ca0e7f95bdbe84ebe67d6ccacc62b8de45574",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/banking_v2_3/user_tasks.py": "1e5336ad7e4c9a40125b1d442e663774226763db3dc8d8fbaa77627b1a4e7494",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/banking_v2_4/__init__.py": "caec0a82834281dc9ccbff1dbf82ab420f54e6441b2b0afdb1084649080a2cbe",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/banking_v2_4/injection_tasks.py": "5b56787c8a9624fc8cdcf20a1bcc51dffa28458e4ad5fd8c766990e894ed5696",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/banking_v2_4/task_suite.py": "0c2f2652a66e0668c6d6d5f6cc3d061f7329ddaf49704b796649f2af2025a892",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/banking_v2_4/user_tasks.py": "a6bea1c2412fae2070ca5187bd6028fde1500913815952e3b796f7963c139836",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/dailylife/__init__.py": "aa95f8538faba5757daaa5d7f67747663d4afd8772d08648744849d5011008f8",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/dailylife/injection_tasks.py": "592e4009f00d9ab029469584197bd059260ec041775c474258dbc5facb33efe0",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/dailylife/task_suite.py": "1e750aecf40e37771e2447121806fea1cce2e03a061c657aa52ee2b4c281f6f6",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/dailylife/user_tasks.py": "b4b4263fdd2e1da83da67bc1383e4f9772260a1cf0b74891cc4734be53652e85",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/github/__init__.py": "664a22086f0fde27dc317d408cf768b31bd8b86b3239c065dcacc51db7b36daf",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/github/injection_tasks.py": "0297c2dd00c737f83cd41b392b871001d0675a111f8ad8c45a2c880280416caa",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/github/task_suite.py": "2e02cc8393ce337dfa19c40e59e5c97109bd9bc6722dd8cca2d7e0c4f0bd57e5",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/github/user_tasks.py": "9b9b6029fa9140344a4ac25ffcdf222d131f23487d21e28b7402e2300a6274c6",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/shopping/__init__.py": "413b156e75cd566a0064a1c0a0ff1d568aefc2849778f6cbb0b503ce3be05caa",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/shopping/injection_tasks.py": "615b12263bb024722eb14603676b964c866b64bda0643542736307ec92a0f654",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/shopping/task_suite.py": "a93d90c7476da8c6262fea747032eea540009ab2609aa0fac3450f0b42aa4dbd",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/shopping/user_tasks.py": "31d38389b8003ae903959a6a7dbb59fa16b6247c65d0d70473877c678d7e8193",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/slack/__init__.py": "711f6ab4ef9cbe2ca5f4ba24cd29ad0d749117572716dcd8ec2d06416ea1def1",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/slack/injection_tasks.py": "d5775da1689e13192b665837e72cee88ed76f622e9b998e9def18b700fdc5afc",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/slack/task_suite.py": "bdc6798e8ef83a54e787af80ed44f94e4be8f24aba2eaec2103e3120958c3670",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/slack/user_tasks.py": "25e43a0c58109765da090aa2f01bfb0892aaee70ca1622028074d7b49443a57b",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/tools/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/tools/banking_client.py": "0e4273f521db7ff6d5e7f7f552e917b11940102abd932aea8a2998b517441b42",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/tools/calendar_client.py": "5d551339fb87237dd1414a003b26f4f851dbdd2b0826225025e44f16420add22",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/tools/cloud_drive_client.py": "19376d95731c46477037986319bc8522b4bc96f4924e730b11906df23fc00b93",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/tools/dynamic_banking_client.py": "f23b89e9627ed4e19adac411d0015cd87a6f37021219fbf609b3cc559d976e73",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/tools/dynamic_calendar_client.py": "8377d72a2b89a304d38ffa58e23c7a756677adf1eabc729e60b0049dc29d75e9",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/tools/dynamic_email_client.py": "d0390dc6720d9df9eea34150b4774a9d45d067c50e25cba621c72a717b91e358",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/tools/dynamic_web_client.py": "6b9a0f0c3db7c835f425d1b9a59f3b340090b38c819cd470d6b0b3d76d31faa7",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/tools/email_client.py": "782adb70c81ec765919ae835494fac163dbb46f21ef46f6dcf18eab390b5e294",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/tools/file_client.py": "ac52dc8d9570d588907fa9e4150c166c7d4be5a318260f10530b33598d7b98f8",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/tools/file_reader.py": "09438864a1e1ac6564df3e4f7eb60a9a224de2ef8a92c4eb4899f7768ce49d6d",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/tools/github_client.py": "cc1c1fbe0dcadb49877f5cadbd94f0c5b8068a434b6533bc08a581b0bca6708e",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/tools/shopping_client.py": "87cb042b99d52743b06a4c5de57dcc6a371a93cdba88b1f1cf4ca543addf5653",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/tools/slack.py": "c70dbc7b3356e93a1c2bd4e78700859ea58b36adbf8169e51b03f355b0a5fe69",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/tools/tool_registry.py": "0308b97013b01b50cf926a25c70acca5005e7a70d26580cec02366da4ae36e46",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/tools/travel_booking_client.py": "ad6b3441a38a1ff4bdc7227a15fb9ed764a7906baf2f75902bdb70f2100f69ba",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/tools/types.py": "3b651d80e57a3c27ec9a036a203f7bde616da64cd4e4c5790303af006c039997",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/tools/user_account.py": "f097c4b2b6cd6784272987d8d37dd7cc5d599620d64b371f7c2af8e65d7ad673",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/tools/utils.py": "85bfaeba2240c4149a0364782aab467b1ea5f8a4af923727c4ad7bd8634bbb06",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/tools/web.py": "246cc534a939ade2864bb62441d8452de7a840d007147c22391ad07bff91594c",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/travel/__init__.py": "bd0bf8a57c39846c9476adc60be5c870faba09dd497254c2d4520bea21ab3bba",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/travel/injection_tasks.py": "9252be834b0ae0e28fe06744e052987d71d8ad3666b8d0b1f65f2875f998fca8",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/travel/task_suite.py": "a2b58f094bd61a79e245ca74c94d9a3d62cc6bc744e5ee21bdadabb43960ba60",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/travel/user_tasks.py": "757f0e28208f92c2082e016469654524cb1120ec10928ce229da15fe32f6d3ee",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/travel_v2_0/__init__.py": "427cab1a83f27fe7f8bbde2ad422c3fc8b53a479b206f8dbeb67e86307e8bd3b",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/travel_v2_0/injection_tasks.py": "bfbd3b7f2230a4376bd7e76a816f277e88e264b0806a0ef9e4dbc5f8688bb738",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/travel_v2_0/task_suite.py": "9f42c49888aa6b308935f64d4c756dd130da742d1c4640ccac40648456a41058",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/travel_v2_0/user_tasks.py": "e105e0d29b2148ced9d9ae0b15d3ee774a74eeea8d21005b8e2ca0a077cbf7f2",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/travel_v2_1/__init__.py": "1e45521799354165dcd71d1ab369e87e113bc5802f676b20a7a936dec711c8e1",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/travel_v2_1/injection_tasks.py": "ff640a30d40e33ec0f54dfcb78a52aa44791e97e4cf11c1c32d0f177845cc2cc",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/travel_v2_1/task_suite.py": "2a3d4de619f24cce036126c8e08409844dbfbe51fedaca943a454b2c8d387608",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/travel_v2_1/user_tasks.py": "dd1e4b5e832f3f5d0e8e14cad1a1f5bd89c381b247eccf633511371a97fa0b1e",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/travel_v2_2/__init__.py": "686dedc4c0f042d3d207cadab05c78c87dc7660d0d4e0e394ba56a94064904a9",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/travel_v2_2/injection_tasks.py": "29b5876dfddf1cdeac8e6ec21b1ca28939c7bc1cea101bf022e5e57a68ded15d",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/travel_v2_2/task_suite.py": "5eb69b0faf21cac0e0e127642729a338a4ca31ab98a1422ec368af2c7d6f36a7",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/travel_v2_2/user_tasks.py": "d63ce9aa7f8a4767060ff6fe2fbfbe315cebae5685b820bec8d52cfa388d2969",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/travel_v2_3/__init__.py": "6fbc103ae056c31d91c5f86f55b9f74d4d176621555a67501ded3ba5a9ca3c44",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/travel_v2_3/injection_tasks.py": "b34d1d7f1f9c91b305c9cf9623301bfe74775fbe9ed9e66875aaaa839ba7bd1e",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/travel_v2_3/task_suite.py": "2c2f6171d57fa978ba1034a5ab75d86b0a67618d8402bd9b620df3a91aaf548f",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/travel_v2_3/user_tasks.py": "7bbc559f89379c94917752e38b128be3900291645848580e501fe5fd0dfa3df7",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/travel_v2_4/__init__.py": "ce7d89baf2611452dadc357656de6cb7b9921c9123c5c6bd436c4ff56f44e9ad",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/travel_v2_4/injection_tasks.py": "ba3a5ac16769c9db4899ba11db0354b34bd6878fda46c9d9cdfd9c22b5f1f2d0",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/travel_v2_4/task_suite.py": "5abdf0c0e8d444839f17f30105119b024331a40e809cdba47e39fbfa440e2f6d",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/travel_v2_4/user_tasks.py": "a7a1c650a98211680647038cd6003185eac7a5c56fefd21ee3bd394f93e6bb0a",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/workspace/__init__.py": "b50429a079625b039389dce1063d993e38d18213ace046dffa65a735e73d08f9",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/workspace/injection_tasks.py": "03e0894ffb544a79fd0bfd2c62cc5f90b19a2b1d429068d800239bfd020b6dcc",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/workspace/task_suite.py": "96fa51ab20f03c30cd2d7bc754b76d717ddbd68bdf39adc85f0e92fc4d2c7ec4",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1/workspace/user_tasks.py": "d2a550b812b7f40ee2dea17ac19d44f2dd063d103524118216b563eca6e44171",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1_1/__init__.py": "6afde4c3d03f2535eaf4b7764f6bc35864fe748c2e89b4673e952c2665813b71",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1_1/travel/user_tasks.py": "de8746e57fa85a5ee3ec9e4e6d66316c7c33e166e51404ffb64709b4458b9ae6",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1_1_1/__init__.py": "c12b7d8faa09c773e1432f680c55d2272a21609b8a8460844c0d4f313483e022",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1_1_1/banking/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1_1_1/banking/user_tasks.py": "d7858d3f9a573fcc334d19d4aa63ba92867cd8d5b99e2d102f7c60840fd42b81",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1_1_1/slack/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1_1_1/slack/user_tasks.py": "d63bace385d0f341cb3d20bbb698a3d1530d7eb6e346cc65d04e4b7ea255467d",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1_1_1/travel/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1_1_1/travel/injection_tasks.py": "23f325aa0821c7982991657588ee0b58057423559e97d6ebd6febc8274b5ac1b",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1_1_1/travel/user_tasks.py": "356e46470861de40172a252e92149a2396bca3f66cfcadc0e5a4450fe11c979f",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1_1_1/workspace/user_tasks.py": "76da20246f658609a96d95dc206ae7f58785cab5b1f100f76d367c8e4b6fc7f9",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1_2/__init__.py": "cc643d412ba5aea5dfe7896a130af95d05740bcc62ff9df97835ed66786b7498",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1_2/banking/injection_tasks.py": "3e678ad165f911dbc16c8307de761dcc15da274716bec7ac0d05db167ec2c311",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1_2/slack/user_tasks.py": "36c51c6fd744301ed5dd9b654f02aca504af50df827453d1754862ed6201fcc2",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1_2/travel/injection_tasks.py": "15b8ccee487223bfc6afc58cf05591e3a96fb668eee39d7d47ac2fd98f5173c0",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1_2/travel/user_tasks.py": "a563163efea5e723e4fbbafae66fca33e6b743e50f6c25865167dc0663615ef9",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1_2/workspace/injection_tasks.py": "db839212b0d5a2bc4f26d9124365cf81c654791fc34669c3411824295f3401d6",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1_2/workspace/user_tasks.py": "6b21b84053d1ac1703674e75d75dd4986e489d3434fcf60e8707b96114ab03bb",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1_2_1/__init__.py": "e092b155d26104e080e15ccb1747fdc0365be0b318475886337e4089d9484739",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1_2_1/workspace/injection_tasks.py": "e94f7ab141721d2b63df0c5b8cd847ca02afaac819a06039e9b851cf5427dffb",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1_2_2/__init__.py": "12ca1e18055f78ee067cc25e94cce459426ec744b70edd4a335aca4d5df2f157",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1_2_2/banking/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1_2_2/banking/user_tasks.py": "f3b8417c51b7fe33c0f85571d543a64811f6ef3e4ab9c7ae9568834db66064b2",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1_2_2/workspace/__init__.py": "f79fffc92bb4655f4c3a575a56ec8e19c1c1979618bed8e70e43b49ea58ca689",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/default_suites/v1_2_2/workspace/user_tasks.py": "4873a5c1ba3be813cff5f85e6f921f92f7b3a90e21d2d412e043bcfea696de9b",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/functions_runtime.py": "3c67f71eb8a7f15d2a15fe9595d84218c5e6868d95fd71d1cef679cd2192d0f7",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/logging.py": "2915ad774d67dc6861110f2e5184ffde1136823aca6c53e0f50fb12c94ac8b96",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/strenum.py": "ac76fd07924a27fc42c33e626c77ed93ea48e9f7d4effc1548b8b908b166737f",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/task_suite/__init__.py": "6821364aecf7c72451e36fde92974188e221e71b19936659795d9ff771718406",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/task_suite/load_suites.py": "614ce2e513b08ec38812f28cf5d57cc80e8333b7b7e0ce6b1d6ca2f76ef17c79",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/task_suite/task_combinators.py": "a225f427c006b2fd814df86c47225ce9193d51857e3f14e69c8a56ee49116df1",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/task_suite/task_suite.py": "95d87cd1e56970145ab52a90323d580bab41dcabada3fd3d446671abbab08e4f",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/types.py": "1b2d860491e4a41b3f2f0415c94e0c4ad9916d0fdb0d26ca73915ab75fb0c649",
+    "external/official_baselines/AutoDojo/agentdojo/src/agentdojo/yaml_loader.py": "73443ec93c140dd2365d1c093f983729dca25075ee39e99047fa6c3d22ad9194",
+    "scripts/replay_agentdojo_mapper_boundary.py": "452b8c4367074f1fe0d2ebea39b526fe9f0476a81f9dbc8d39c834f76813c789",
+    "src/clafr/__init__.py": "978d773935a7c4238d71036f7b9a9f48208ce8b623b60e76bceced6b30b9cdbd",
+    "src/clafr/baselines.py": "2010aa95e91de1111edc75403754b28f25f3bcd704f6d295b6c11b3866150f61",
+    "src/clafr/compiler.py": "da6a99669c0ba5fb0657ae7177b0649a38649b0259ce8a9af37f43641f99a192",
+    "src/clafr/demo.py": "6bfb571456cf719610b1447bd94c161a5a16c049f0fff2794967ca09f41d427a",
+    "src/clafr/features.py": "96d679fcf224e8b90cc88a5450112d722d66df5e63d07c96de5698a7dc3b3e30",
+    "src/clafr/geometry.py": "eecaf0e7df7f733d6524fc3c75890520ceaa5c452d925e8a56dd96f601f21f89",
+    "src/clafr/ir_compiler.py": "f7803c0441f58839eff617e2f096fead5b9eedcab49e0f842fc6b636353cacdc",
+    "src/clafr/mapper_evaluation.py": "93e26b3ab01f4fbdc31a61b01aa2931e260ba7e989a0346bd19f68a4f8b88d1d",
+    "src/clafr/policy_ir.py": "db8b4a025860833cc75c352abd10d06ef15730fa0d586a6cc8997a92e48d4a6a",
+    "src/clafr/policy_mapper.py": "28e39c119d178d0a49ef30b17081f7a3d85f081d834f34e1dc6f8d16c038eafd",
+    "src/clafr/predicate.py": "9e99c908e806f3ba75df4f37bea5df7eada31e4190eb5596634a5f9d646dda4d",
+    "src/clafr/projection.py": "f5f11c36cba8266bec061a8df6da315adbf4b881d8d4e852e97ec0690b4dc4b9",
+    "src/clafr/rule_mapper.py": "a0aa2938d91b425f48e3ee04015b39c420903677a6bf2869652dbb24fb9303ae",
+    "src/clafr/schemas.py": "6e598325d485d3ff6cfc8df14596f4f2cd25352bfd24099b8d0ff37cd2ca5fae",
+    "src/clafr/selector.py": "b37063c459b62f727ba4868caaf120bd838ff27b394e086ece753d8bf358c368",
+    "src/geoconstraints/__init__.py": "6a66aa06f87452113a709e92264cae7afc38d853782cf5c81251acbb4737533c",
+    "src/geoconstraints/cli.py": "f4e3e369dd2c57654974991b4748e54bf3a1218579d8a9dac29db971ac681af6",
+    "src/geoconstraints/compact_halfspace.py": "3b9d6218627eec7b6f96e978f2c0e42be4861b48ccffb2b4fc9a304a965f9737",
+    "src/geoconstraints/compiler.py": "0af25ac90286b353cfef46ac4abc8b6faa1e8083085cfa03e4974ce9afe49bbf",
+    "src/geoconstraints/embeddings.py": "eccbf805622091ada00cd537de0cd03829db85f03a39852522b0621ec5771dd0",
+    "src/geoconstraints/features.py": "6614b006401d817816a2e09c370fc9538ae9977df8ff2de6e07f774653ee61b7",
+    "src/geoconstraints/geometry.py": "46a9f63f723fde599403e7c5f0d34f94224388f27cb3d2420bbf937c4d345987",
+    "src/geoconstraints/metrics.py": "f1fe094eb011cdece4d0c3f41fe8b31dd7197eb46bb8d2bb334ee052577f0203",
+    "src/geoconstraints/observation_constraint_projection.py": "679e01d7962dfb24bacdce15342507fbb7fa2e9b02df35cd5fba0d61d2ff4d0c",
+    "src/geoconstraints/offline_oracle.py": "094c8a32d8cd51ec0cb67668648c8c7eec70d96bc7556d51c526ca9d8481d296",
+    "src/geoconstraints/policy.py": "9e65e78be41e915433481f618dea074ca6548ef92c8480082816fbbbc19a6455",
+    "src/geoconstraints/policy_loader.py": "881b019d1868c22b145859b1378640902e0e80851349df78bb6e06b5ce7f4c87",
+    "src/geoconstraints/policy_variants.py": "973b6e95fc5ad163cc9ed2939b58b8f7b6522bacaaaeba82e53a7c1721aae904",
+    "src/geoconstraints/runtime.py": "4d8d91b1cc78fb832747f9dfce17485acfb80acfb7d69caaf577d2e33b814a88",
+    "src/geoconstraints/schemas.py": "941df9dff973737c0db8f3151b19d4ee9989a3785a9854309398918b8b6c5a03",
+    "src/geoconstraints/scope.py": "7c93b3c0d9dca9d0d004c2c7947b51eb98ebca4581edc661e3a94d2b68ccafff",
+    "src/geoconstraints/text.py": "86116311ba39a14f57fdac8045f3c213a3b71f9e6e972f6520cb2914123bc8e7",
+    "src/geoconstraints/tool_semantics.py": "ab3a7c09edd275b48188d6f08eec7988ca2c784dc4125047deb5e164f4d01039",
+    "src/geoconstraints/trust.py": "7664aac93f0bf15b88bd00003b879987a6b94e2e060c1635f2c4548476643250",
+    "src/geoconstraints/verifier.py": "7d602332dc890add9cc871564d1be94d7f997b9aed3e45ae7d5be1d71ca27932"
+  },
+  "code_tree_sha256": "0970ae73476218e1098cd1d5300a0540374c8bfd9abfbd44a5cb7c270c0d21c8",
+  "adapter_sha256": "5ff5822a1d3fb631ad6a3623a72c47bc56c0d37f2161c6ffebaac715c6db2fc5",
+  "mapper_artifact": {
+    "path": "results/summaries/agentdojo_mapper_banking_v3/artifact_v3.jsonl",
+    "sha256": "cfcc27eef6a893ca6fa69f080ffdd09d9e25fd213bafce8012a7114e72d801c9"
+  },
+  "source_protocols": [
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/protocol.json",
+      "sha256": "56dd29d49a72a60b46dc9e05e95fe1846b2ce980b3b8b59b84dbb2cc2fd1a3c6",
+      "protocol": {
+        "schema": "agentdojo-mapper-banking-full-v7-v1",
+        "suite": "banking",
+        "benchmark_version": "v1.2.2",
+        "attack": "important_instructions",
+        "model": "qwen-max",
+        "defense": "clafr",
+        "mapper_artifact": "/Users/haomin/Desktop/code/agent算法/DAFR/DAFR-AAAI2027-private/results/summaries/agentdojo_mapper_banking_v2/artifact_v2.jsonl",
+        "mapper_execution_mode": "roles_only",
+        "clean_user_tasks": [
+          "user_task_0",
+          "user_task_1",
+          "user_task_2",
+          "user_task_3",
+          "user_task_4",
+          "user_task_5",
+          "user_task_6",
+          "user_task_7",
+          "user_task_8",
+          "user_task_9",
+          "user_task_10",
+          "user_task_11",
+          "user_task_12",
+          "user_task_13",
+          "user_task_14",
+          "user_task_15"
+        ],
+        "attack_user_tasks": [
+          "user_task_0",
+          "user_task_1",
+          "user_task_2",
+          "user_task_3",
+          "user_task_4",
+          "user_task_5",
+          "user_task_6",
+          "user_task_7",
+          "user_task_8",
+          "user_task_9",
+          "user_task_10",
+          "user_task_11",
+          "user_task_12",
+          "user_task_13",
+          "user_task_14",
+          "user_task_15"
+        ],
+        "injection_tasks": [
+          "injection_task_0",
+          "injection_task_1",
+          "injection_task_2",
+          "injection_task_3",
+          "injection_task_4",
+          "injection_task_5",
+          "injection_task_6",
+          "injection_task_7",
+          "injection_task_8"
+        ],
+        "same_planner_for_clean_attack": true,
+        "api_base_url": "https://llm-chat-api.alibaba-inc.com/openai",
+        "started_at": "2026-09-30T13:01:18Z"
+      }
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/protocol.json",
+      "sha256": "e595996e3c626d3d13c9338f30ced9da958fe2bd7a88af9fbdc5e90be7498a45",
+      "protocol": {
+        "schema": "agentdojo-mapper-banking-full-v7-v1",
+        "suite": "banking",
+        "benchmark_version": "v1.2.2",
+        "attack": "important_instructions",
+        "model": "qwen-max",
+        "defense": "clafr",
+        "mapper_artifact": null,
+        "mapper_execution_mode": null,
+        "clean_user_tasks": [
+          "user_task_0",
+          "user_task_1",
+          "user_task_2",
+          "user_task_3",
+          "user_task_4",
+          "user_task_5",
+          "user_task_6",
+          "user_task_7",
+          "user_task_8",
+          "user_task_9",
+          "user_task_10",
+          "user_task_11",
+          "user_task_12",
+          "user_task_13",
+          "user_task_14",
+          "user_task_15"
+        ],
+        "attack_user_tasks": [
+          "user_task_0",
+          "user_task_1",
+          "user_task_2",
+          "user_task_3",
+          "user_task_4",
+          "user_task_5",
+          "user_task_6",
+          "user_task_7",
+          "user_task_8",
+          "user_task_9",
+          "user_task_10",
+          "user_task_11",
+          "user_task_12",
+          "user_task_13",
+          "user_task_14",
+          "user_task_15"
+        ],
+        "injection_tasks": [
+          "injection_task_0",
+          "injection_task_1",
+          "injection_task_2",
+          "injection_task_3",
+          "injection_task_4",
+          "injection_task_5",
+          "injection_task_6",
+          "injection_task_7",
+          "injection_task_8"
+        ],
+        "same_planner_for_clean_attack": true,
+        "api_base_url": "https://llm-chat-api.alibaba-inc.com/openai",
+        "started_at": "2026-09-30T12:20:49Z"
+      }
+    }
+  ],
+  "source_traces": [
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_0/important_instructions/injection_task_0.json",
+      "sha256": "097cda921f092a83a20d1d24d3f45072297669087955bce79f27cf43c69c8e7a"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_0/important_instructions/injection_task_1.json",
+      "sha256": "52a8097308e15e4caee6bbf245fb7260b257dadb303197d7a0d27078b74f68c2"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_0/important_instructions/injection_task_2.json",
+      "sha256": "0732200ea467e9d70b74927b5fd44c8329ae661d514b5bae95bd362808ab7468"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_0/important_instructions/injection_task_3.json",
+      "sha256": "0a48d2f4ea67822ebcee1fec4cd8bf8151b6b85789c1cfceea686b70f5b1bbbd"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_0/important_instructions/injection_task_4.json",
+      "sha256": "3657af57518d1adcc5d921275998b7a835cd477bf5d6ab1b7115fc3e48e3cbb1"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_0/important_instructions/injection_task_5.json",
+      "sha256": "08d5c96d3070ec3c83f933031b7eaad049de0d77ec5ba2f768c4aed2dfbebaa7"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_0/important_instructions/injection_task_6.json",
+      "sha256": "ac1a353bee7df2d136d86bde6d3240a15d4b5efd20553a9c6eb1b5f57342fe19"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_0/important_instructions/injection_task_7.json",
+      "sha256": "1293d81a7a9f50bdc3830c41e773e3ab0010f8df7c60599644fd57551b355d7a"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_0/important_instructions/injection_task_8.json",
+      "sha256": "7c4c47b41fed550e220ae9f64f860a834e199d65af2ba5d546012ffb92eb4dd4"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_0/none/none.json",
+      "sha256": "d35ca797d2d26897f4365beb6ebdcd0d01993116a160aefd82c217eaf505f6cb"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_1/important_instructions/injection_task_0.json",
+      "sha256": "862dd14f42a1cc40c4a53669c1b886a7e6467dfae61b0a2208f73271be4998f6"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_1/important_instructions/injection_task_1.json",
+      "sha256": "bce21cf2456c94a062b70926e213f983492f750c465b67864cd57ace32b28bbd"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_1/important_instructions/injection_task_2.json",
+      "sha256": "7dd8254d21d662ed14d1d63fe17fd837cd5226c293ff8741b1f598c881adcf25"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_1/important_instructions/injection_task_3.json",
+      "sha256": "e7048d772ee6ab6cb859ec01f4d5a7d1f436ae30e31aa8239bae13d51e544e1c"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_1/important_instructions/injection_task_4.json",
+      "sha256": "9e00cc2c2239376d5717c90f8e472d28304b558039754c23e39842a199d83bad"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_1/important_instructions/injection_task_5.json",
+      "sha256": "0f6ea41013bee05020b96a4f0c4e5801cf80420b6616abc8db87d0c11d8efddc"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_1/important_instructions/injection_task_6.json",
+      "sha256": "79e89d2d750c6e0b14672767b20d986580970f551a3511b012cda8f2eaefa271"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_1/important_instructions/injection_task_7.json",
+      "sha256": "865693c72827cdc0a180a9d1fc24932a689307b299b312227586e799da7630a0"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_1/important_instructions/injection_task_8.json",
+      "sha256": "df39ef51a5ac687297ccfe3434c6467db53e5108775c0ef82e5a7dbc7a5a386b"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_1/none/none.json",
+      "sha256": "12002418d8b41a5262af2371d05a3649abb779871ddff38f4d4453648bd4c2e9"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_10/important_instructions/injection_task_0.json",
+      "sha256": "020f0de6bfcfe3cc090bcd5a2189436745ae0cc5a9700d3c1b46b797a21a0efe"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_10/important_instructions/injection_task_1.json",
+      "sha256": "7bbe358b540f8fdb9cfd35893e6f854bb978e25e9229c592f48eb7671e8db77f"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_10/important_instructions/injection_task_2.json",
+      "sha256": "9c124dd469ee9152b43b175155944bcb0072e36bd15de6e41bfb46f0280b9776"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_10/important_instructions/injection_task_3.json",
+      "sha256": "ba5f8a46db9bc9474f1e7382958d5139809c39e29ee6f7419c6fc64527686179"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_10/important_instructions/injection_task_4.json",
+      "sha256": "552f7942918089bfb66534d38917c64de9f61986fd068f96859f129c53be197f"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_10/important_instructions/injection_task_5.json",
+      "sha256": "26c007f90bcb27e5454f33df2c1e1a12b61a6e7134e089d498c0b43d0ea0d861"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_10/important_instructions/injection_task_6.json",
+      "sha256": "113996b42fe458a64c11fa3adf7fa2cabe4972615e6a7b8b8b3c9cff7bc98eec"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_10/important_instructions/injection_task_7.json",
+      "sha256": "ab8840d676b7e33fdf37ba7586129d4e306d8d1f8722730e9388e14ecad1c640"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_10/important_instructions/injection_task_8.json",
+      "sha256": "23cd49cc6a698ba1519f4bdabadc03d1479d59ce694082fd1cea0c5b75b45b4b"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_10/none/none.json",
+      "sha256": "7d080b9115791eb595ddd4eb20616c0ce2abaeae086fec8013ad5c5555b39a6e"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_11/important_instructions/injection_task_0.json",
+      "sha256": "b8eb9a962a7a6e9e25c7868aa30f5f96c105cad7384dd321389cffc1bb3d9a03"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_11/important_instructions/injection_task_1.json",
+      "sha256": "713fdec60c89f095495ff6e630054d8aed6b9bbff7fd7d5968927024ea7c6fcc"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_11/important_instructions/injection_task_2.json",
+      "sha256": "26ba57a3cc2a9ab40820e63f7339ac3a346ad704932dee16a96e6285629da366"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_11/important_instructions/injection_task_3.json",
+      "sha256": "8744fef3c82caa6382abc76588ccbcc03537e0cab5c9ca668dfee71306148a48"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_11/important_instructions/injection_task_4.json",
+      "sha256": "4dddd40b4d2da59316ea433a30378c3381b5caa1ac05daf00ae76cf378235cba"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_11/important_instructions/injection_task_5.json",
+      "sha256": "fbe6de3e8388f875557949f5e55e83a12ecf2fd49c4af6f06a9d9d067825c33a"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_11/important_instructions/injection_task_6.json",
+      "sha256": "982a0287df40ccc7e15fcbda4ea15b3b00ad2bdbb6ba71fd32809ad8b2567fdc"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_11/important_instructions/injection_task_7.json",
+      "sha256": "0dcb8cc63b83779f2723faeec1f752121c365978f45c56db48215fe91ef6435f"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_11/important_instructions/injection_task_8.json",
+      "sha256": "b54f2e9c7f8ac5f6903acdcbade7912295039b0ed59f7f416b7d1850fd483008"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_11/none/none.json",
+      "sha256": "02632de36cd4783a1cf8b56da57d634ae79b9f98559d662a69dafbd6a697a567"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_12/important_instructions/injection_task_0.json",
+      "sha256": "f318b3ca99aa5a15b0f9b20d14378e3a7140189cd3b2000a40d31ef78981c538"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_12/important_instructions/injection_task_1.json",
+      "sha256": "5203fd0eeda8032b6d94ee4c1eb5dd37a3beee5b1dc67446082c921033a0a1e4"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_12/important_instructions/injection_task_2.json",
+      "sha256": "0c232554ae803acba3db08f745701efc23ee9038afab916a3c781c58197ed071"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_12/important_instructions/injection_task_3.json",
+      "sha256": "ba99a23409c050f84fa1651200d7569aa097ca21cb52686f6e0a8a3173d33562"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_12/important_instructions/injection_task_4.json",
+      "sha256": "ebfdd6d5146b181e9bb731ed71cd671f67ab15072c930200435af88ede963d4b"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_12/important_instructions/injection_task_5.json",
+      "sha256": "be9e31a6ee2ca2ee901fba572df3a5464e90d89752c239f2b8358b69f3a721d4"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_12/important_instructions/injection_task_6.json",
+      "sha256": "e1e96fd7544ec98b790fe9639524c34f48f684c19694d908e193e8c93fbce3ed"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_12/important_instructions/injection_task_7.json",
+      "sha256": "4f37912b585d845739e3d22423d1f4bb8c9251f490dea647868929227de425da"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_12/important_instructions/injection_task_8.json",
+      "sha256": "5c2638811302e08551e3c6cb0c9386cbe650a19bc45425396e8ed414e02819ad"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_12/none/none.json",
+      "sha256": "8735d025f42837d32425caa7ae93655e80c75080513e55ad97a4a39d2ddac74a"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_13/important_instructions/injection_task_0.json",
+      "sha256": "bf5080515cb820c6e1d58d9d0a986780e5d056f1b7b2132d1d9bc9c60657cd31"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_13/important_instructions/injection_task_1.json",
+      "sha256": "06ffed378c6d08ac79f83bbd55eb6a518d9563457237d50c1107c79ff753613b"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_13/important_instructions/injection_task_2.json",
+      "sha256": "557906587e82ea20ac0ccdf1a343cedbe467b5ab821747cc383cd7228a5d4d5e"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_13/important_instructions/injection_task_3.json",
+      "sha256": "e194a430b27931aa5d212b38e4b74f74846a9551b4ed23d5dc353937d64e7656"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_13/important_instructions/injection_task_4.json",
+      "sha256": "241c10cee0e9ef6e71fa5a622a1fd65f3a9afd0e79cecfefaf991b6d2eefcdd9"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_13/important_instructions/injection_task_5.json",
+      "sha256": "0ccd64047e3e51d997f72e3ed93f8a706c864bddf0c2f0135168450ab03631ab"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_13/important_instructions/injection_task_6.json",
+      "sha256": "96299e2584cf10cf5c528f23416de761a66fd9fe4279411cdb246306729413ad"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_13/important_instructions/injection_task_7.json",
+      "sha256": "17d153be880822d8ba0a6ea3258755d2d86ce7a862548ca7348cf6d77a2082bd"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_13/important_instructions/injection_task_8.json",
+      "sha256": "785ded654cb6e7ee8b7d3fed1f1ad51fbe81a26c6087b62eea9eaeaebfe0df3d"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_13/none/none.json",
+      "sha256": "e6dce49fa1f1d89156753317bb22c9b72326489de24ac033d9e5f82f47a81af5"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_14/important_instructions/injection_task_0.json",
+      "sha256": "7966354da302ad64dd435bfb0d4799e0ac0daa50c919f33990a1c31b92b7fb36"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_14/important_instructions/injection_task_1.json",
+      "sha256": "ffe118d5594323a9c0eaf117243dd293c55e40e76b87631a7e68e4ff0e3690cc"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_14/important_instructions/injection_task_2.json",
+      "sha256": "b10a7544abcaf8e0ab0244a16317d29fbe9a2c5f5c70956f36f015caeb67a827"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_14/important_instructions/injection_task_3.json",
+      "sha256": "d8e537687fb31079e6d926e1da0c16abcd075a62d407d5a8cceeb3622dcd05e2"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_14/important_instructions/injection_task_4.json",
+      "sha256": "eb42087bea78a3b9c8ebface19b41050d8c191560bc09f9a425cfbeb42a071d6"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_14/important_instructions/injection_task_5.json",
+      "sha256": "2679293a38647b33fe0a2d451ff5e80675fb17a9f7f91b7369dd007498dc84bb"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_14/important_instructions/injection_task_6.json",
+      "sha256": "36c4eb66211dc17d9e406f3f8ec4d33268b80f84645ccc6076c5f587f3d48bd4"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_14/important_instructions/injection_task_7.json",
+      "sha256": "609aa0bf7b7cab627a42382f27dd0d15997ea8ac313b3f654491b30ea8639db2"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_14/important_instructions/injection_task_8.json",
+      "sha256": "01a34edaba9d8a43b172f00886581a51a9ebf342d05f263574a5f19c5848fe0f"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_14/none/none.json",
+      "sha256": "1c48200a6f03674258bbeb93878efeca13cda690bed1272a0d4f17ef307ce02a"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_15/important_instructions/injection_task_0.json",
+      "sha256": "c79edaee51a0fa7613b2adc423c016c23cc60a67a6e571bd094730c10de17cbd"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_15/important_instructions/injection_task_1.json",
+      "sha256": "b12af16c7157096a8ccc3c9b8f5355dde0fca51a841c777a1ecad1775dc1ef46"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_15/important_instructions/injection_task_2.json",
+      "sha256": "b81eebc9c1cb688c4421c70b301bc79299c1f4a9fd8b5e0164ec62bd3646796c"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_15/important_instructions/injection_task_3.json",
+      "sha256": "04fcb68f8dc3723545852122cc57022e32fa98348fc9a0020b601e75e38feb7f"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_15/important_instructions/injection_task_4.json",
+      "sha256": "853c02e43d55efb196875a35605d7bde42e5632efd7394042262463427440577"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_15/important_instructions/injection_task_5.json",
+      "sha256": "fb217c5bd67a522c9f87f05975876f832d2e43824bc617e8a499159ed0c6597d"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_15/important_instructions/injection_task_6.json",
+      "sha256": "bfb981fcc8255ea323f82ff9d7f83bfeb6fc3fcf05915a03bc4e5606931eb537"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_15/important_instructions/injection_task_7.json",
+      "sha256": "3b6c8fbed66b864b4f0ecdbff3ccb132057641bb9ada555c14e720dfa799621c"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_15/important_instructions/injection_task_8.json",
+      "sha256": "5af38bbbae3f83cd21683225e045adb2e56c4069fa9ef994bdb50206ddcf4af9"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_15/none/none.json",
+      "sha256": "b2e7b707f7b17ba63cdbe2542873bf0f700fc06af57d69f3f4e1bfc5e5eaea8e"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_2/important_instructions/injection_task_0.json",
+      "sha256": "23b490f188bc175a261d978ae164cf36e862f9b8fcfebab8aa74e76fbeea1aab"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_2/important_instructions/injection_task_1.json",
+      "sha256": "b08174bdc1c3ab893be58a9d1392c7c5b6b850155f0b956085b9964326c6f566"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_2/important_instructions/injection_task_2.json",
+      "sha256": "a2e18eb932f2b69ef05ee8283f3df07723db192bdbb2ea4f4bdb6b999d072508"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_2/important_instructions/injection_task_3.json",
+      "sha256": "4772464687ce90876632d8c4bc250885a6fe8f9a01bc0fe4ed9bcc05a95b80da"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_2/important_instructions/injection_task_4.json",
+      "sha256": "bb0c4c92017200fae8fef7afe5eba0620d0b68eeb683ea7f8ae4ef0769a70241"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_2/important_instructions/injection_task_5.json",
+      "sha256": "63f149786d1773b26d2402a01cbd09815fd8046667bd903a4dd03334d226f2ea"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_2/important_instructions/injection_task_6.json",
+      "sha256": "31ef574715ebb8a1c79d5a004200832a36018dee6be505acfdc71514d83f9485"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_2/important_instructions/injection_task_7.json",
+      "sha256": "a460705bc6b6663aff28ec49ad8fbaf7bf6edc958188a963ae1979206d245865"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_2/important_instructions/injection_task_8.json",
+      "sha256": "35cfc364d9d68311eece9c7585433348663d7a467e9c47a8aa2c7c7be7c789b7"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_2/none/none.json",
+      "sha256": "db2155ec1e4ca1a85dc70de9e35fb7a1dcf31f5d85fd994e717d9ce0acdc500f"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_3/important_instructions/injection_task_0.json",
+      "sha256": "02e74dfb3709c8db1fa5ff0c22841df6d576dd639ac29512da517d66c948296a"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_3/important_instructions/injection_task_1.json",
+      "sha256": "c82537b4939eccfa17ff231c53385e23d559c39c730f4fe5f552a5ffd0017f40"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_3/important_instructions/injection_task_2.json",
+      "sha256": "0d26726deff5206370840b869419844c004e9faae2a258e7c0ac2b6475586f6e"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_3/important_instructions/injection_task_3.json",
+      "sha256": "8927e7033bca52ccc1f888e17f6cbb59cd1fbfe2f9c237dc98167945728af871"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_3/important_instructions/injection_task_4.json",
+      "sha256": "c237162da6d5047d0bcf0b6bcd395d27e883f2c5dd1221b429e42e991fc79f5d"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_3/important_instructions/injection_task_5.json",
+      "sha256": "c856ea0e01430b7e27aaf04fc1e1307f8b3ba8baaf754236634586da776d414f"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_3/important_instructions/injection_task_6.json",
+      "sha256": "df5a686fc9f756d16e154a470df846828b0351f4b3992a1c241c85ceda3c1477"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_3/important_instructions/injection_task_7.json",
+      "sha256": "157e923590fae11902255fcdc5cd51bb2f293ae2db0c769028f272ea8ddb42b4"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_3/important_instructions/injection_task_8.json",
+      "sha256": "db74771050d797c899c1f3a662dca8bdd0e3647aca785b5bff3a4136c23b773b"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_3/none/none.json",
+      "sha256": "262140374579c7ce1148f52cbbf1b2e60bb354fbc1e783238935f216c17fe1e6"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_4/important_instructions/injection_task_0.json",
+      "sha256": "123e6d6acc758caaa8828f63b12c0e53305a4502a633c420d8b67322cbfaea07"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_4/important_instructions/injection_task_1.json",
+      "sha256": "f278c50e772ac8eadfad4f404962f5475a44a22f8ab1506f88f48882b5b7f80f"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_4/important_instructions/injection_task_2.json",
+      "sha256": "68b504b5451d8a45f3075fc33320f5aa182c1b43d56a6a88fb6cda912be035ce"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_4/important_instructions/injection_task_3.json",
+      "sha256": "e176eff50561a238512326847f2428bd46b3a77902fc1aa797868efc9ff4d801"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_4/important_instructions/injection_task_4.json",
+      "sha256": "0eff477918728a7d828f6a948de6ae454baf3f141f23818f27dd63582981ba6c"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_4/important_instructions/injection_task_5.json",
+      "sha256": "e554da4219e3bd379d8628012e9c6cf543ac5f9a0d8460ff3b2dc4d7d335e234"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_4/important_instructions/injection_task_6.json",
+      "sha256": "128767824968d8e4b482e908ee6c1150c3d289d463ac4044ea66e8dbfec23088"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_4/important_instructions/injection_task_7.json",
+      "sha256": "41cd2fb3548eaa44383410282d9d495f57aefebfe45c4e0d7d3475793039e5db"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_4/important_instructions/injection_task_8.json",
+      "sha256": "c4eb2855f216b88cdebe8581cc5cb0699aa98f4a63bd4d847bdcb44e0761c29e"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_4/none/none.json",
+      "sha256": "d35050ea4e9f3a89da250c33b267843a27dd88f0de426481bfde157689620309"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_5/important_instructions/injection_task_0.json",
+      "sha256": "33ff888f5b8ed86ba991d0650a9754c2e82d18e1f8cbba8abc027a70b2b87904"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_5/important_instructions/injection_task_1.json",
+      "sha256": "4613d60b443bffbe8976fcffdc91f33fc6e845bc3d3c09d3ddba5f851b4de851"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_5/important_instructions/injection_task_2.json",
+      "sha256": "bf3aa897bda63d33579463e1c5f61f9943cb0bef25345c7914a16a4633c7fd23"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_5/important_instructions/injection_task_3.json",
+      "sha256": "f71e6848d2e84c3fff52e326335b1e75781de3acff568cb3af199cad2a8a5a99"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_5/important_instructions/injection_task_4.json",
+      "sha256": "2a34f9153dac4fa93b5ebc1490d6756860e76a92d12f4aa22a9231a9ec8adae5"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_5/important_instructions/injection_task_5.json",
+      "sha256": "4c9809c349829ddc67ee4a42a0f913f30293e828e5a6fffc37c1ef9ac4e87198"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_5/important_instructions/injection_task_6.json",
+      "sha256": "7aa774ce34f1cdefd9ebcc75cc96290af35f7b5dd3e072f8bdfd6f1834df2dc4"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_5/important_instructions/injection_task_7.json",
+      "sha256": "0ef2e96d38c083dd2df1b18db18230fafe166d6d3a2bf8993de31fbcccea0bdf"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_5/important_instructions/injection_task_8.json",
+      "sha256": "403fe77bb4554b29c5c3dfbd94cfe4110736aa0d4d67fed60651802743cc3107"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_5/none/none.json",
+      "sha256": "ae6ec7255955581066834d242d969e3068d44729cc327f89a02399deeeb17c9f"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_6/important_instructions/injection_task_0.json",
+      "sha256": "fa5d747e3be9111e3abf577b6fc60b015007fb4bdaa14f8469925f20e5087c18"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_6/important_instructions/injection_task_1.json",
+      "sha256": "a25acf85cb409d89aa0863334cea8f21bb4cf5f9e1555e0d5b8f17022d40e601"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_6/important_instructions/injection_task_2.json",
+      "sha256": "a50730d042977b71c4e63595a4a18177c369068ea636646e777022ea62b4bddc"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_6/important_instructions/injection_task_3.json",
+      "sha256": "e6c9c206e1b80ba626f61790f91213351733ec6cad0d825bc293d6a557c5f176"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_6/important_instructions/injection_task_4.json",
+      "sha256": "b3d8ab092e3ae96967257682376118b657477bb8c396d3282b15700c37762213"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_6/important_instructions/injection_task_5.json",
+      "sha256": "20c8f7eed85528364cea8be1190319f31b94f3ed90904b7034fe78a91e726fa9"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_6/important_instructions/injection_task_6.json",
+      "sha256": "f047147f00558e080415fb2a3ce9ccb520f605b5f5cee3198a1d7cf11406100b"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_6/important_instructions/injection_task_7.json",
+      "sha256": "b49442f07d986e435780b725036fc03b58ed54003357dbf93dc916b1ddb8906b"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_6/important_instructions/injection_task_8.json",
+      "sha256": "f94f32f4907692c26be9075a53da1c23e1fbcb0baecd4c97383a848c74f08545"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_6/none/none.json",
+      "sha256": "7e26c471e0658d4f2425c55184dd6bf321df783d14656eac24e4d565d086c3a6"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_7/important_instructions/injection_task_0.json",
+      "sha256": "d6d16c02c7598bd8975e42ae995c614923b9aac199ecf106d561eda4b521a105"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_7/important_instructions/injection_task_1.json",
+      "sha256": "f6a9d71d48b81441b94ef1bdb509f019b48c398faddb2766ebaa9198364f5468"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_7/important_instructions/injection_task_2.json",
+      "sha256": "0f78ce9cba02659fdc16c64c61b20e9221d07d141ecf191868906713340825c6"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_7/important_instructions/injection_task_3.json",
+      "sha256": "cf191f745de5574741fd3b942d703d92099ecf0155f24279059bed03b59b53c6"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_7/important_instructions/injection_task_4.json",
+      "sha256": "c762f756f97cfbbe91ab8642c856b8105611e756ea4af244b394bf1c2b386ca8"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_7/important_instructions/injection_task_5.json",
+      "sha256": "e4dcec0823c43f603608035b09907d8466a7adbe9137c229bd62754b5c4bdcfd"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_7/important_instructions/injection_task_6.json",
+      "sha256": "5fb545afd371b3a2bb662a43afa81961a675f6dbd279cf685a0452c674862bd0"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_7/important_instructions/injection_task_7.json",
+      "sha256": "04c49dca7961fcd953a7fc6cf3c2c3ba2bc0c0e8de928193ebc105402c2ee974"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_7/important_instructions/injection_task_8.json",
+      "sha256": "e1246efda00043db83fa81c546b57b61dd30dd25748c9404d7e655bf7ac15c82"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_7/none/none.json",
+      "sha256": "50fd3e3158e93e0afcd9e839ca6ec305086224ea417a750fad83ff7bc3ad5895"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_8/important_instructions/injection_task_0.json",
+      "sha256": "b8b94ada8d0a731635aa7fd8fb477d29fc0786b96ac4597c15b7fcc4d6b95e9f"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_8/important_instructions/injection_task_1.json",
+      "sha256": "e5438a9306b54544b7efc81e19451674fce5efe1db829d227ce272472435a496"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_8/important_instructions/injection_task_2.json",
+      "sha256": "38a4e6b95380d09af7ee4f40cc4505544f51756412b6ae8d19ec72b4e3c9896e"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_8/important_instructions/injection_task_3.json",
+      "sha256": "8fa3cab5b5cadf18f6190390c32f958e94df7946f7df89a4c10722423b19d595"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_8/important_instructions/injection_task_4.json",
+      "sha256": "bd6a3635854bf6622de882e8b2bbcb997fcf813d53e09267a5f77290a77f180b"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_8/important_instructions/injection_task_5.json",
+      "sha256": "674b0eb95401a686e9bc8ee90ad482c3838c927b4b6f1e67ebf265c9a58eceff"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_8/important_instructions/injection_task_6.json",
+      "sha256": "c8e10ac71b0ce6d36927513fc1920464dc8241aaa27b647ce7a5c848fda06521"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_8/important_instructions/injection_task_7.json",
+      "sha256": "10567a9f35f1f66073dfc19be311f1b8a19760a56c4c675cc7ef66c07c0c8277"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_8/important_instructions/injection_task_8.json",
+      "sha256": "c6da731bab1e360f5fbbd4b405a81e56163f4ee1093c4c624c1a57515e9ade0a"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_8/none/none.json",
+      "sha256": "ee9266dcc0d22b1960ce03714a5642733760565ba79f1edf40b8897173b71cbb"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_9/important_instructions/injection_task_0.json",
+      "sha256": "1c68ef2b27318f3c5173fedad89f6046aea28dc5b6f9d5aef3024e83dae800d5"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_9/important_instructions/injection_task_1.json",
+      "sha256": "c19a6bcc1e7c1a357599211258f2c1133e07c451e5639c941f26089b5b412b94"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_9/important_instructions/injection_task_2.json",
+      "sha256": "3e39829a1a83da3fbd5c53d5d4bff56278896f99e8a5f504ed70f636712ab691"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_9/important_instructions/injection_task_3.json",
+      "sha256": "bb1f40685da7575d7bbef7a1d7c233946986a99d78d65222038e5ad540734afe"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_9/important_instructions/injection_task_4.json",
+      "sha256": "d8a747e3e1551c6576cfbc56e1b05a27a8710507a59ddd445d5161cbbf781b74"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_9/important_instructions/injection_task_5.json",
+      "sha256": "b1db76a149a5dc02bda81d13a742cc0a795669f397010de96b44ca7ed40295c0"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_9/important_instructions/injection_task_6.json",
+      "sha256": "d47aec31a6600cbe7550d3a43880475e734187b18c44cb3019b69409926cbaec"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_9/important_instructions/injection_task_7.json",
+      "sha256": "8cb0b835be62fa8aecb9b6ff21b863dc6b113c4246441a3c1468252acd500d93"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_9/important_instructions/injection_task_8.json",
+      "sha256": "b7c28e726646b09d7b6f3b7fefbfaa8ccf04d4a5e9b7c084f24a4d7162ef7de6"
+    },
+    {
+      "path": "results/runs/agentdojo_mapper_banking_roles_only_reencode_v2_full_escalated/qwen-max/clafr/banking/user_task_9/none/none.json",
+      "sha256": "f97e8b2c52e6aa061918d53c808c9e0728779012e46876e19fd8948bdd7d6c41"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_0/important_instructions/injection_task_0.json",
+      "sha256": "0ff659d2ed3151050cf2a04ad26d6ba6f332f246e879b191a09668499e2dc512"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_0/important_instructions/injection_task_1.json",
+      "sha256": "9d719c7dcc67320b15574a095802a23617254bf385fd831087454187bc2ebadb"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_0/important_instructions/injection_task_2.json",
+      "sha256": "f026782ef66a4bb7fb71ec838487f77ea32bc1e009ec0f754b0560cebd2c450f"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_0/important_instructions/injection_task_3.json",
+      "sha256": "5d031f63ba1f636cf2bf1bbf2b45028cf57e9bf6c2c42e3496b1372a645d231e"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_0/important_instructions/injection_task_4.json",
+      "sha256": "ca102306368eef4b435e6e39f9964cee3306a246433630debc11089bf3dba8f0"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_0/important_instructions/injection_task_5.json",
+      "sha256": "5ed97efc51332f45ac247fb35bdc7c19993355a8bbb39cba85b44187c5ce7965"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_0/important_instructions/injection_task_6.json",
+      "sha256": "eafa830cf96db2eb88d231f1cd3ae4d507a7741ad14b80a364dbf7f7df077fff"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_0/important_instructions/injection_task_7.json",
+      "sha256": "3ba7955f20ba34c9ae8660679d19ebed79f6dc636447e72eef6f9bbf71c04b87"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_0/important_instructions/injection_task_8.json",
+      "sha256": "8a31137a43664ed76bfa73985f29f731068b001eecdfab1a18e333970bb757d9"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_0/none/none.json",
+      "sha256": "e57d033875eba1e20af2e87b716517ae4b294566475c50961cc6d219778017f8"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_1/important_instructions/injection_task_0.json",
+      "sha256": "1a44dc0c71bc917582d5d556065a5fbc5cfa27c643959b69cea16015c5ff173d"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_1/important_instructions/injection_task_1.json",
+      "sha256": "e0c9e1fb9ce714a93c207f14e11ed484c5a61e61d9b703838ead786771ea9e73"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_1/important_instructions/injection_task_2.json",
+      "sha256": "166a5bf276517c26187f585eafb0b7666a9074b08226f008b4108293dc41391c"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_1/important_instructions/injection_task_3.json",
+      "sha256": "48c6967e2b3e5384c17903f496cace78b301bd273565916f461536a79e428c80"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_1/important_instructions/injection_task_4.json",
+      "sha256": "093657ff2216d96618e7577b86410fe46ed2d399ba0125a58f6462d9233d21fc"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_1/important_instructions/injection_task_5.json",
+      "sha256": "25be5b8aa1ad2d25ffdfa5978c370c0f03f49d4f5c53366a5f203efacc74a44f"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_1/important_instructions/injection_task_6.json",
+      "sha256": "d527bb59be7364b9f7933dd6767aea34d262979aaa6af4f344160b4ead5d12dd"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_1/important_instructions/injection_task_7.json",
+      "sha256": "26134b4628d04195297ac85be2a640e600780738e8354404a302724407faea6d"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_1/important_instructions/injection_task_8.json",
+      "sha256": "b80fd1ab08882567e12b979852e44c72255ff37f81b71eae202169d9c86a3478"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_1/none/none.json",
+      "sha256": "44885330c703d3d01153aa6718476a3bf82570ec45a65135f4b94fa3aa24f052"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_10/important_instructions/injection_task_0.json",
+      "sha256": "358dd852b97d7cb968eb63bd508f51c55d659822dc23ffabf7bdedfa33117999"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_10/important_instructions/injection_task_1.json",
+      "sha256": "981ec55e225731f4fa63c9e6896d179e1cac83a30c4eba9b49462a4460f9b41f"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_10/important_instructions/injection_task_2.json",
+      "sha256": "b1d4dfeec7e64d83b58ec72c8c0051515de8954d5821f3391b8a23125a40f5ec"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_10/important_instructions/injection_task_3.json",
+      "sha256": "c1bb2267d57a78bdf8ae254416b6c99fcfe4d00c6f5eb5c0693a6ab8fb199e83"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_10/important_instructions/injection_task_4.json",
+      "sha256": "84742e8d2de3608644dc5eccf0b57ce396bd8864f317103b6dfdd71261ecbfec"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_10/important_instructions/injection_task_5.json",
+      "sha256": "3248ed9464824143a566a066e927d1bfdb13bb5c2f9e0aaf4cbf91eea8186036"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_10/important_instructions/injection_task_6.json",
+      "sha256": "dca56dbef3b3170b1b90ba93ae43af4bb1e706bd2941c7dcbb4792caac0f7bf3"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_10/important_instructions/injection_task_7.json",
+      "sha256": "96bcc788c2b9bd50561d5b4a5fbcc5f76d8dcd0defcdd4647c2556b687e2a5d8"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_10/important_instructions/injection_task_8.json",
+      "sha256": "52b0ffa246eccd09a24f5e58adc8f4653b41d2a7fb2a240c690791502202552e"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_10/none/none.json",
+      "sha256": "d94caabd1f1b2d7778a8ce7620d1d072a6b85fa060a8827e2221614945727c7d"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_11/important_instructions/injection_task_0.json",
+      "sha256": "f572cd2f8c1d3457fed455d7ff26f1bbcb4b9ac6ec36f1b8d779dd78798d2cc9"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_11/important_instructions/injection_task_1.json",
+      "sha256": "8e40298464b28186965c6b6546d8368ec9e82a968207187b2b2994d98a1df903"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_11/important_instructions/injection_task_2.json",
+      "sha256": "22df31c81eeb190a927b408d5faf33aee226091905735fe6a86b83d3194ba39f"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_11/important_instructions/injection_task_3.json",
+      "sha256": "f9680d796878e8f0816e4b24c01e3f397273e35f349bc7598db90d91e7bfdd3e"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_11/important_instructions/injection_task_4.json",
+      "sha256": "f65e2bc6867552853aadde8c6751ec937d554d54df367e099eb2a8e00ecee97d"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_11/important_instructions/injection_task_5.json",
+      "sha256": "04920a1e20767eb253e370f602c9b1921fa28735238de999c5694b9db881b03d"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_11/important_instructions/injection_task_6.json",
+      "sha256": "766913db557e0f7c96a6ea74f14a51f5ea0f2143d74acda21da4324d2f17f084"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_11/important_instructions/injection_task_7.json",
+      "sha256": "17123af6b60ed842e9ba66dd8189e6b13389c6ea7dbf3322dad87fdfad2f17d2"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_11/important_instructions/injection_task_8.json",
+      "sha256": "20ef48cff5ca8938fbeb002a5deaedf7b062e295485ffc30ec45af8320ef6c1f"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_11/none/none.json",
+      "sha256": "92ff20a5b7f0682cfc4c9c39ff58a9dbf5699dfc3a981d18937c4442af1024ce"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_12/important_instructions/injection_task_0.json",
+      "sha256": "43b7b0b7a88c6e1a99ae71a0b16bc4bd110e0af19de81126180f13d5c9ec99ba"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_12/important_instructions/injection_task_1.json",
+      "sha256": "10c03620264f207538489e41645115474a8b507d4f2510059449786113500530"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_12/important_instructions/injection_task_2.json",
+      "sha256": "9692b6c52d9cf61a268e670e170f13debd80dadfd706ba1558582017e4f41fe5"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_12/important_instructions/injection_task_3.json",
+      "sha256": "8781d8d2861c8131cfba378133755ed9a0a4abffea12b1127d122b15740d2e94"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_12/important_instructions/injection_task_4.json",
+      "sha256": "8602520ee99fb7446d613c8183687da045d4ef73a393d71c6dbd66b169e78b5a"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_12/important_instructions/injection_task_5.json",
+      "sha256": "f8efc3d598673cb319da020b02aea96a348116fa6abaf22da8897c81b7a33ff4"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_12/important_instructions/injection_task_6.json",
+      "sha256": "64b4d5222575c9dfeca884520469acf7b0aea7ff9e830295c529452d4893bcc5"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_12/important_instructions/injection_task_7.json",
+      "sha256": "7c1a306b74ef3f8047536c9c404f838f708c00f240449acfc7062e450f1b316c"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_12/important_instructions/injection_task_8.json",
+      "sha256": "f04c9c92708adbaa5ac879bf9662536692b6088c1a3862bb6a6ce236dfead065"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_12/none/none.json",
+      "sha256": "058369f26d0826b58de623b50b7f8b4ff3b85d9984c3fd93584e9be9625d7245"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_13/important_instructions/injection_task_0.json",
+      "sha256": "c0b97977f94ff68ca31b5e7bc7c8dcc954d6e12b62e44617c429290295e476f3"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_13/important_instructions/injection_task_1.json",
+      "sha256": "4e884e47347bdb942d01847d96b024a627bbaa3fb5a35e536e7cb6e85f50af42"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_13/important_instructions/injection_task_2.json",
+      "sha256": "5c2236fe6e95fb66060e4c9083491f793d46f55e44f205a0c711bdac3c35e798"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_13/important_instructions/injection_task_3.json",
+      "sha256": "c9a67570c1c9945568bc5db8c2c38cceb68079cf7466039e33863a8786da5dec"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_13/important_instructions/injection_task_4.json",
+      "sha256": "eeab883dcd01226e18614258dc26f375528d5c4a57ab23b3b6b6efe51c6d8d19"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_13/important_instructions/injection_task_5.json",
+      "sha256": "8ba647e3be885eb1c0b5bc7b7b5aceb06e142949295859c1aada1cb5515d5da9"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_13/important_instructions/injection_task_6.json",
+      "sha256": "d3276696980c4f63a444e4abe5b6ad16c4ec77b8a92f17bcbaa6a86a8d0b9eee"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_13/important_instructions/injection_task_7.json",
+      "sha256": "0f26ed6514ef887918c5f8ba3e32d272bd86d196ea576105710e0bebe5205c27"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_13/important_instructions/injection_task_8.json",
+      "sha256": "9921913985adb0557e1ff2fbc64712e79781cc495d86f3c5ce292c483e594c43"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_13/none/none.json",
+      "sha256": "3190f8f629c00b34162797b74c393e82fd5cdb85e469b55348c52d270b1d129f"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_14/important_instructions/injection_task_0.json",
+      "sha256": "d33229557e78c365af6e06ef1d8f1abf1f2aa4e780e532736c679afbe60259d5"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_14/important_instructions/injection_task_1.json",
+      "sha256": "af1242a3d4fd697b30890028c5e82fe272fbcd7ab50477b602a31d5ef50fc1af"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_14/important_instructions/injection_task_2.json",
+      "sha256": "9aa68e025d3e2151e478b244bb98eba7f0b58cf7688e51bb582e2a935cac3246"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_14/important_instructions/injection_task_3.json",
+      "sha256": "13ccaab9ab47e87c82e19b0bbb5ec61bae935c0c88ade649cbfe69cb529c6aa3"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_14/important_instructions/injection_task_4.json",
+      "sha256": "58873dbdcaa5f4606139181ad3feeec57de8ad6cf9947babe107b80667caddbf"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_14/important_instructions/injection_task_5.json",
+      "sha256": "6c24c634b23dc3876489c6154ba503c64cd9020fa697e084d20c431087042c8c"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_14/important_instructions/injection_task_6.json",
+      "sha256": "dcd0018d5b8d152dbf58f3548da38dd7ddaef92157d4ee67a07f0b3a7b234e17"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_14/important_instructions/injection_task_7.json",
+      "sha256": "b6556195e66d4e244c5ff3de1cceab3ec88180d9e8ba2ddcd14399d1a6365a64"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_14/important_instructions/injection_task_8.json",
+      "sha256": "0c11db4c8c96d77ff2fb480ace2889e101a7094281ba3e99c9e09658c9a22481"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_14/none/none.json",
+      "sha256": "7e1e1d412d5183d78bebf4b568538bdedb9a284d2e9765b1dd71ab11adc6ceb3"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_15/important_instructions/injection_task_0.json",
+      "sha256": "506befb56ecd2e6d90bec24c770d4cad15c73200226684fbf6337d7abd37a730"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_15/important_instructions/injection_task_1.json",
+      "sha256": "b5551e0e520adcc8207204b498760f62cce510ac28d5b8be256bab8cc1f24d18"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_15/important_instructions/injection_task_2.json",
+      "sha256": "4b208aeb3041a35a89081c8c59d74742350f3a171dc0806e13f188054ae935c3"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_15/important_instructions/injection_task_3.json",
+      "sha256": "0d2c33460db0cdeffd87c33886e31247dec1b512d85df9e9e030a163765281c8"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_15/important_instructions/injection_task_4.json",
+      "sha256": "0ccfad7646ab09d23f794984efe9682fa2722e8a21d495e9879478823d577779"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_15/important_instructions/injection_task_5.json",
+      "sha256": "fa4c18897993400c614e68a3e33c4dfd1eeee187137612e925103fc1943f03f6"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_15/important_instructions/injection_task_6.json",
+      "sha256": "96f0669a4b1cbd6ec742ca247a6e9bef053da0f9e227ad64c47f343c9e3b6176"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_15/important_instructions/injection_task_7.json",
+      "sha256": "2ba955e8798309ef1586a2fbc717805e3d06a991b71a755e6eeb549de17c16ed"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_15/important_instructions/injection_task_8.json",
+      "sha256": "64a94980e2925e80d95971c611bab31d91ebe9ac4bc101c7b028c46e0aaba26b"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_15/none/none.json",
+      "sha256": "aa95b6025131fafa44fabb0aca65995ce87f695be59842220593f281ab282694"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_2/important_instructions/injection_task_0.json",
+      "sha256": "61b8e6a0a1c516a83b0ca64a7371858dca9d2677acd07e109fc107d165cfbbdb"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_2/important_instructions/injection_task_1.json",
+      "sha256": "76558f2b2a9938c81e6695e9df4b9ee2c08e979a6c452e380afc4166c0313bbb"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_2/important_instructions/injection_task_2.json",
+      "sha256": "720e0a28694cbbc805e66c0ceee1ccf192ef55e3e3060e57ee18d9b3499650cd"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_2/important_instructions/injection_task_3.json",
+      "sha256": "cfaa0a2db428575affc4ec22d3f6f72cabcb89b3e5718497995541fd742c3489"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_2/important_instructions/injection_task_4.json",
+      "sha256": "d8007480b8469a0b70db7971dbe66534103bd06479377390a98b23e63430efff"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_2/important_instructions/injection_task_5.json",
+      "sha256": "c7034e03d820c4c8853a5a8a74c334f1782f704c8e9ebb1d4260946eccebd269"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_2/important_instructions/injection_task_6.json",
+      "sha256": "52133cdd26f9954296111649202617afdde3b090dad6872890f86412aa8b173c"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_2/important_instructions/injection_task_7.json",
+      "sha256": "244d2d04d546fe2cbfd2335d6369c77c8a06f44a8ecd76e25024e6acbc5a52f7"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_2/important_instructions/injection_task_8.json",
+      "sha256": "3ff08794426dcd4e3a5b2bad473b1ddae52e8eeeb3f15af704da0a8f69124538"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_2/none/none.json",
+      "sha256": "ec33cb9d38f4e08849c0bafafa5b567975c71487749328d8e92418365e36c00d"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_3/important_instructions/injection_task_0.json",
+      "sha256": "58c294addb7d5dd8d441a314a2bf3023cb11199cf9308586dc8e220b1ce44b30"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_3/important_instructions/injection_task_1.json",
+      "sha256": "2c439a5899688e484d9172f64697e61bd94510a76a7cb84e461d9d866a34428b"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_3/important_instructions/injection_task_2.json",
+      "sha256": "3e65bd2721106929d524156273d1d5c78c870bfce5c986d2f99cb9715d7ac889"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_3/important_instructions/injection_task_3.json",
+      "sha256": "b9d4ba9d7855d6c5f668f0088502a741a55d72f48a46ea98fb6d8908ddd6c9c4"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_3/important_instructions/injection_task_4.json",
+      "sha256": "00b597af2fc529b8cf2da773c12535d4d3f4078fd335f38fb14fe94abf1e3077"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_3/important_instructions/injection_task_5.json",
+      "sha256": "c15ef1b5aee0f6a34d46c73fa090b906e9e30633ffa747eb3c0e060177f52eee"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_3/important_instructions/injection_task_6.json",
+      "sha256": "5e425abce84d68f4fb7dcdbfc7f50f2abc3e68c112ed0de38bbf58927c0b1224"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_3/important_instructions/injection_task_7.json",
+      "sha256": "1cf1e9c5d7265448dbc8dc0b8089d5aa37ea08ddf02b1532ce3650492c22fa16"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_3/important_instructions/injection_task_8.json",
+      "sha256": "12925f929a1a078b8d5fe98ca69a639e8f67f9af3d635d388b4b8268ca36b9d0"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_3/none/none.json",
+      "sha256": "fc60872fe5c3b2d89e3cdc1cc36ba75b5b6372115e70bfbf47b71961b7e89a6c"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_4/important_instructions/injection_task_0.json",
+      "sha256": "31bc7488508aa573cfa85edeeaac7885cd81113dae7cd4759771dc8191464560"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_4/important_instructions/injection_task_1.json",
+      "sha256": "7a7412e1f9ed2a470e1733a19ce3a82ebfe4e4416d16177c5698c671b688b11e"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_4/important_instructions/injection_task_2.json",
+      "sha256": "193d568b7cc42469ec16cd29b35cd6ab80c795463a8a55e036d76a72906bd025"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_4/important_instructions/injection_task_3.json",
+      "sha256": "5f9b8f4f3031bcd508b5543c425733c78886f4a74a5404abcebccd456069aa35"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_4/important_instructions/injection_task_4.json",
+      "sha256": "3e0c3bb1e85b40a902eaac4fe4ca3aebbf3cd4b38ff1c596226e55346f260a4a"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_4/important_instructions/injection_task_5.json",
+      "sha256": "c113ec1f7daf958927d3b34593a34c7d7295facd96f2b33ef50dca70e01cc7c9"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_4/important_instructions/injection_task_6.json",
+      "sha256": "09900b8058ba94b54bda2d9e98f830143d9390cab1ab7bf7febf4f04f63a77cf"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_4/important_instructions/injection_task_7.json",
+      "sha256": "81f40dbeecfc196453c229bfa55baeb347fd9d3bffdc157be3c38a82f628e21c"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_4/important_instructions/injection_task_8.json",
+      "sha256": "ef38e760962fbaebe7dd2045d44c6e55573ee62af733e406cd5f8d9aedc0b141"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_4/none/none.json",
+      "sha256": "1d4bb68fdd8676fa8dfd9bb17a1d94971f6ea79bb5693cebc0210eafdd99b1c5"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_5/important_instructions/injection_task_0.json",
+      "sha256": "2384d1fce5eeb0b229320e5d07d1072b1c3d952289f66df101a677b28f4dad06"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_5/important_instructions/injection_task_1.json",
+      "sha256": "b5394890cd50f8002c5b5e225614ff53eda01f49206d3e70794e5bfa84f3c3c8"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_5/important_instructions/injection_task_2.json",
+      "sha256": "5778bb8089b70179fa234a26e703e9d71fa2e3dec87472fd02e5d981869493b5"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_5/important_instructions/injection_task_3.json",
+      "sha256": "685f4bccb447a14502bfa3664eaec543d49ffed3cc941914ae25161adb5f0072"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_5/important_instructions/injection_task_4.json",
+      "sha256": "23d86bd61d4e3fd0bb1b2e76c4217595fe1c3eeb75123108911d4cb09ec6a08a"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_5/important_instructions/injection_task_5.json",
+      "sha256": "f4a59f78ff3f224470012c0b726b7ef94f3f8e43f089a22bc560fbd3bfbc1bad"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_5/important_instructions/injection_task_6.json",
+      "sha256": "bbf0918fee32e3ea37525226e64da217b48c33e791b2de8f8e12fae3017a02d0"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_5/important_instructions/injection_task_7.json",
+      "sha256": "d6b251f9133310ce70201a385a16ff6556d2877b5922985667220c46d6a8008c"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_5/important_instructions/injection_task_8.json",
+      "sha256": "cd937d663b7e6f9cc54ced6b106ccee4b98b5a21b1fdab6dde48a27adfd95318"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_5/none/none.json",
+      "sha256": "d9cc3f8586929f41990aa277c447546d5cdda70386729de87679d8d23a190942"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_6/important_instructions/injection_task_0.json",
+      "sha256": "f6676fa591c25094af6d13a501e28e331743d2e1abfe67134676e798e4b90664"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_6/important_instructions/injection_task_1.json",
+      "sha256": "cd3681d430d389cdd4c8177e2b8e2232149701df40524d531f8db90ffb3951e8"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_6/important_instructions/injection_task_2.json",
+      "sha256": "7e98ae1559dc659efc97377e1390e2ea6c95b4dccc1bfbd74c6671864d28876b"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_6/important_instructions/injection_task_3.json",
+      "sha256": "c037d80d59fcb6ce1c56859b006386a9fd8e600ad83a9728905caea1d90141d2"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_6/important_instructions/injection_task_4.json",
+      "sha256": "29342d037787670420a2fe03f6c4f53d0b98b8e54044800c3e5ac35d204bb515"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_6/important_instructions/injection_task_5.json",
+      "sha256": "d98d733417fe98e142e599ffd6db76ad20fea4d769de03a0ad99e62a064ff79d"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_6/important_instructions/injection_task_6.json",
+      "sha256": "1ea9e1eeda777345b42d945e336350dc7c5f560173959a7470f977427a40b7c8"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_6/important_instructions/injection_task_7.json",
+      "sha256": "3e480a5a73a882cad90fb0bf83002918b564ef3f6ba4b4236bff8b44d92bfd3c"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_6/important_instructions/injection_task_8.json",
+      "sha256": "4241063f92fdff5f74b13945bd322d004b8f4bf4be0ca7f199705086fecaac93"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_6/none/none.json",
+      "sha256": "3939cb870e07ecb21cd2c8db67902df854de71aeaaed2220b5cac023721333e0"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_7/important_instructions/injection_task_0.json",
+      "sha256": "cc8f3377725b41097e459fa272728466ee14249a1f8867f44d14cf424f347c09"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_7/important_instructions/injection_task_1.json",
+      "sha256": "b5c8a0ef19426044704b35eab4ba3833afa42d7b9039c4e1128cce3b62caa773"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_7/important_instructions/injection_task_2.json",
+      "sha256": "3536583e827bcc11842ae885ece695bff600ed03abef8cd6ba8a30782c7ba180"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_7/important_instructions/injection_task_3.json",
+      "sha256": "2eb9432b9d851b0305d17ea869ac7ee1a6102372c9c84c426bf76af554184d64"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_7/important_instructions/injection_task_4.json",
+      "sha256": "7d0a67d8f1947705a5e72aed292aff7834d853882a4b7b7844b6847cdcfb6d47"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_7/important_instructions/injection_task_5.json",
+      "sha256": "961d1cd8d2d47e00d570eb38d269a845319387addeaa69317702cb2fb931a2c4"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_7/important_instructions/injection_task_6.json",
+      "sha256": "0b695b6435a72491e6f9eedb81df72f3178ace21b2880e3c6c8255fa2c330f00"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_7/important_instructions/injection_task_7.json",
+      "sha256": "e4ee6ee6814725b6e8cdecfb24a53a6eb7d67565f6f546f5e0ca142fe4038f0b"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_7/important_instructions/injection_task_8.json",
+      "sha256": "7e186805272c227de51fc80522c814f7c818b097faa7a268385720c728554366"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_7/none/none.json",
+      "sha256": "dd4e2e66acb486ca5a2ad67a295a619565fdacfd0b85ba817484e5e850a0b974"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_8/important_instructions/injection_task_0.json",
+      "sha256": "d03a886c8651c5635ff0bf64c7801823b0d17151e50504cd58b9676f7216f4a0"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_8/important_instructions/injection_task_1.json",
+      "sha256": "3cd8b479e4423315c63d423d2c836fbc90b2ff7e3de0869e5667d7fc81f9c4ba"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_8/important_instructions/injection_task_2.json",
+      "sha256": "522905b1246fd882294da9703e2d8c2b888a46ee229da6d15ded7f0114d885e2"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_8/important_instructions/injection_task_3.json",
+      "sha256": "08ead73d04d621c95b529c18a909809214357de85a5926dc2e2001829cb247a1"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_8/important_instructions/injection_task_4.json",
+      "sha256": "6546fd01b6fda9ba09449d9d30f0fff00596ac198312f2665bbfe1bd81b8f042"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_8/important_instructions/injection_task_5.json",
+      "sha256": "8a8ea24f4b82641ef917d42f4f814eb4ad46d9ef1f4b284fef16d38d5ece33d9"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_8/important_instructions/injection_task_6.json",
+      "sha256": "4bae55c3d5549977c7e332e12869743bc1c94de7c9910c622214d6bdf4e4084d"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_8/important_instructions/injection_task_7.json",
+      "sha256": "caf20a6cac0926a21befb320daec3616e00f1ba3a9a5345e8cbbc997d222799b"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_8/important_instructions/injection_task_8.json",
+      "sha256": "f10e92341a0daab8a1b44ffc239a96ad457a5fbf7aa4d791555001fb1d402178"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_8/none/none.json",
+      "sha256": "cb5a40c07f4e25ddf11cb4c47677ab6ea41e7ce84f3d351e1e3de5cd5c39e525"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_9/important_instructions/injection_task_0.json",
+      "sha256": "e066c8e34e488b7a4a00bf193404d1ebf80aa2c2ba30baf1e0b49a643d5d1ff5"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_9/important_instructions/injection_task_1.json",
+      "sha256": "8388ea5f7b61781bf3ed10eaec0fce399898c88d41b43fe01d9680de24d356a2"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_9/important_instructions/injection_task_2.json",
+      "sha256": "94a52072e7ccf95e51c5102fa2836a97feb1598551708581bf9e655b888955c3"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_9/important_instructions/injection_task_3.json",
+      "sha256": "902c3c4b7d9c0c0b17e3423f8cbeeaf6ee0f16f2bc297d8619ea581dc3f0f6e9"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_9/important_instructions/injection_task_4.json",
+      "sha256": "9085e282bd323d16246ed49888da4b21a453074ac995ecf7cf9f263cb1b4b78c"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_9/important_instructions/injection_task_5.json",
+      "sha256": "c5af954be611ab61a9dbae1814a2c3e51a7731741d4b4508b5981b2a22f48179"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_9/important_instructions/injection_task_6.json",
+      "sha256": "785544c6474d310dcccecc39e4890fb0e8d7a457f5838c494943624e6473e444"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_9/important_instructions/injection_task_7.json",
+      "sha256": "a46fcd922080c97ee7685fbbc782b4f48c057f09e27a8afa285c19e87d3e167c"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_9/important_instructions/injection_task_8.json",
+      "sha256": "3230603de2948ef55378b3ef641f0a7e8d17ecc273118d2dd856b417940b3335"
+    },
+    {
+      "path": "results/runs/agentdojo_no_mapper_banking_reencode_full/qwen-max/clafr/banking/user_task_9/none/none.json",
+      "sha256": "9351f4171c18c39acf0d445b749273be4eaef454e2b1b1fbd59973f7c41d5e87"
+    }
+  ],
+  "source_trace_set_sha256": "e35b122cacb1e9bdfd97e493a56f544a02489b2a5757dc88472fef46d7348945",
+  "output_files": {
+    "rows.jsonl": "871b51fb8fa93ac73af1bea9395ecdf3133362f54ecafef7800287bd7dab8a39",
+    "inputs.jsonl": "181fa8840735c07d18b2a50e071f82ea51836ce1a728e557996554c91fa6011d",
+    "summary.json": "beee80122fbeb700d85ec34d537f1ff233b5c0aa864e565ec7fea78291b367f1"
+  }
+}
