@@ -102,6 +102,19 @@ def test_role_semantics_reject_high_confidence_field_mismatch():
                                                   'visibility': 'audience scope'})
 
 
+def test_role_semantics_uses_word_boundaries_and_scope_hints():
+    import json
+    from clafr.policy_mapper import parse_mapper_response
+    payload = {'tool_name': 'create_ticket',
+               'roles': {'text': 'data', 'priority': 'scope'},
+               'preconditions': []}
+    ir = parse_mapper_response(json.dumps(payload), 'create_ticket', ['text', 'priority'],
+                               field_descriptions={'text': 'ordinary update text',
+                                                   'priority': 'urgency level'})
+    assert ir.roles['text'] == 'data'
+    assert ir.roles['priority'] == 'scope'
+
+
 def test_read_only_empty_grounding_is_vacuous_but_auth_is_not_removed():
     import json
     from clafr.policy_mapper import parse_mapper_response

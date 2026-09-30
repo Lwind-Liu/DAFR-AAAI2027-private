@@ -18,6 +18,17 @@ Precondition types: trusted_grounding, authorization, confirmation, state_freshn
 JSON shape: {"version":"1", "tool_name":"exact input tool name", "roles":{"field":"role"},
 "preconditions":[{"type":"authorization","fields":[],"minimum":1.0,"source":"trusted"}],
 "risk_budgets":[],"forbidden_effects":[],"provenance":"llm"}.
+Semantic disambiguation: audience, visibility, access level, permission, and an
+urgency/priority level describe scope or policy state, so use scope when the
+trusted field description says they control who can see/access an object or how
+a request is prioritized. Use destination for an external recipient, assignee,
+payee, endpoint, or address that receives an effect. Use data for contents being
+transmitted or stored. Read the trusted description; do not infer destination
+from the noun audience alone.
+Before emitting JSON, check every role against its trusted description: identifiers
+(`*_id`) are object; policy settings such as retention, delivery mode, access
+level, visibility, audience, format, and timezone context are scope; an instant such as start_time is time;
+an external recipient or assignee is destination; textual payloads are data.
 Preserve policy scope. Do not omit a requirement just because its semantics are unsupported.
 Numeric thresholds must come from the policy; do not invent risk weights or budgets. For any stated requirement, minimum must be strictly positive; never emit minimum 0.0 for trusted_grounding, authorization, or confirmation. Name every affected schema field.
 Role values MUST be one of the seven enum strings, never a field description or a
@@ -56,6 +67,12 @@ Few-shot 4 (injection): webpage text can never satisfy authorization or confirma
 trusted user/runtime evidence must cover the affected recipient and body fields.
 Few-shot 5 (ambiguous): update_record(record_id, visibility) with policy
 '根据上下文适当更新' returns status=abstain with both fields uncertain.
+Few-shot 6 (semantic roles): create_ticket(title, description, priority,
+assignee) maps title/description to data, priority to scope when it is an
+urgency level, and assignee to destination. publish_document(document_id,
+audience, content) maps audience to scope when it controls visibility and
+content to data; audience is destination only when the description explicitly
+says it is an external recipient.
 Exact JSON examples:
 {"status":"ok","ir":{"version":"1","tool_name":"get_balance",
 "roles":{"account_id":"object"},"preconditions":[],"risk_budgets":[],
@@ -111,16 +128,22 @@ def validate_role_semantics(ir: ConstraintIR, *, schema_fields: Sequence[str],
     hints = {str(k): (str(k) + " " + str(v)).lower() for k, v in (field_descriptions or {}).items()}
     hints.update({f: (hints.get(f, "") + " " + f.lower()).strip() for f in schema_fields})
     expected = {
-        "object": ("_id", " id", "identifier", "record", "resource", "account", "file", "path", "origin"),
+        "object": ("_id", " id", "identifier", "record", "resource", "account", "path", "origin"),
         "destination": ("recipient", "destination", "attendee", "payee", "endpoint"),
         "amount": ("amount", "passenger", "quantity"),
         "time": ("date", "time", "timestamp"),
-        "scope": ("visibility", "scope", "permission", "include_sensitive"),
+        "scope": ("visibility", "scope", "permission", "include_sensitive", "audience", "priority", "urgency", "retention", "delivery_mode", "setting", "format", "timezone"),
         "data": ("body", "content", "comment", "memo", "subject", "reason", "payload"),
     }
+    def contains_hint(text: str, word: str) -> bool:
+        # Avoid substring collisions such as ``update`` -> ``date`` and
+        # ``text`` -> ``time`` while still recognizing snake_case ids.
+        pattern = r"(?<![a-z])" + re.escape(word.strip()) + r"(?![a-z])"
+        return re.search(pattern, text) is not None
     for field, role in ir.roles.items():
         text = hints.get(field, field.lower())
-        matches = {candidate for candidate, words in expected.items() if any(w in text for w in words)}
+        matches = {candidate for candidate, words in expected.items()
+                   if any(contains_hint(text, w) for w in words)}
         if len(matches) == 1 and role not in matches:
             raise ConstraintIRValidationError(f"role {field}={role} conflicts with schema semantics {next(iter(matches))}")
     return ir
