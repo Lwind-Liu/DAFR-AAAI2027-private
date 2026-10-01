@@ -20,6 +20,15 @@ def test_region_is_candidate_independent():
     assert a == b
 
 
+def test_llm_prompt_keeps_policy_context_separate():
+    messages = HandoffMapper().llm_messages(context(), {"amount": 10, "recipient": "acct-1"})
+    assert messages[0]["role"] == "system"
+    assert "candidate arguments" in messages[0]["content"]
+    payload = json.loads(messages[1]["content"])
+    assert payload["trusted_context"]["policy"] == context().policy
+    assert payload["candidate_call"]["recipient"] == "acct-1"
+
+
 def test_pilot_maps_existing_ir_response():
     response = json.dumps({
         "status": "ok", "tool_name": "transfer", "roles": {"amount": "amount", "recipient": "destination"},
