@@ -26,19 +26,23 @@ Never invent fields. Resolve roles only against the supplied schema. Preserve ex
 amounts, time bounds, and negation. A read-only operation can still require authorization or
 trusted grounding if the policy says so.
 
-Return exactly this object:
+Return exactly this object (the nested "ir" is the canonical policy-mapping result):
 {
   "status": "ok" | "abstain",
   "action_point": {"field": "canonical value or null", ...},
-  "roles": {"schema_field": "object|destination|data|amount|time|effect|scope"},
-  "preconditions": [
+  "ir": {
+    "version": "1", "tool_name": "exact tool name",
+    "roles": {"schema_field": "object|destination|data|amount|time|effect|scope"},
+    "preconditions": [
     {"type": "trusted_grounding|authorization|confirmation|state_freshness|prerequisite",
      "fields": ["schema_field"], "minimum": 1.0, "source": "trusted"}
-  ],
-  "risk_budgets": [
+    ],
+    "risk_budgets": [
     {"name": "joint_risk", "fields": ["schema_field"], "limit": 1.0,
      "weights": {"schema_field": 1.0}}
-  ],
+    ],
+    "forbidden_effects": [], "provenance": "llm"
+  },
   "region": {
     "logic": "intersection|union",
     "facets": [
