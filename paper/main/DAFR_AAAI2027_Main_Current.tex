@@ -23,7 +23,7 @@
 
 \begin{document}
 \maketitle
-\noindent\textbf{Revision scope:} The paper focuses on deterministic semantic lifting, joint-risk geometric execution, and auditable action certificates. The former LLM-mapper experiments are retained only as exploratory supplementary evidence and are excluded from the main claims.
+\noindent\textbf{Revision scope:} The paper focuses on deterministic semantic lifting, joint-risk geometric execution, and auditable action certificates. The former LLM-semantic-lifting experiments are retained only as exploratory supplementary evidence and are excluded from the main claims.
 
 
 \begin{abstract}
@@ -49,7 +49,7 @@ We evaluate DAFR on AgentDojo with three planner models and on Agent Security Be
 \begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{From_Semantics_to_Execution_Dynamic_Geometric_Constraints_for_Tool-Action_Feasibility_Figure_1.pdf}
-\caption{Overview of DAFR's three-stage policy-to-execution compiler. The semantic mapper lifts a policy and tool schema into shared roles; the action encoder grounds a concrete call, runtime state, and source-tagged evidence in those roles; and the geometric verifier evaluates the encoded point in the current joint-risk feasible region. Region membership determines feasibility, while violated margins identify the limiting relations used for targeted revision or blocking. The resulting observation updates the next decision state.}
+\caption{Overview of DAFR's three-stage policy-to-execution compiler. The typed semantic lifter binds policy requirements and tool fields to shared roles; the action encoder grounds a concrete call, runtime state, and source-tagged evidence in those roles; and the geometric verifier evaluates the encoded point in the current joint-risk feasible region. Region membership determines feasibility, while violated margins identify the limiting relations used for targeted revision or blocking. The resulting observation updates the next decision state.}
 \label{fig:mechanism}
 \end{figure*}
 
@@ -82,7 +82,7 @@ where $T$ may add evidence, satisfy a prerequisite, record authorization, or inv
 
 \subsection{Three-stage Semantic Execution Compiler}
 
-The central design is a typed coordinate transformation with a strict separation of responsibilities. Let $M$ denote the semantic mapper, $E$ the action encoder, and $G$ the geometric verifier. For a policy $p$ and registered tool schema $S_f$, the mapper proposes
+The central design is a typed coordinate transformation with a strict separation of responsibilities. Let $M$ denote the typed semantic lifter, $E$ the action encoder, and $G$ the geometric verifier. For a policy $p$ and registered tool schema $S_f$, the lifter proposes
 \begin{equation}
  I_f=M(p,S_f),
  \label{eq:semantic-mapper}
@@ -108,20 +108,20 @@ DAFR uses the validated mapper and the semantic action encoder to construct the 
  z_t=L(a_t,E_t,u,p)=(q_t,g_t,c_t,r_t)\in[0,1]^d,
  \label{eq:action-evidence-point}
 \end{equation}
-where $L$ is the implementation of $E$ that deterministically evaluates explicit execution relations after the mapper has produced a validated typed interface, and $q_t$, $g_t$, $c_t$, and $r_t$ are the resulting coordinate blocks. The task block $q_t$ records support for the selected function, its expected effect, and current execution progress. The grounding block $g_t$ connects effect-bearing arguments to source-tagged evidence and established state. The authorization block $c_t$ records confirmation, available authority, and the scope of the proposed effect. The risk block $r_t$ describes consequences such as disclosure, transfer, deletion, redirection, and state change.
+where $L$ is the implementation of $E$ that deterministically evaluates explicit execution relations after the lifter has produced a validated typed interface, and $q_t$, $g_t$, $c_t$, and $r_t$ are the resulting coordinate blocks. The task block $q_t$ records support for the selected function, its expected effect, and current execution progress. The grounding block $g_t$ connects effect-bearing arguments to source-tagged evidence and established state. The authorization block $c_t$ records confirmation, available authority, and the scope of the proposed effect. The risk block $r_t$ describes consequences such as disclosure, transfer, deletion, redirection, and state change.
 
-The mapper receives the trusted policy text and the registered schema and returns a typed constraint intermediate representation (IR). The IR records field roles, trusted preconditions, authorization requirements, and risk budgets. Structural validation rejects unknown fields, unsupported roles, non-trusted authorization sources, and out-of-range budgets. A canonicalizer corrects only high-confidence role slips using trusted field descriptions; unresolved ambiguity produces abstention. Validation is not a semantic oracle: mapper omission and mistranslation are measured separately, and failed validation is handled conservatively.
+The lifter receives the trusted policy text and the registered schema and returns a typed constraint intermediate representation (IR). The IR records field roles, trusted preconditions, authorization requirements, and risk budgets. Structural validation rejects unknown fields, unsupported roles, non-trusted authorization sources, and out-of-range budgets. A canonicalizer corrects only high-confidence role slips using trusted field descriptions; unresolved ambiguity produces abstention. Validation is not a semantic oracle: mapper omission and mistranslation are measured separately, and failed validation is handled conservatively.
 
 For each tool $f$, a role map
 \begin{equation}
  B_f:\operatorname{Fields}(f)\rightarrow\mathcal U
  \label{eq:role-map}
 \end{equation}
-maps tool-specific fields to execution roles in $\mathcal U$, including destination, object, data, amount, time, and effect. In mapper-enabled execution, $B_f$ is supplied by the validated IR rather than by a hand-written per-tool role table; when no validated IR is available, the runtime retains its conservative legacy heuristics. The mapper does not generate continuous geometric coefficients: policy templates and their hard envelope remain deterministic. Recipients, payment accounts, and sharing targets map to the destination role; records, files, messages, and transaction details map to data or object roles; and reads, writes, disclosures, transfers, and deletions map to effect roles. The original field, value, grounding score, and source label are retained in the encoder trace so that a certificate can attribute a decision to a concrete argument.
+maps tool-specific fields to execution roles in $\mathcal U$, including destination, object, data, amount, time, and effect. With a validated role interface, $B_f$ is supplied by the validated IR rather than by a hand-written per-tool role table; when no validated IR is available, the runtime retains its conservative legacy heuristics. The lifter does not generate continuous geometric coefficients: policy templates and their hard envelope remain deterministic. Recipients, payment accounts, and sharing targets map to the destination role; records, files, messages, and transaction details map to data or object roles; and reads, writes, disclosures, transfers, and deletions map to effect roles. The original field, value, grounding score, and source label are retained in the encoder trace so that a certificate can attribute a decision to a concrete argument.
 
-The encoder consumes the validated role map before applying legacy name heuristics. In particular, a mapped destination such as an owner or assignee contributes to external-sink risk even when its field name does not contain recipient-like tokens; this keeps semantic transfer and feature extraction on the same typed interface.
+The encoder consumes the validated typed role map before applying legacy name heuristics. In particular, a mapped destination such as an owner or assignee contributes to external-sink risk even when its field name does not contain recipient-like tokens; this keeps semantic transfer and feature extraction on the same typed interface.
 
-Semantic lifting is selective at execution time. In strict mode, a missing, ambiguous, or invalid mapper artifact produces an explicit abstention. In the compatibility mode used for the native-schema audit, a missing or invalid artifact falls back to the base deterministic compiler, while mapped forbidden effects still abstain; every fallback is counted in the execution trace. Thus the mapper expands the coordinate interface without replacing the deterministic safety envelope, and transfer coverage can be measured separately from runtime fail-safe behavior.
+Semantic lifting is selective at execution time. In strict mode, a missing, ambiguous, or invalid role artifact produces an explicit abstention. In the compatibility mode used for the native-schema audit, a missing or invalid artifact falls back to the base deterministic compiler, while mapped forbidden effects still abstain; every fallback is counted in the execution trace. Thus the mapper expands the coordinate interface without replacing the deterministic safety envelope, and transfer coverage can be measured separately from runtime fail-safe behavior.
 
 The evidence used by these relations is maintained in the execution state. After an admitted call returns $o_{t+1}$, an evidence projection operator converts it into source-tagged factual and risk records:
 \begin{equation}
@@ -381,7 +381,7 @@ DAFR is evaluated on AgentDojo and ASB with three planner models, covering multi
 
 DAFR derives support from tool outputs, environment observations, and trusted user interactions. If the required evidence, authorization, or state condition has not been established, the call remains outside the feasible region and DAFR requests the admissible support or blocks execution. Missing evidence is thus represented as an explicit execution state rather than treated as implicit approval.
 
-New tools are mapped by the semantic mapper and deterministic validation stack. We report held-out-tool mapping accuracy, omitted requirements, unsafe relaxation rate, abstention, latency, and token cost before using a mapping in the end-to-end run. A mapper failure is not treated as successful generalization. A tool with a genuinely new behavior or control structure may still require a new role or policy template. The retained AgentDojo and ASB tables use the deterministic DAFR configuration; the mapper study is a separate semantic-transfer evaluation rather than a claim that mapper accuracy alone establishes benchmark-level security.
+New tool fields are bound by the typed semantic lifter and deterministic validation stack. We report held-out-tool mapping accuracy, omitted requirements, unsafe relaxation rate, abstention, latency, and token cost before using a mapping in the end-to-end run. A mapper failure is not treated as successful generalization. A tool with a genuinely new behavior or control structure may still require a new role or policy template. The retained AgentDojo and ASB tables use the deterministic DAFR configuration; the mapper study is a separate semantic-transfer evaluation rather than a claim that mapper accuracy alone establishes benchmark-level security.
 
 \section{Conclusion}
 
