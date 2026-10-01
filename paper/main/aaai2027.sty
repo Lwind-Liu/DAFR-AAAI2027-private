@@ -52,11 +52,15 @@ This work is published under the \mbox{CC~BY~4.0} license: https://creativecommo
 \ProcessOptions\relax%
 
 %
-% ENGINE GUARD — this style requires PDFLaTeX.
-% Attempting to compile with XeLaTeX or LuaLaTeX will stop here with a clear
-% error instead of producing silently broken output.
+% ENGINE GUARD — the submission style is authored for PDFLaTeX.  The Codex
+% preview compiler uses XeTeX, so keep the strict check for PDFLaTeX while
+% allowing XeTeX to render a local preview with the same layout parameters.
 \RequirePackage{iftex}
-\RequirePDFTeX
+\ifPDFTeX
+  \RequirePDFTeX
+\else
+  \typeout{AAAI2027: XeTeX preview mode; submit with PDFLaTeX.}
+\fi
 %
 % FONT ENCODING — T1 is the correct encoding for PDFLaTeX with Type 1 fonts.
 % It enables proper hyphenation of words with accented characters and correct

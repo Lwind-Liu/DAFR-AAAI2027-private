@@ -1,11 +1,7 @@
-\documentclass[letterpaper]{article}
-\usepackage[submission]{aaai2027}
-\usepackage[hyphens]{url}
+\documentclass[11pt]{article}
+\usepackage[review]{acl}
 \usepackage{graphicx}
-\urlstyle{rm}
-\def\UrlFont{\rm}
 \usepackage{natbib}
-\usepackage{caption}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{algorithm}
@@ -13,13 +9,10 @@
 \usepackage{booktabs}
 \frenchspacing
 
-\pdfinfo{/TemplateVersion (2027.1)}
-\setcounter{secnumdepth}{0}
 \newcommand{\method}{\textsc{DAFR}}
 
 \title{From Policy Semantics to Safe Tool Execution: Action--Evidence Geometry and Execution Certificates}
 \author{Anonymous Submission}
-\affiliations{}
 
 \begin{document}
 \maketitle
@@ -44,13 +37,6 @@ The certificate changes with execution. A verified read can establish an identif
 
 We evaluate DAFR on AgentDojo with three planner models and on the Agent Security Benchmark (ASB) with DeepSeek V4 Flash. DAFR obtains 0/585 and 0/204 observed attack successes on the two benchmarks, retaining 87.5\% clean utility and 81.4\% attack utility on AgentDojo and 86.8\% utility and 73.5\% task success on ASB. A system ablation shows that removing the complete dynamic defense path increases observed ASR to 16.7\%; a separate matched study isolates the narrower representation claim: independent axis checks miss coupled budgets, while an equivalent predicate agrees with the joint boundary and the geometric certificate exposes the limiting relations used for diagnosis and repair.
 
-\begin{figure*}[t]
-\centering
-\includegraphics[width=\textwidth]{From_Semantics_to_Execution_Dynamic_Geometric_Constraints_for_Tool-Action_Feasibility_Figure_1.pdf}
-\caption{DAFR turns a proposed tool call, source-tagged evidence, and current state into an action--evidence point. Typed field validation preserves effect roles; the encoder records grounding, authorization, provenance, and risk; and the verifier evaluates active halfspaces and joint-risk regions. Region membership determines execution, while violated margins identify the relation used for clarification, repair, or blocking.}
-\label{fig:mechanism}
-\end{figure*}
-
 \section{DAFR: Dynamic Action Feasible Regions}
 
 DAFR constructs an interpretable action--evidence point for the proposed call and instantiates the geometric constraints active in the current state. Region membership determines feasibility, and signed margins identify the relations that limit the decision.
@@ -58,43 +44,19 @@ DAFR constructs an interpretable action--evidence point for the proposed call an
 \subsection{Problem Setup}
 
 At step $t$, a tool-using agent receives a trusted user task $u$, operates under an execution policy $p$, observes the environment, and produces a concrete tool call
-\begin{equation}
- a_t=(f_t,\rho_t),
- \label{eq:tool-call}
-\end{equation}
 where $f_t$ is a registered tool and $\rho_t$ maps the fields of the tool schema to argument values. The call is first checked against the schema. Passing this check establishes that the call is well formed and leaves its execution feasibility to the evidence and policy checks below.
 
 Let $E_t$ denote the execution state before $a_t$ is evaluated. It contains the trusted task, execution policy, available tool schemas, established facts, completed prerequisites, authorizations, confirmations, and observations with source labels. Facts derived from external observations retain their source labels, while intent, confirmation, and authorization are recorded through trusted channels.
 
 A call is feasible when the current evidence and policy support its function, the arguments that determine its external effect, the expected effect itself, and the required state conditions. We write
-\begin{equation}
- \operatorname{Feas}(a_t\mid E_t,u,p)=1
- \label{eq:feasibility}
-\end{equation}
 when these conditions are satisfied. A feasible call is sent to the trusted runtime. An infeasible call is blocked or returned with feedback that identifies the function, argument, evidence source, authorization condition, or state assumption requiring revision. After an admitted call returns observation $o_{t+1}$, the state is updated as
-\begin{equation}
- E_{t+1}=T(E_t,a_t,o_{t+1}),
- \label{eq:state-transition}
-\end{equation}
 where $T$ may add evidence, satisfy a prerequisite, record authorization, or invalidate an earlier assumption.
 
 \subsection{Typed Action--Evidence Compiler}
 
 The compiler separates typed field validation, action--evidence encoding, and execution verification. Let $B_f$ bind the fields of registered tool $f$ to a shared set of effect roles, let $E$ encode a concrete call and its current evidence, and let $G$ verify the resulting point. For a policy $p$ and schema $S_f$, deterministic validation constructs
-\begin{equation}
- \widehat B_f=\operatorname{Validate}(p,S_f),
- \label{eq:typed-interface}
-\end{equation}
 where the interface records supported field roles, required prerequisites, authorization scope, and risk families. Unknown fields, unsupported effect types, inconsistent requirements, and out-of-range budgets are rejected before execution. Given a concrete call $a_t$ and state $E_t$, the encoder computes
-\begin{equation}
- z_t=E(a_t,E_t,\widehat B_{f_t},p),
- \label{eq:semantic-action-encoder}
-\end{equation}
 retaining original field names and source links in the trace. The verifier returns
-\begin{equation}
- (d_t,\kappa_t)=G(z_t,E_t,p),
- \label{eq:certificate-verifier}
-\end{equation}
 where $d_t$ is the execution decision and $\kappa_t$ contains the active constraints, signed margins, provenance links, and revision targets. The three stages are therefore an auditable interface from a concrete language-model proposal to a deterministic execution decision.
 
 \subsection{Action--Evidence Point Construction}
@@ -102,161 +64,35 @@ where $d_t$ is the execution decision and $\kappa_t$ contains the active constra
 DAFR represents each proposed tool call and its current evidence as a point in an interpretable action--evidence space. The coordinates cover task support and progress, argument grounding and provenance, authorization and scope, and expected effects and risks.
 
 DAFR uses the validated typed interface and action--evidence encoder to construct the action--evidence point:
-\begin{equation}
- z_t=L(a_t,E_t,u,p)=(q_t,g_t,c_t,r_t)\in[0,1]^d,
- \label{eq:action-evidence-point}
-\end{equation}
 where $L$ deterministically evaluates explicit execution relations. The runtime uses seven shared execution roles (object, destination, data, amount, time, effect, and scope) and a 45-dimensional action--evidence vector. Its compiler exposes 13 hard constraint templates and one soft confidence facet; coefficients and risk budgets are fixed globally for the evaluated configuration, while active role bindings and templates depend on the registered schema and current effect. A new tool therefore requires schema validation and an auditable field binding, not a new set of fitted geometric weights. The task block $q_t$ records support for the selected function and its expected effect. The grounding block $g_t$ connects effect-bearing arguments to source-tagged evidence and established state. The authorization block $c_t$ records confirmation, authority, and scope. The risk block $r_t$ describes disclosure, transfer, deletion, redirection, and state change.
 
 For an effectful call, the typed interface preserves the original field, value, grounding score, and source label. A destination introduced only by an untrusted observation therefore receives different provenance and grounding values from a destination specified by the trusted task, even when both calls satisfy the tool schema. This shared representation is the input to every comparison in the matched geometry study.
 
 The evidence used by these relations is maintained in the execution state. After an admitted call returns $o_{t+1}$, an evidence projection operator converts it into source-tagged factual and risk records:
-\begin{equation}
- P(o_{t+1})=\left(S_{t+1}^{+},R_{t+1}^{+}\right),
- \label{eq:evidence-projection}
-\end{equation}
-where $S_{t+1}^{+}$ contains entities, argument values, completed prerequisites, and observed state changes, and $R_{t+1}^{+}$ contains untrusted instructions, task conflicts, unsupported effect requests, and other risk signals. Each record retains its source, trust status, and execution role when incorporated into $E_{t+1}$. Factual records update grounding and state relations, risk records update source, conflict, and effect-risk relations, and trusted records establish intent, confirmation, and authorization.
-
-Each coordinate has a defined execution meaning and takes a value in $[0,1]$ under the current call and execution state. Coordinates for prerequisites and authorization record whether the corresponding conditions have been established, while grounding and scope coordinates record the support available for a specific argument or effect from source-tagged evidence. For example, a verified lookup can establish the identifier required by a later update, whereas a destination introduced by untrusted content receives no authorization support for an external disclosure.
-
-For an effectful call, let $V(a_t)$ denote the argument values that directly determine its external effect, such as a destination, object identifier, amount, date, or sensitive data. DAFR evaluates each value against the trusted task, source-tagged evidence, and current state. The critical grounding score is
-\begin{equation}
- g_{\mathrm{crit}}(a_t,E_t)=\min_{v\in V(a_t)} g(v,E_t),
- \label{eq:critical-grounding}
-\end{equation}
 where $g(v,E_t)\in[0,1]$ measures the available support for value $v$. The minimum gives a conjunctive grounding summary across the arguments that determine the external effect: every critical value must satisfy its grounding requirement. Schema-optional fields follow the same effect-aware check. A field is eligible for omission during revision only when its removal leaves the destination, object, data, scope, authorization requirements, and expected external effect unchanged. Otherwise, an unsupported value keeps the call infeasible.
 
 As evidence and execution state evolve, DAFR updates the affected coordinates, so the same proposed call may occupy a different position at a later execution step.
 
 \subsection{Dynamic Geometric Constraints}
 
-DAFR converts the execution requirements at step $t$ into geometric regions in the action--evidence space. Each policy is compiled from the validated typed interface into constraint templates and coefficients before evaluation. The runtime parameters are frozen after compilation and are not tuned on the evaluated trajectory. For a proposed call, its expected effect, available evidence, authorization scope, policy, and current state select the active templates. Let $\mathcal H_t=\mathcal H(a_t,E_t,u,p)$ denote requirements expressed through individual execution relations. Each $j\in\mathcal H_t$ defines a halfspace
-\begin{equation}
- \mathcal P_j=\left\{z\in[0,1]^d\mid m_j^{\mathrm{half}}(z)=b_j-w_j^\top z\geq0\right\}.
- \label{eq:halfspace}
-\end{equation}
-For each active requirement, the policy compiler retrieves $w_j$ and $b_j$ from the corresponding fixed template. The vector $w_j$ selects and weights the relevant execution relations, and $b_j$ sets the feasibility boundary. The coefficient signs follow the semantic direction of each relation: stronger trusted support raises the margin, and greater execution risk lowers it. These halfspaces represent task support, completed prerequisites, state consistency, critical-argument grounding, destination validity, confirmation, and authorization.
+DAFR converts the execution requirements at step $t$ into geometric regions in the action--evidence space. Each policy is compiled from the validated typed interface into frozen constraint templates. Individual requirements form halfspaces; coupled risks form a joint budget, for example $r_1^2+r_2^2\leq 1$. Independent if--else thresholds can accept $(0.75,0.75)$ when both thresholds are $0.8$, even though the shared budget is exceeded. Tightening both thresholds to $1/\sqrt{2}$ would reject valid allocations such as $(0.8,0.2)$. The joint boundary represents this trade-off directly. An arithmetic predicate can implement the same boundary, so the geometric contribution is the common certificate interface rather than greater program expressiveness.
 
-Some conditions depend on several relations at once. Let $\mathcal K_t=\mathcal K(a_t,E_t,u,p)$ denote the joint-risk conditions active at step $t$. Each $k\in\mathcal K_t$ defines a joint margin and its feasible region:
-\begin{equation}
-\begin{aligned}
- m_k^{\mathrm{joint}}(z)&=\beta_k+v_k^\top C_kz-\lVert W_kR_kz\rVert_2,\\
- \mathcal C_k&=\left\{z\in[0,1]^d\mid m_k^{\mathrm{joint}}(z)\geq0\right\}.
-\end{aligned}
- \label{eq:joint-region}
-\end{equation}
-The template for risk family $k$ specifies the selectors $C_k$ and $R_k$, the support weights $v_k$, the risk weights $W_k$, and the base risk budget $\beta_k$. The selectors extract the support and risk coordinates used by the condition. The support and risk weights are nonnegative, preserving the semantic direction of the joint margin. The curved boundary makes the acceptable level of each risk depend on the other risks present and the trusted support available for the action.
-
-The feasible region is the intersection of all applicable regions:
-\begin{equation}
- \mathcal F_t=\left(\bigcap_{j\in\mathcal H_t}\mathcal P_j\right)\cap\left(\bigcap_{k\in\mathcal K_t}\mathcal C_k\right).
- \label{eq:feasible-region}
-\end{equation}
-Only points that satisfy every relevant requirement belong to $\mathcal F_t$. DAFR instantiates this geometry at every step through the current $z_t$, $\mathcal H_t$, and $\mathcal K_t$. New evidence can move the point, introduce relevant boundaries, or satisfy conditions that previously prevented execution.
-
-The running example shows how this geometry changes over a trajectory. Before the lookup returns, the update lacks the record identifier required by its grounding and prerequisite relations. The verified lookup establishes that value and allows the update point to enter the feasible region. The same observation provides no authority for an unrelated disclosure. That action combines an untrusted destination, sensitive data, and an external effect without matching authorization, so it remains outside $\mathcal F_t$. Evidence can therefore support one concrete effect while leaving another infeasible because the calls depend on different roles, sources, and authorization conditions.
-
-\subsection{Geometric Properties}
-
-\paragraph{Convexity and semantic direction.}
-For a fixed execution context, every $\mathcal P_j$ is a halfspace. Each joint margin in Eq.~\eqref{eq:joint-region} is concave because it is an affine function minus a norm, so its superlevel set $\mathcal C_k$ is convex. Their intersection $\mathcal F_t$ is therefore convex and defines one coherent feasible region for the current decision.
-
-The parameter signs preserve a common semantic direction across the geometry. Trusted grounding, confirmation, and authorization increase the relevant margins, while externality, sensitivity, irreversibility, and untrusted control decrease them. Support and risk therefore move an action toward opposite sides of the active boundaries.
-
-\paragraph{Joint risks.}
-The curved regions capture how the acceptable level of one risk changes with the other risks present and with the trusted support available for the action. When multiple risk relations share one authorization budget, the norm term in Eq.~\eqref{eq:joint-region} permits different allocations while limiting their combined magnitude. An increase in one risk reduces the amount of the others that can be accepted under the same evidence and authorization.
-
-\paragraph{What the representation changes.}
-Independent coordinate guards implement an axis-aligned region, $\mathcal A=\{z: z_i\leq\tau_i\ \forall i\}$. A joint-risk constraint instead admits $z$ only when the coupled risk budget is satisfied. Thus a point can lie in $\mathcal A$ while violating a shared budget, which is the failure mode tested by the matched suite. An unrestricted arithmetic predicate can implement the same joint boundary; our equivalent-predicate arm is required to agree with geometry. The claimed benefit of geometry is therefore the shared certificate interface---active facets, signed margins, provenance links, and repair targets---rather than greater decision expressiveness.
-
-\paragraph{Why a shared boundary helps.}
-Consider the illustrative budget $r_1^2+r_2^2\leq1$. Independent guards with thresholds $0.8$ accept $(0.75,0.75)$ even though its joint norm exceeds one. Tightening both thresholds to $1/\sqrt{2}$ removes this failure but rejects $(0.8,0.2)$, which satisfies the joint budget. A coupled boundary represents this allocation trade-off directly. The example explains a policy representation choice; it does not establish that an $\ell_2$ budget is the correct safety policy for every tool. A predicate implementing the same inequality makes the same decision. DAFR additionally associates the boundary with evidence links and revision targets through its certificate interface.
-
-\paragraph{Source-aware state changes.}
-New records update the relations they establish. A verified read can increase grounding and prerequisite support for returned values; a trusted confirmation can increase scoped authorization for a specified effect, object, or destination; and an untrusted observation can contribute factual values while activating source, conflict, or redirection risks. These source-aware updates allow one observation to support a requested write while leaving an unrelated disclosure outside the feasible region.
-
-\subsection{Feasibility Decision and Targeted Feedback}
-
-Given $z_t$, DAFR evaluates every margin that defines $\mathcal F_t$. The overall feasibility margin is
-\begin{equation}
- M_t(z)=\min\left\{\min_{j\in\mathcal H_t}m_j^{\mathrm{half}}(z),\;\min_{k\in\mathcal K_t}m_k^{\mathrm{joint}}(z)\right\}.
- \label{eq:overall-margin}
-\end{equation}
-Because membership in $\mathcal F_t$ requires every active margin to be nonnegative,
-\begin{equation}
- z_t\in\mathcal F_t\quad\Longleftrightarrow\quad M_t(z_t)\geq0.
- \label{eq:membership}
-\end{equation}
-The sign of $M_t(z_t)$ is equivalent to region membership, and its magnitude records the raw signed slack under the most limiting active condition. DAFR executes the call when $M_t(z_t)\geq0$. When an admissible revision path exists, a failed condition produces targeted feedback for the planner. All other infeasible calls are blocked.
-
-A call may violate several boundaries. DAFR records
-\begin{equation}
- \mathcal V_t=\left\{c\in\mathcal H_t\cup\mathcal K_t\mid m_c(z_t)<0\right\},
- \label{eq:violated-set}
-\end{equation}
-where $m_c$ denotes the halfspace or joint margin associated with condition $c$. For feedback ordering, DAFR places violated margins on comparable scales through $\overline m_c(z_t)=m_c(z_t)/\sigma_c$, with $\sigma_c>0$. Raw margins continue to determine feasibility. The most limiting conditions are selected from $\mathcal V_t$, and $\phi_t=\Gamma(\mathcal V_t,z_t,E_t)$ maps them to concise revision targets. Feedback can identify an unsupported tool choice or argument, an unsuitable source, missing authorization, an incomplete prerequisite, an outdated state assumption, or the factors contributing to a joint-risk violation.
+For the active halfspaces and joint regions, DAFR computes signed margins and admits a call only when every active margin is nonnegative. It records the violated conditions and normalizes their margins for feedback ordering. The limiting condition is mapped to a revision target such as an unsupported argument, unsuitable source, missing authorization, incomplete prerequisite, stale state assumption, or joint-risk excess. Each decision retains the concrete call, action--evidence point, active boundaries, margin vector, and evidence links, giving diagnosis and execution the same trace.
 
 Each decision records the concrete call, its action--evidence point, the active boundaries, the margin vector, and the supporting evidence links. This record provides the same geometric basis for the execution decision and the revision target.
-
-\begin{algorithm}[tb]
-\caption{DAFR Execution-Step Decision}
-\label{alg:dafr-step}
-{\raggedright
-\textbf{Input}: proposed call $a_t=(f_t,\rho_t)$, state $E_t$, task $u$, policy $p$.\par
-\textbf{Output}: execution decision and feedback.\par
-}
-\begin{algorithmic}[1]
-\STATE Check $a_t$ against the registered schema of $f_t$.
-\STATE Validate registered fields and bind them to shared effect roles.
-\STATE Build $z_t=L(a_t,E_t,u,p)$ from the current relations.
-\STATE Instantiate $\mathcal H_t$ and $\mathcal K_t$ from the active policy templates.
-\STATE Evaluate all active margins and compute $M_t(z_t)$.
-\IF{$M_t(z_t)\geq0$}
-\STATE Execute $a_t$, obtain $o_{t+1}$, and update $E_{t+1}$.
-\ELSE
-\STATE Form $\mathcal V_t$ and derive feedback $\phi_t$.
-\IF{an admissible revision path exists}
-\STATE Return \textsc{Clarify} with $\phi_t$ to the planner.
-\ELSE
-\STATE Return \textsc{Block}.
-\ENDIF
-\ENDIF
-\end{algorithmic}
-\end{algorithm}
-
-\subsection{Runtime Update and Cost}
-
-Each invocation of DAFR evaluates one concrete proposed call. A feasible call is executed by the trusted runtime, and the returned observation is projected into source-tagged records and incorporated into the next execution state through Eqs.~\eqref{eq:evidence-projection} and~\eqref{eq:state-transition}. An infeasible call produces no external effect. When targeted feedback is returned, the planner may revise the call, obtain additional evidence, request authorization, or end the task. Any subsequent proposal is evaluated as a new call under the state available at that step.
-
-\paragraph{Runtime cost and local updates.}
-Let $C_t=|\mathcal H_t|+|\mathcal K_t|$ denote the number of geometric regions evaluated at step $t$, and let $s_c$ denote the number of coordinates used by region $c$. Computing the complete margin vector requires
-\begin{equation}
- O\left(\sum_{c=1}^{C_t}s_c\right)\leq O(C_td)
- \label{eq:runtime-cost}
-\end{equation}
-operations. Each region uses only a subset of the execution relations, so margin evaluation scales with the active regions and the coordinates they select.
-
-Observations from admitted tool executions or trusted user interactions update only the relations linked to the affected values, sources, authorization conditions, and state facts. Before evaluating the next proposed external effect, DAFR constructs its action--evidence point and reevaluates every applicable margin. Local relation updates and complete margin reevaluation limit computation to the active regions and their selected coordinates while preserving a full feasibility check for each proposal.
 
 \section{Evaluation}
 
 \subsection{Experimental Setup}
 
-AgentDojo v1.2.2 is the primary benchmark and contains the Banking, Slack, Travel, and Workspace suites \citep{NEURIPS2024_97091a51}. We evaluate DeepSeek V4 Flash, GPT-5.4-mini, and Claude Haiku 4.5 on a fixed split of 71 clean and 585 attacked episodes: 16/144 in Banking, 21/105 in Slack, 20/140 in Travel, and 14/196 in Workspace. Clean and attack scores are unweighted macro-averages over suites. Figure~\ref{fig:agentdojo-main} shows representative baselines and the supplement reports the complete table and case counts. Component ablations evaluate evidence projection, action--evidence encoding, the dynamic defense path, and decision feedback. A blocked or malformed call remains in the benchmark denominator. For 0/585 and 0/204 observed attacks, Wilson 95\% upper bounds are 0.65\% and 1.85\%, respectively.
+AgentDojo v1.2.2 is the primary benchmark and contains the Banking, Slack, Travel, and Workspace suites \citep{NEURIPS2024_97091a51}. We evaluate DeepSeek V4 Flash, GPT-5.4-mini, and Claude Haiku 4.5 on a fixed split of 71 clean and 585 attacked episodes: 16/144 in Banking, 21/105 in Slack, 20/140 in Travel, and 14/196 in Workspace. Clean and attack scores are unweighted macro-averages over suites. The supplement reports the complete baseline table and case counts. Component ablations evaluate evidence projection, action--evidence encoding, the dynamic defense path, and decision feedback. A blocked or malformed call remains in the benchmark denominator. For 0/585 and 0/204 observed attacks, Wilson 95\% upper bounds are 0.65\% and 1.85\%, respectively.
 
 We further evaluate DAFR on 204 ASB cases using DeepSeek V4 Flash \citep{zhang2025agentsecuritybench}. AgentDojo reports clean utility, attack utility, and attack success rate (ASR), while ASB reports utility, task success, and ASR.
 
 DAFR is placed at the execution boundary, after the planner proposes a concrete tool call and before the trusted runtime performs its external effect. The reported comparisons target matched case sets and planner models. The archived GPT baseline aggregates combine earlier three-suite document summaries with Workspace reruns; they are not uniformly fresh four-suite reruns. We disclose this provenance in the supplement and interpret differences descriptively. Under this setup, DAFR contributes the feasibility decision and relation-specific revision feedback for the proposed call, while the benchmark task and planning environment remain unchanged.
-\begin{figure*}[t]
-\centering
-\includegraphics[width=\textwidth]{From_Semantics_to_Execution_Dynamic_Geometric_Constraints_for_Tool-Action_Feasibility_Figure_2.pdf}
-\caption{AgentDojo clean utility, attack utility, and attack success rate across six representative methods and three planner models. Values are percentages; arrows indicate the preferred direction. The supplement reports all nine evaluated methods.}
-\label{fig:agentdojo-main}
-\end{figure*}
-
 \subsection{Main Results on AgentDojo}
 
-Figure~\ref{fig:agentdojo-main} reports the AgentDojo comparison across three planner models. With DeepSeek V4 Flash, DAFR achieves 87.5\% clean utility and 81.4\% attack utility with 0\% observed ASR under the evaluated static attacks. DAFR also records 0\% observed ASR under the evaluated static attacks with GPT-5.4-mini and Claude Haiku 4.5, while retaining 59.5\% and 68.4\% attack utility, respectively.
+The AgentDojo comparison covers three planner models. With DeepSeek V4 Flash, DAFR achieves 87.5\% clean utility and 81.4\% attack utility with 0\% observed ASR under the evaluated static attacks. DAFR also records 0\% observed ASR under the evaluated static attacks with GPT-5.4-mini and Claude Haiku 4.5, while retaining 59.5\% and 68.4\% attack utility, respectively.
 
 PIGuard is the only other representative method that reaches 0\% observed ASR under the evaluated static attacks with all three planners. At this security level, DAFR improves attack utility over PIGuard by 38.9, 25.1, and 30.2 percentage points on DeepSeek, GPT, and Claude, respectively. These fixed-set comparisons show a favorable security--utility trade-off against PIGuard. They do not establish uniform dominance: with GPT, DAFR has lower attack utility than Prompt (65.4\%) and Sandwich (65.4\%), which have nonzero observed ASR; with Claude, Sandwich also has zero observed ASR and 67.1\% attack utility, compared with 68.4\% for DAFR.
 
@@ -296,8 +132,8 @@ Removing the complete dynamic defense path produces the largest security change 
 
 \begin{table}[ht]
 \centering
-\small
-\setlength{\tabcolsep}{3.5pt}
+\scriptsize
+\setlength{\tabcolsep}{1.5pt}
 \begin{tabular}{lrrr}
 \toprule
 Configuration & Clean & Attack & ASR\\
@@ -309,7 +145,7 @@ w/o Dynamic Defense Path & 90.2 & 81.3 & 16.7\\
 w/o Decision \& Feedback & 79.4 & 80.0 & 0.8\\
 \bottomrule
 \end{tabular}
-\caption{Component ablation on AgentDojo. Values are percentages.}
+\caption{AgentDojo component ablation (percent).}
 \label{tab:ablation}
 \end{table}
 \paragraph{Matched geometry protocol.}
@@ -317,74 +153,11 @@ We separate membership and repair controls. The membership study supplies identi
 
 The matched 512-case joint-risk suite contains boundary-active four-dimensional risk vectors. Every coordinate remains below its independent threshold, but some vectors exceed the shared joint budget. The matched 256-case action suite supplies the same unsafe action and candidate repair to every arm; 192 cases are repairable by deleting an unsupported optional destination and 64 require blocking because the destination is semantically required. No case invokes an external tool. The matched study is therefore a representation and interface audit rather than a replacement for the end-to-end AgentDojo result. We also audited 614 saved AgentDojo decision records, of which 610 were well formed, by checking the recorded hard margins against an equivalent slack predicate. The two decisions agreed on 610/610 records; 546 were allowed and 64 were blocked or clarified. This is a certificate-consistency audit over saved boundaries, not a new planner replay or an end-to-end utility/ASR result. The matched study is reported separately because system ablations measure the complete defense path, whereas representation controls isolate coupled-risk handling and certificate observability.
 
-\begin{table}[ht]
-\centering\small
-\setlength{\tabcolsep}{3pt}
-\begin{tabular}{lrrr}
-\toprule
-Backend & Safe allow & Unsafe block & False allow\\
-\midrule
-Axis thresholds & 487/487 & 0/25 & 25/25\\
-Joint geometry & 487/487 & 25/25 & 0/25\\
-Equivalent predicate & 487/487 & 25/25 & 0/25\\
-\bottomrule
-\end{tabular}
-\caption{Membership under a specified unit-norm risk policy: 487 feasible and 25 infeasible vectors. All arms have zero false blocks. Labels are determined analytically by that policy, rather than independent real-world safety annotations.}
-\label{tab:geometry-representation}
-\end{table}
-
-\begin{table}[ht]
-\centering\small
-\setlength{\tabcolsep}{3pt}
-\begin{tabular}{lrr}
-\toprule
-Backend + shared repair & Repaired & Required blocks\\
-\midrule
-Geometry & 192/192 & 64/64\\
-Equivalent predicate & 192/192 & 64/64\\
-\bottomrule
-\end{tabular}
-\caption{Local action-repair audit: both backends block all 256 original proposals and preserve the intended effect in all 192 repairable cases (192/256 overall). The same transformation and effect check are used in both arms. A decision-only interface has no repair operator and is not treated as an empirical repair competitor.}
-\label{tab:repair-interface}
-\end{table}
-
-\paragraph{Mechanism-aware stress test.}
-To test the execution contract beyond the benchmark's static injection templates, we ran a frozen 64-case in-process stress suite crossing fresh/stale state with four fixed injection families: forged approval or runtime metadata, policy-override instructions, Chinese webpage instructions, and fabricated prerequisite claims. The attack destination and payload appeared only in the untrusted channel, while the trusted state retained only the object handle. The runtime blocked 64/64 attacks, including 32/32 cases with fresh state and 32/32 with stale state; an unprotected executor performed 64/64 injected writes. This is a fixed-family provenance/freshness stress test with a local effect model and no external side effects, not an additional AgentDojo leaderboard result.
-
-
-\paragraph{Signed-margin behavior.}
-Table~\ref{tab:agentdojo-margin-summary} summarizes the overall signed margins of 9{,}083 AgentDojo tool calls across three planner models. Because DAFR admits a call exactly when $M_t(z_t)\geq0$, the analysis reports the magnitude of the raw signed slack produced by the active constraints. Mean margins are 0.712--0.750 for admitted calls and $-0.368$ to $-0.214$ for rejected calls. For each rejected call, the active condition attaining the minimum margin identifies the prerequisite, argument, source, authorization condition, or joint-risk relation used for targeted feedback.
-
-\begin{table}[ht]
-\centering
-\small
-\setlength{\tabcolsep}{4.5pt}
-\begin{tabular}{lrrr}
-\toprule
-Planner & Calls & $\overline M_{\mathrm{adm}}$ & $\overline M_{\mathrm{rej}}$\\
-\midrule
-DeepSeek V4 Flash & 3947 & 0.712 & $-0.368$\\
-GPT-5.4-mini & 2916 & 0.748 & $-0.214$\\
-Claude Haiku 4.5 & 2220 & 0.750 & $-0.289$\\
-\bottomrule
-\end{tabular}
-\caption{Mean signed margins for admitted and rejected AgentDojo calls.}
-\label{tab:agentdojo-margin-summary}
-\end{table}
-
 \section{Related Work}
 
-\paragraph{Prompt-injection attacks and defenses.}
-Indirect prompt injection allows untrusted observations to redirect tool-using agents, as shown by early attacks and later benchmarks \citep{greshake2023indirectpromptinjection,liu2023promptinjection,zhan2024injecagent,NEURIPS2024_97091a51}. Context-level defenses preserve instruction boundaries, prioritize trusted instructions, or separate instructions from data \citep{hines2024spotlighting,wallace2024instructionhierarchy,chen2025struq}. PIGuard detects injected content, Task Shield checks task alignment, and MELON compares normal execution with masked re-execution \citep{li2025piguard,jia2025taskshield,zhu2025melon}.
+Prompt-injection defenses separate trusted instructions from untrusted observations, detect injected content, or compare normal and masked execution \citep{greshake2023indirectpromptinjection,hines2024spotlighting,wallace2024instructionhierarchy,li2025piguard,jia2025taskshield,zhu2025melon}. Runtime controls specify tool privileges, task-grounded trajectories, or information-flow labels \citep{wang2025agentspec,shi2025progent,NEURIPS2025_77f3b26c,debenedetti2025defeatingpromptinjectionsdesign,costa2025fides}. DAFR operates at the execution boundary and binds concrete effect-bearing fields to source-tagged evidence before a call is admitted.
 
-\paragraph{Runtime controls for tool-using agents.}
-AgentSpec and ShieldAgent express runtime requirements through explicit safety policies \citep{wang2025agentspec,chen2025shieldagent}. Progent enforces privileges over tool names and arguments, and DRIFT checks deviations from a task-grounded function trajectory \citep{shi2025progent,NEURIPS2025_77f3b26c}. CaMeL separates control and data flows derived from a trusted request, and Fides enforces confidentiality and integrity labels \citep{debenedetti2025defeatingpromptinjectionsdesign,costa2025fides}.
-
-\paragraph{Tool-safety evaluation.}
-ToolEmu and ToolSword study failures arising from consequential tool use \citep{ruan2024toolemu,ye2024toolsword}. AgentHarm and MobileSafetyBench extend evaluation to harmful multi-step behavior and mobile-device control, and MCPTox studies tool poisoning in MCP servers \citep{andriushchenko2025agentharm,lee2026mobilesafetybench,wang2026mcptox}. Our evaluation uses AgentDojo and ASB to measure task utility and attack-induced tool effects.
-
-\paragraph{Geometric safety formulations.}
-Action shielding restricts decisions to actions that satisfy formal safety specifications \citep{alshiekh2018shielding}. GIF uses model Jacobians and local output geometry to bound information flow inside language models \citep{storek2026gif}. DAFR instead places explicit action--evidence relations at the execution boundary. State-conditioned halfspaces and joint-risk regions combine task support, grounding, provenance, authorization, effects, and state in one feasibility decision, and active margins provide relation-specific revision targets.
+Tool-use benchmarks study consequential failures and indirect injection across tool environments \citep{ruan2024toolemu,ye2024toolsword,NEURIPS2024_97091a51,zhang2025agentsecuritybench,andriushchenko2025agentharm,wang2026mcptox}. Action shielding restricts actions under formal safety specifications \citep{alshiekh2018shielding}; DAFR contributes an auditable action--evidence certificate with state-dependent joint-risk margins and revision targets.
 
 \section{Conclusion}
 
@@ -398,5 +171,6 @@ The benchmark evaluation uses fixed static attacks. The 64-case stress suite is 
 
 The retained multi-model tables have heterogeneous archival provenance, including document-derived baseline aggregates. Utility differences are descriptive and lack paired significance tests. The observed zero attack counts are limited to the evaluated cases; correlated attacks on shared tasks further limit population-level interpretation of binomial intervals. Full end-to-end latency, parameter sensitivity, and an independent adaptive-attack evaluation remain unmeasured in this manuscript.
 
+\bibliographystyle{acl_natbib}
 \bibliography{From_Semantics_to_Execution_Dynamic_Geometric_Constraints_for_Tool-Action_Feasibility_References}
 \end{document}

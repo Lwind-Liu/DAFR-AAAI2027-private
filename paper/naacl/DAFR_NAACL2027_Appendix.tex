@@ -1,20 +1,15 @@
-\documentclass[letterpaper]{article}
-\usepackage[submission]{aaai2027}
-\usepackage[hyphens]{url}
+\documentclass[11pt]{article}
+\usepackage[review]{acl}
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{booktabs}
 \usepackage{array}
 \frenchspacing
-\pdfinfo{/TemplateVersion (2027.1)}
-\setcounter{secnumdepth}{0}
-\newcommand{\method}{\textsc{DAFR}}
-
 \title{Action--Evidence Geometry and Execution Certificates\\Supplementary Evidence}
 \author{Anonymous Submission}
-\affiliations{}
 \begin{document}
+\appendix
 \maketitle
 
 This supplement reports the complete benchmark tables, the matched geometry controls, and the reproducibility details for the deterministic DAFR execution layer. The main paper's claims are limited to typed action--evidence encoding, joint-risk execution constraints, and certificate-based diagnosis and repair. The matched studies do not claim that geometric code is more expressive or intrinsically safer than unrestricted predicates.
@@ -42,8 +37,8 @@ The membership arms share the same risk vectors; the repair arms share the same 
 The joint-risk suite contains 512 four-dimensional vectors. Every coordinate is below its independent 0.8 threshold, while 25 vectors exceed the shared joint budget. Geometry and the equivalent predicate reject the same 25 vectors. The repair suite contains 256 local write cases: 192 have a safe candidate obtained by removing an unsupported optional destination, and 64 require blocking because the destination is semantically required. Geometry and a predicate supplied with the same repair oracle recover the same 192 actions. The equality is expected because the same executable repair transformation is used in both arms; it does not show an intrinsic geometric repair advantage.
 
 \begin{table}[ht]
-\centering\small
-\setlength{\tabcolsep}{3pt}
+\centering\scriptsize
+\setlength{\tabcolsep}{1.5pt}
 \begin{tabular}{lrrr}
 \toprule
 Backend & Safe allow & Unsafe block & False allow\\
@@ -53,13 +48,13 @@ Joint geometry & 487/487 & 25/25 & 0/25\\
 Equivalent predicate & 487/487 & 25/25 & 0/25\\
 \bottomrule
 \end{tabular}
-\caption{Membership under a specified unit-norm risk policy: 487 feasible and 25 infeasible vectors. All arms have zero false blocks. Labels are determined analytically by that policy, rather than independent real-world safety annotations.}
+\caption{Joint-risk membership audit: 487 feasible and 25 infeasible vectors.}
 \label{tab:geometry-representation}
 \end{table}
 
 \begin{table}[ht]
-\centering\small
-\setlength{\tabcolsep}{3pt}
+\centering\scriptsize
+\setlength{\tabcolsep}{1.5pt}
 \begin{tabular}{lrr}
 \toprule
 Backend + shared repair & Repaired & Required blocks\\
@@ -82,7 +77,7 @@ A 64-case in-process suite crosses fresh and stale state with four fixed injecti
 Values are percentages. Clean and attack utility are higher-is-better; ASR is lower-is-better. The full case counts are given in the protocol above.
 
 \begin{table}[ht]
-\centering\small
+\centering\scriptsize
 \begin{tabular}{lrrr}
 \toprule
 Method & Clean & Attack & ASR\\
@@ -103,7 +98,7 @@ DRIFT & 62.6 & 53.2 & 1.4\\
 \end{table}
 
 \begin{table}[ht]
-\centering\small
+\centering\scriptsize
 \begin{tabular}{lrrr}
 \toprule
 Method & Clean & Attack & ASR\\
@@ -124,7 +119,7 @@ DRIFT & 41.7 & 38.8 & 0.2\\
 \end{table}
 
 \begin{table}[ht]
-\centering\small
+\centering\scriptsize
 \begin{tabular}{lrrr}
 \toprule
 Method & Clean & Attack & ASR\\
@@ -149,7 +144,7 @@ Across the three planners, DAFR records 0 observed ASR on the evaluated static a
 \section{Agent Security Benchmark}
 
 \begin{table}[ht]
-\centering\small
+\centering\scriptsize
 \begin{tabular}{lrrr}
 \toprule
 Method & Utility & Task success & ASR\\
@@ -164,7 +159,7 @@ DRIFT & 85.8 & 73.0 & 23.0\\
 \textbf{DAFR} & 86.8 & 73.5 & \textbf{0.0}\\
 \bottomrule
 \end{tabular}
-\caption{ASB results on 204 cases with DeepSeek V4 Flash. DAFR's ASR is 0/204 observed attacks.}
+\caption{ASB results on 204 DeepSeek cases.}
 \label{tab:asb-full}
 \end{table}
 
@@ -173,19 +168,19 @@ DRIFT & 85.8 & 73.0 & 23.0\\
 The system ablation uses the same 71 clean and 585 attacked cases with DeepSeek V4 Flash. These rows remove interacting execution modules and therefore do not isolate the syntax of the geometric boundary. The matched representation study above supplies that narrower comparison.
 
 \begin{table}[ht]
-\centering\small
+\centering\scriptsize
 \begin{tabular}{lrrr}
 \toprule
 Configuration & Clean & Attack & ASR\\
 \midrule
 DAFR & 87.5 & 81.4 & 0.0\\
-Without evidence projection & 79.2 & 81.8 & 0.0\\
-Without action--evidence encoding & 91.5 & 85.3 & 0.7\\
-Without dynamic defense path & 90.2 & 81.3 & 16.7\\
-Without decision feedback & 79.4 & 80.0 & 0.8\\
+w/o projection & 79.2 & 81.8 & 0.0\\
+w/o encoding & 91.5 & 85.3 & 0.7\\
+w/o defense path & 90.2 & 81.3 & 16.7\\
+w/o feedback & 79.4 & 80.0 & 0.8\\
 \bottomrule
 \end{tabular}
-\caption{System-level ablation on AgentDojo with DeepSeek V4 Flash.}
+\caption{AgentDojo system ablation.}
 \label{tab:ablation-full}
 \end{table}
 
@@ -194,7 +189,7 @@ Without decision feedback & 79.4 & 80.0 & 0.8\\
 \setlength{\tabcolsep}{2pt}
 \begin{tabular}{lrrrr}
 \toprule
-Setting & Calls & Admitted mean & Rejected mean & Gap\\
+Setting & Calls & Admit & Reject & Gap\\
 \midrule
 AgentDojo / DeepSeek & 3947 & 0.712 & $-0.368$ & 1.080\\
 AgentDojo / GPT & 2916 & 0.748 & $-0.214$ & 0.963\\

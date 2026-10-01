@@ -1,177 +1,71 @@
-# Revision working text — experimental, not submission-ready
+# DAFR 当前修订方案（几何与执行证书主线）
 
-## Claim correction
+## 当前主张
 
-A general arithmetic predicate can express exactly the same weighted halfspace and
-second-order norm inequalities as our geometric implementation. We do not claim a
-representational advantage over unrestricted if/else programs. Axis-aligned thresholds
-are a restricted hypothesis class, not an equivalent implementation of the same policy.
-The equivalent-predicate control shares constraints, features, evidence and candidate
-ranking with the geometric backend. Its acceptance decisions should coincide.
+DAFR 的核心不是把几何形式包装成比所有程序判断更强，而是把工具调用、证据来源、授权、状态和外部风险统一表示为 action--evidence point，并在执行边界生成可审计的 feasibility certificate。
 
-## Why keep geometry instead of a boolean if--else gate?
+任意算术 predicate 都可以实现同样的 halfspace 和 joint-risk norm boundary，因此 equivalent-predicate 必须与 Geometry 做决策一致性检查。论文只对比以下两个层次：
 
-The claim is about the execution interface, not about the expressive power of
-arithmetic. An unrestricted predicate can reproduce every current halfspace and
-second-order cone, so the predicate control is required to match the geometry
-decision. Geometry is retained because one typed region exposes four quantities
-from the same object: (i) joint feasibility across fields, (ii) a signed and
-normalized margin for every violated facet, (iii) an interface for future constrained repair search (not yet a closest-action solver), and (iv) a provenance-bearing certificate that
-can be composed when a new policy facet is added. A boolean gate returns only
-true/false; an arithmetic implementation can expose the same quantities from shared constraint objects. Maintenance and repair advantages therefore remain hypotheses, not intrinsic properties of geometry.
+- 独立逐维 if--else：每个风险坐标单独过阈值，无法捕获共享风险预算；
+- 联合约束接口：使用同一风险预算组合多个风险，同时返回 signed margin、violated facet、provenance 和 repair target。
 
-This is a falsifiable systems claim. We will compare geometry and an equivalent
-predicate with the same feature vector, constraints, candidates and repair
-budget. The primary metrics are decision disagreement (should be zero), boundary
-ranking agreement, constraint-localization accuracy, executable repair success,
-unsafe repair rate, clarification count, and added latency. If a predicate
-implementation is augmented with the same margin and repair oracle, any geometry
-advantage should disappear; that result is expected and will be reported as a
-representation/maintenance advantage rather than a security guarantee.
+因此，几何的贡献是联合风险的结构化组合和证书接口，而不是任意程序不可表达的安全能力。
 
-The motivating failure mode is a coupled budget: two individually acceptable
-fields can exceed a joint risk budget. Geometry represents this as one cone and
-reports the joint slack. A collection of independent if--else thresholds misses
-the interaction; a hand-written predicate can encode it, but then the coupling,
-diagnostic, and repair logic must be maintained separately.
+## 方法流程
 
-## Proposed method
+1. **Typed field validation**：将注册工具的字段绑定到 object、destination、data、amount、time、effect、scope 等共享 effect roles，检查字段、策略、授权范围和风险类型是否一致。
+2. **Action--evidence encoding**：将 concrete tool call、trusted task、source-tagged evidence 和 execution state 转换为 45 维坐标，保留原始字段和值的来源链接。
+3. **Dynamic feasible region**：根据当前 effect 和 state 激活 halfspace 与 joint-risk constraint，计算每个 active margin。
+4. **Execution certificate**：返回 ALLOW、CLARIFY/REPAIR 或 BLOCK，并记录 active constraints、signed margins、violated relations 和下一步反馈。
+5. **State update**：可信工具结果更新 grounding、prerequisite、authorization 和 state relations；不可信文本只增加 risk/provenance signals，不能直接形成授权。
 
-We investigate a semantic mapper that translates trusted policy text and
-tool schemas into a typed constraint representation. Structural and semantic-completeness validation checks the
-representation; it does not establish full semantic fidelity. Security preconditions must
-name their affected fields and use positive thresholds; failures abstain rather than being
-repaired into an allow decision.
-The experimental runtime intersects supported mapped constraints with the existing
-trusted constraint envelope. Consequently, for fixed features and execution context,
-the accepted set is a subset of that envelope. This inclusion is conditional on the
-baseline's correctness and says nothing about safety of missing baseline policies.
+## 证据边界
 
-The current adapter supports field-scoped grounding and authorization through the
-feature encoder, and aggregate nonnegative risk budgets over existing features. Field-scoped
-risk budgets and forbidden effects are rejected explicitly.
-Role labels are supplied by a large-language-model semantic mapper and then checked before
-entering the feature encoder. If this frozen mapper transfers to held-out tools, the evidence supports
-cross-tool semantic adaptation through a typed interface. It does not
-imply that a trained encoder will work; a trained encoder is a separate distilled,
-low-latency implementation of the same IR interface and requires its own evaluation.
+当前 AgentDojo/ASB 主表使用 deterministic DAFR configuration。0 observed ASR 只能描述为固定 benchmark、固定攻击集合和给定 threat model 下的观测结果，不能写成一般安全保证。
 
-## Evaluation contract
+512-case joint-risk suite 是机制实验：逐维 if--else 放行 512/512，其中 25/512 超过共享预算；Geometry 与 equivalent predicate 都放行 487/512，决策分歧为 0/512。
 
-1. Equivalent predicates: test decision agreement, including boundary points. Do not
-   attribute ASR improvements to changing syntax from predicates to regions.
-2. Mapper: held-out tools and policy paraphrases; measure omission, unsafe relaxation,
-   field/role accuracy, abstention and API usage. Structural validity alone is insufficient.
-   Compare manual mapping, LLM mapping, and a trained/distilled encoder under the same IR
-   and execution layer; do not transfer conclusions between these adapters.
-3. Repair: compare against predicate-based candidate enumeration using identical repair
-   candidates and cost. Measure executed effect preservation, unsafe repair and utility;
-   feature-space projection distance is not proof of an executable repair.
-4. Report fixed-trajectory diagnostic results separately from fresh end-to-end rollouts.
+256-case action repair suite 是 dry-run 接口实验：192 个动作存在保持目标效果的安全候选，64 个动作必须阻断；Geometry 和 Predicate+oracle 都恢复 192/256，bool-only interface 为 0/256，外部副作用为 0。该结果说明 repair success 来自候选与 oracle；几何本身的可测优势是 certificate、margin 和 provenance 的统一输出。
 
-No new benchmark accuracy or security claims have been established by this revision.
+614 条已保存 AgentDojo decision records 中，610 条格式正确。用等价 slack predicate 重查记录后决策一致率为 610/610。这是 certificate consistency audit，不是新的 planner replay，也不是新的 utility/ASR 结果。
 
-## Evidence gate after protocol audit (2026-09-29)
+64-case stress suite 使用四类固定注入文本，并交叉 fresh/stale state。它是固定族机制测试，不称为 adaptive attack；不含真实外部副作用。
 
-The first mapper pilot was invalid because the runner sent the hand-written `gold`
-object to the model.  The corrected runner withholds gold and checks both IR
-validation and `IRPolicyCompiler.compile()`.  On the corrected 32-case pilot,
-precondition exact match is 21.9% for Qwen-Max and 28.1% for DeepSeek V4 Flash;
-unsafe relaxation is 65.6% for both models.  These numbers are the usable mapper
-baseline; the earlier positive pilot numbers must not be cited as generalization.
+## 主文写作要求
 
-On the same 8 clean plus 8 injection banking tasks, the hand-written CLAFR
-baseline succeeds on 5/8 clean tasks and has 0/8 attack successes.  A frozen LLM
-IR artifact succeeds on 3/8 clean and 2/8 attack-utility tasks, while a
-deterministic read-only/effectful tool-class adapter reaches 4/8 and 4/8.  Both
-LLM variants have 0/8 attack successes under AgentDojo's `security=true`
-definition, but their abstentions and utility loss prevent a claim that the
-mapper improves end-to-end safety.
+- 不使用训练方式作为卖点。
+- 不声称 Geometry 普遍优于 if--else 或 unrestricted predicate。
+- 不把 fixed-family stress test 写成 adaptive attack。
+- 不把 saved-margin audit 写成 real environment replay。
+- 不把 system-level `without dynamic defense path` 消融写成只移除了几何公式。
+- 主表直接给出分母、observed ASR 和 threat-model 说明。
+- 说明 equivalent predicate 与 Geometry 的接受/拒绝位应该一致；真正比较的是 coupled-budget handling、diagnostic output、repair interface 和 provenance completeness。
 
-The matched 64-case in-process geometry pilot has zero geometry/predicate decision
-disagreements, 32/64 allows for each, and zero executable repairs.  We therefore
-retain the geometry story only as a common representation for coupled constraints
-and diagnostics; we withdraw any claim that geometry is more expressive than
-if--else or has already demonstrated better repair utility.
+## 必须保留的表格
 
+1. AgentDojo 三个 planner 的完整 baseline 表，注明每一行的 raw-run 或聚合来源。
+2. ASB 204-case 表，明确 source-tagged threat model 和 0/204 observed attacks。
+3. system ablation 表，标注其为 system-level ablation。
+4. matched geometry 表，分开 axis-ifelse、weighted halfspace、Geometry、equivalent predicate、Boolean-only interface。
+5. repair 表，报告 safe repair、effect preservation、unsafe repair、clarification 和外部副作用。
+6. signed-margin 表，作为 decision consistency evidence，而不是 calibration theorem。
 
-## Current smoke evidence (not a benchmark result)
+## 进一步实验优先级
 
-A four-tool smoke pilot with Qwen-Max produced structurally valid, backend-compilable mappings for `send_email`, `transfer_funds`, `delete_record`, and `publish_post`. Against hand-written labels for this pilot, role accuracy and precondition exact match were both 1.0. These numbers are not held-out generalization results. The pilot also exposed a necessary metric for the full study: over-constraint rate, since a mapper may safely include an ordinary field in an authorization set while reducing utility.
+- 统一所有主表 baseline 的 raw case、planner、模型版本、temperature、seed 和 aggregation provenance。
+- 增加 no-provenance/source-unavailable ASB 对照。
+- 增加真正的多步反馈攻击，区分 static injection 与 adaptive attack。
+- 报告 benign block、false positive、latency 和每个 active facet 的定位统计。
+- 对 axis threshold 做独立校准，避免只用天然有利于 axis baseline 的 synthetic distribution。
+- 在相同 constraint object、feature vector、candidate set 和 repair budget 下比较 Geometry 与 equivalent predicate。
+- 记录新工具的字段绑定数量、template 数量、配置时间和失败类型，支撑可扩展性叙事。
 
-## NAACL 执行版主线（P1--P4）
+## 投稿前停止条件
 
-本版本的论文包装不再把贡献写成“几何天然优于 ifelse”，而是把问题提升为：**如何把自然语言安全策略可靠地迁移到未见工具，并在多维耦合风险下生成可审计、可修复的执行决策**。语义映射解决跨 schema 迁移，几何 runtime 提供联合风险的执行证书。这样既有方法故事，也保留了可证伪的对照实验。
-
-### P1：公平 mapper 基线
-
-必须实现一个 schema-aware deterministic mapper，作为强规则基线。它读取同一份 policy、tool schema 和字段描述，使用固定词典、字段类型、effect class 和显式 policy pattern 生成同一 `ConstraintIR`。它不能读取 held-out gold，也不能调用 LLM。所有 mapper 共用 parser、canonicalizer、compiler、encoder 和 runtime。
-
-最小比较矩阵如下：
-
-| Mapper | 是否更新参数 | 是否调用 LLM | 作用 |
-|---|---:|---:|---|
-| Per-tool handwritten | 否 | 否 | 原始 DAFR 参考上限/开发基线 |
-| Schema-aware rules | 否 | 否 | 公平规则基线 |
-| Qwen-Max mapper | 否 | 是 | 训练免费语义迁移 |
-| Qwen-Max + canonicalizer | 否 | 是 | 最终系统 |
-| Distilled encoder（可选） | 是 | 否 | 低延迟实现，不与 training-free 结论混用 |
-
-每个方法报告 role accuracy、precondition exact match、unsafe relaxation、omission、over-constraint、abstention、平均延迟和 token cost。论文中的“LLM 优于规则”只有在 schema-aware rules 也经过调优、使用相同 IR 和相同工具划分时才成立。若规则在封闭 schema 上更好，应将贡献表述为开放工具迁移和低人工配置，而不是绝对精度领先。
-
-### P2：跨工具迁移协议
-
-冻结一个未见工具测试集，建议至少 24 个工具，覆盖 communication、finance、file、calendar、database 和 publishing 六类；每个工具提供 2 个 policy paraphrase 和 1 个 ambiguous policy。训练或 prompt 构造阶段只能使用另一组工具，不能出现测试工具名、字段名和 gold IR。
-
-每个 case 保存四份可审计记录：原始 policy/schema、LLM raw response、canonicalized IR、编译后的 constraint artifact。评测同时使用人工 gold 和独立 verifier。核心指标为：
-
-- role micro/macro F1；
-- precondition exact match；
-- unsafe relaxation rate（缺少必要限制）；
-- over-constraint rate（引入策略没有要求的限制）；
-- abstention precision/recall；
-- compile success；
-- 每个工具的人工修正时间；
-- API 延迟和 token 成本。
-
-主表中将“结构合法”与“语义正确”分开。当前 v7--v11 只能作为开发证据，不能替代该冻结测试集。
-
-### P3：联合风险和等价 predicate 对照
-
-扩大当前 32-case joint-risk pilot，生成至少 200 个 boundary-active case，覆盖二维、三维和四维风险。每个 case 固定相同 feature vector、constraint object、candidate action 和 evidence，比较以下四个执行器：
-
-1. Axis-ifelse：逐维阈值；
-2. Equivalent-predicate：实现同一个联合约束；
-3. Geometry：返回 allow/block、margin、violated facet 和 certificate；
-4. Predicate+oracle：在 predicate 上补齐同样的 margin、来源和 repair oracle。
-
-预期结果和解释在实验前固定：Axis-ifelse 应在耦合预算上出现 false allow；Equivalent-predicate 与 Geometry 的 decision disagreement 应为 0；若 Predicate+oracle 与 Geometry 也相同，则几何优势收缩为统一的约束对象、调试和组合接口。必须报告 boundary disagreement、joint-risk false allow、facet localization accuracy、clarification rate、额外 latency 和 provenance completeness，不能用微秒级 pilot 宣称速度优势。
-
-### P4：真实候选动作修复
-
-把当前“删除不可信可选字段”的 repair 扩展为候选动作集合。每个候选动作必须能在同一工具 runtime 中执行或 dry-run，并标注 effect preservation、外部副作用和是否改变用户意图。比较 Geometry、Equivalent-predicate、Predicate+oracle、Block-only 四种策略。
-
-核心指标为 executable repair success、safe repair rate、unsafe repair rate、effect preservation、action edit distance、clarification rate、平均 replay 次数和外部副作用数。feature-space 投影距离不能作为 repair 成功的替代指标。若 Geometry 和 Predicate+oracle 相同，应保留“几何提供原生诊断接口”的工程贡献，不声称它单独产生安全增益。
-
-## 论文包装和停止条件
-
-摘要中的贡献可以写成“policy-to-execution semantic lifting”和“joint-risk execution certificates”，突出两个层次：第一层把自然语言策略迁移到未见工具，第二层把跨字段风险编译为可组合的执行证书。正文应把 frozen mapper 视为可替换的语义接口，而不是把是否训练参数当成卖点；真正的卖点是低人工配置、跨 schema 迁移、显式 abstention、确定性安全包络和可审计执行。
-
-只有满足下面的停止条件，才把主线定稿：
-
-1. schema-aware rules、Qwen-Max 和最终系统在同一 held-out 工具集完成比较；
-2. LLM mapper 在 unsafe relaxation 和 over-constraint 上不劣于规则，且至少在迁移成功率或人工配置时间上有明确优势；
-3. Geometry 相比 Axis-ifelse 在 joint-risk false allow 上显著更低；
-4. Geometry 与 Equivalent-predicate 的决策一致性接近 100%；
-5. P4 至少有一项 executable repair 或 facet localization 指标优于 bool-only baseline；
-6. AgentDojo 扩展到足够任务数和多 seed 后，clean utility、attack success、abstention 和成本一起报告。
-
-若第 2 或第 5 条不满足，论文仍可投，但应把故事收缩为“统一语义约束编译和审计接口”，不能声称 LLM mapper 或 geometry 已经全面优于规则和 predicate。当前 5/8 clean、4/8 attack utility、0/8 attack success 只作为 smoke evidence，不能作为最终主表。
-
-## P1--P4 第一轮实际结果（2026-09-30）
-
-P1 的 v12 冻结测试包含 24 个未见工具 schema，其中 22 个非歧义、2 个含糊策略。Qwen-Max 与 schema-aware rules 共用相同 public input、`ConstraintIR` validator、canonicalizer、compiler 和 scorer。Qwen-Max 达到 `21/22` 非歧义 semantic exact、`2/2` 正确 abstain、`1` under-constrained 和 `1` over-constrained；规则 mapper 为 `1/22` exact、`2/2` abstain、`11` under-constrained 和 `5` over-constrained。Qwen-Max 的平均 API 延迟为 5.31 秒；规则 mapper 是本地确定性执行，延迟不做直接横向比较。该结果支持“跨 schema/paraphrase 的语义覆盖优势”，但不是端到端 ASR 证明；唯一 Qwen 错误保留在分母中。
-
-P3/P4 的 matched runtime benchmark 固定同一个 feature vector、constraint object、encoder、compiler、候选动作和 effect verifier。512 个四维联合风险 case 中，Axis-ifelse 放行 `512/512`，其中 `25/512` 是联合预算违规的 false allow；Geometry 和 Equivalent-predicate 都放行 `487/512`，两者决策分歧为 `0/512`。256 个动作级 dry-run case 中，192 个具有可安全删除的不可信 optional destination，64 个 destination 必须保留并应阻断；Geometry 和 Predicate+oracle 都成功恢复 `192/256`，bool-only predicate 为 `0/256`，64 个不可修复 case 均保持阻断，外部副作用为 0。由此可写的归因是：几何区域揭示了朴素逐维分支漏掉的联合风险；修复效用来自可审计的 certificate/margin/provenance/repair 接口，而非几何对任意算术 predicate 的表达能力优势。
-
-这些结果已经写入 `docs/experiments/NAACL_mapper_v12_cross_schema_ZH.md` 和 `docs/experiments/NAACL_geometry_repair_benchmark_v1_ZH.md`。正式主表仍需把 v12 mapper 与更大规模 AgentDojo fresh-seed paired rollouts 对齐，避免用合成 runtime 结果替代任务级安全和效用证据。
+- 主文和补充材料只保留上述 deterministic execution story；
+- 所有未采用的语义适配实验术语不出现在投稿文本；
+- 0% 结果均带分母、攻击集合和 threat-model 说明；
+- Geometry 与 equivalent predicate 的决策一致性为 100% 或解释全部差异；
+- axis-ifelse 的 false allow、certificate 输出和 repair 结果分开归因；
+- 主文改用 ACL/ARR review 模板，A4、双栏、行号、匿名，Limitations 位于 Conclusion 之后；
+- 编译通过并重新生成与源码同步的 PDF。

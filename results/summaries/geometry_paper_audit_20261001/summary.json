@@ -1,0 +1,139 @@
+{
+  "seed": 20260930,
+  "commit": "9d64cf5e5ce3e6cd5ce9199cfdc5ea86dff2c1f5",
+  "working_tree_hashes": {
+    "scripts/run_geometry_repair_benchmark_v1.py": "0dd9c7241181b3c9e3ad487b9044d90c00799d1b51325f3ec1ad9265a93ef7ae",
+    "src/clafr/geometry.py": "eecaf0e7df7f733d6524fc3c75890520ceaa5c452d925e8a56dd96f601f21f89",
+    "src/clafr/predicate.py": "9e99c908e806f3ba75df4f37bea5df7eada31e4190eb5596634a5f9d646dda4d",
+    "src/clafr/selector.py": "b37063c459b62f727ba4868caaf120bd838ff27b394e086ece753d8bf358c368",
+    "src/clafr/compiler.py": "da6a99669c0ba5fb0657ae7177b0649a38649b0259ce8a9af37f43641f99a192",
+    "src/clafr/features.py": "96d679fcf224e8b90cc88a5450112d722d66df5e63d07c96de5698a7dc3b3e30"
+  },
+  "scope": "Fresh in-process mechanism rerun; no planner/API/external tool executions. Policy labels are specified analytically; not independently annotated safety labels.",
+  "safe_cases": 487,
+  "unsafe_cases": 25,
+  "confusion": {
+    "axis_ifelse": {
+      "safe_allow": 487,
+      "false_block": 0,
+      "unsafe_block": 0,
+      "false_allow": 25
+    },
+    "geometry": {
+      "safe_allow": 487,
+      "false_block": 0,
+      "unsafe_block": 25,
+      "false_allow": 0
+    },
+    "equivalent_predicate": {
+      "safe_allow": 487,
+      "false_block": 0,
+      "unsafe_block": 25,
+      "false_allow": 0
+    }
+  },
+  "joint_risk": {
+    "cases": 512,
+    "axis_ifelse": {
+      "successes": 512,
+      "total": 512,
+      "rate": 1.0,
+      "ci95_low": 0.9925527526279385,
+      "ci95_high": 1.0
+    },
+    "geometry": {
+      "successes": 487,
+      "total": 512,
+      "rate": 0.951171875,
+      "ci95_low": 0.9289129704032191,
+      "ci95_high": 0.9667108024758972
+    },
+    "equivalent_predicate": {
+      "successes": 487,
+      "total": 512,
+      "rate": 0.951171875,
+      "ci95_low": 0.9289129704032191,
+      "ci95_high": 0.9667108024758972
+    },
+    "axis_false_allow_joint_risk": {
+      "successes": 25,
+      "total": 512,
+      "rate": 0.048828125,
+      "ci95_low": 0.033289197524102775,
+      "ci95_high": 0.07108702959678084
+    },
+    "geometry_predicate_disagreements": 0,
+    "geometry_mean_latency_ms": 0.0032542441203986527,
+    "predicate_mean_latency_ms": 0.001022035291953216,
+    "scope": "same FeatureVector and RiskBudgetCone; no external side effects"
+  },
+  "action_repair": {
+    "cases": 256,
+    "repairable_cases": 192,
+    "nonrepairable_cases": 64,
+    "geometry_blocked": {
+      "successes": 256,
+      "total": 256,
+      "rate": 1.0,
+      "ci95_low": 0.9852156082782743,
+      "ci95_high": 1.0
+    },
+    "predicate_blocked": {
+      "successes": 256,
+      "total": 256,
+      "rate": 1.0,
+      "ci95_low": 0.9852156082782743,
+      "ci95_high": 1.0
+    },
+    "geometry_repair_success": {
+      "successes": 192,
+      "total": 256,
+      "rate": 0.75,
+      "ci95_low": 0.6935238434514225,
+      "ci95_high": 0.7990839606877146
+    },
+    "predicate_oracle_repair_success": {
+      "successes": 192,
+      "total": 256,
+      "rate": 0.75,
+      "ci95_low": 0.6935238434514225,
+      "ci95_high": 0.7990839606877146
+    },
+    "geometry_candidate_set_safe_selection": {
+      "successes": 192,
+      "total": 256,
+      "rate": 0.75,
+      "ci95_low": 0.6935238434514225,
+      "ci95_high": 0.7990839606877146
+    },
+    "predicate_candidate_set_safe_selection": {
+      "successes": 192,
+      "total": 256,
+      "rate": 0.75,
+      "ci95_low": 0.6935238434514225,
+      "ci95_high": 0.7990839606877146
+    },
+    "bool_only_predicate_repair_success": {
+      "successes": 0,
+      "total": 256,
+      "rate": 0.0,
+      "ci95_low": 0.0,
+      "ci95_high": 0.014784391721725852
+    },
+    "block_only_safe_effect_preserved": {
+      "successes": 0,
+      "total": 256,
+      "rate": 0.0,
+      "ci95_low": 0.0,
+      "ci95_high": 0.014784391721725852
+    },
+    "geometry_predicate_block_disagreements": 0,
+    "geometry_mean_latency_ms": 0.3770911639549013,
+    "predicate_mean_latency_ms": 0.38023499450901,
+    "geometry_repair_mean_latency_ms": 0.2715867617553158,
+    "predicate_oracle_repair_mean_latency_ms": 0.2861336167825357,
+    "unsafe_external_side_effects": 0,
+    "scope": "same clafr encoder/compiler/action candidate; in-process only; no external side effects"
+  },
+  "boolean_only_note": "Zero repair is hard-coded by the no-repair interface; excluded from empirical superiority comparisons."
+}

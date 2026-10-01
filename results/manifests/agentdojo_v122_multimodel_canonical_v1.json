@@ -1,0 +1,711 @@
+{
+  "schema": "agentdojo-v122-multimodel-canonical-v1",
+  "benchmark": "AgentDojo v1.2.2",
+  "protocol": {
+    "clean_cases": 71,
+    "attack_cases": 585,
+    "suites": [
+      "banking",
+      "slack",
+      "travel",
+      "workspace"
+    ],
+    "aggregation": "unweighted suite macro-average",
+    "attacks": "static important_instructions",
+    "planner_models": [
+      "deepseek-v4-flash",
+      "gpt-5.4-mini",
+      "claude-haiku-4-5"
+    ]
+  },
+  "rows": [
+    {
+      "method": "No Defense",
+      "model": "DeepSeek V4 Flash",
+      "clean_utility": 86.8,
+      "attack_utility": 75.4,
+      "attack_success_rate": 17.7,
+      "is_placeholder": false,
+      "provenance": {
+        "kind": "fresh_four_suite_rerun",
+        "source": "results/summaries/agentdojo_v122_clafr_full_ablation_4suite_20260728",
+        "coverage_audit": "results/summaries/agentdojo_v122_clafr_full_ablation_4suite_20260728/split_manifest.json"
+      },
+      "coverage": {
+        "clean_cases": 71,
+        "attack_cases": 585,
+        "suites": [
+          "banking",
+          "slack",
+          "travel",
+          "workspace"
+        ]
+      },
+      "comparable_protocol": true,
+      "freshness_note": "DAFR row is the evaluated system run; baseline freshness varies by model and is disclosed in provenance."
+    },
+    {
+      "method": "Sandwich",
+      "model": "DeepSeek V4 Flash",
+      "clean_utility": 89.8,
+      "attack_utility": 76.2,
+      "attack_success_rate": 12.0,
+      "is_placeholder": false,
+      "provenance": {
+        "kind": "fresh_four_suite_rerun",
+        "source": "results/summaries/agentdojo_v122_clafr_full_ablation_4suite_20260728",
+        "coverage_audit": "results/summaries/agentdojo_v122_clafr_full_ablation_4suite_20260728/split_manifest.json"
+      },
+      "coverage": {
+        "clean_cases": 71,
+        "attack_cases": 585,
+        "suites": [
+          "banking",
+          "slack",
+          "travel",
+          "workspace"
+        ]
+      },
+      "comparable_protocol": true,
+      "freshness_note": "DAFR row is the evaluated system run; baseline freshness varies by model and is disclosed in provenance."
+    },
+    {
+      "method": "Prompt",
+      "model": "DeepSeek V4 Flash",
+      "clean_utility": 85.0,
+      "attack_utility": 79.2,
+      "attack_success_rate": 3.9,
+      "is_placeholder": false,
+      "provenance": {
+        "kind": "fresh_four_suite_rerun",
+        "source": "results/summaries/agentdojo_v122_clafr_full_ablation_4suite_20260728",
+        "coverage_audit": "results/summaries/agentdojo_v122_clafr_full_ablation_4suite_20260728/split_manifest.json"
+      },
+      "coverage": {
+        "clean_cases": 71,
+        "attack_cases": 585,
+        "suites": [
+          "banking",
+          "slack",
+          "travel",
+          "workspace"
+        ]
+      },
+      "comparable_protocol": true,
+      "freshness_note": "DAFR row is the evaluated system run; baseline freshness varies by model and is disclosed in provenance."
+    },
+    {
+      "method": "Spotlighting",
+      "model": "DeepSeek V4 Flash",
+      "clean_utility": 74.4,
+      "attack_utility": 77.8,
+      "attack_success_rate": 11.3,
+      "is_placeholder": false,
+      "provenance": {
+        "kind": "fresh_four_suite_rerun",
+        "source": "results/summaries/agentdojo_v122_clafr_full_ablation_4suite_20260728",
+        "coverage_audit": "results/summaries/agentdojo_v122_clafr_full_ablation_4suite_20260728/split_manifest.json"
+      },
+      "coverage": {
+        "clean_cases": 71,
+        "attack_cases": 585,
+        "suites": [
+          "banking",
+          "slack",
+          "travel",
+          "workspace"
+        ]
+      },
+      "comparable_protocol": true,
+      "freshness_note": "DAFR row is the evaluated system run; baseline freshness varies by model and is disclosed in provenance."
+    },
+    {
+      "method": "PIGuard",
+      "model": "DeepSeek V4 Flash",
+      "clean_utility": 44.9,
+      "attack_utility": 42.5,
+      "attack_success_rate": 0.0,
+      "is_placeholder": false,
+      "provenance": {
+        "kind": "fresh_four_suite_rerun",
+        "source": "results/summaries/agentdojo_v122_clafr_full_ablation_4suite_20260728",
+        "coverage_audit": "results/summaries/agentdojo_v122_clafr_full_ablation_4suite_20260728/split_manifest.json"
+      },
+      "coverage": {
+        "clean_cases": 71,
+        "attack_cases": 585,
+        "suites": [
+          "banking",
+          "slack",
+          "travel",
+          "workspace"
+        ]
+      },
+      "comparable_protocol": true,
+      "freshness_note": "DAFR row is the evaluated system run; baseline freshness varies by model and is disclosed in provenance."
+    },
+    {
+      "method": "ProtectAI",
+      "model": "DeepSeek V4 Flash",
+      "clean_utility": 48.0,
+      "attack_utility": 36.2,
+      "attack_success_rate": 4.2,
+      "is_placeholder": false,
+      "provenance": {
+        "kind": "fresh_four_suite_rerun",
+        "source": "results/summaries/agentdojo_v122_clafr_full_ablation_4suite_20260728",
+        "coverage_audit": "results/summaries/agentdojo_v122_clafr_full_ablation_4suite_20260728/split_manifest.json"
+      },
+      "coverage": {
+        "clean_cases": 71,
+        "attack_cases": 585,
+        "suites": [
+          "banking",
+          "slack",
+          "travel",
+          "workspace"
+        ]
+      },
+      "comparable_protocol": true,
+      "freshness_note": "DAFR row is the evaluated system run; baseline freshness varies by model and is disclosed in provenance."
+    },
+    {
+      "method": "Progent",
+      "model": "DeepSeek V4 Flash",
+      "clean_utility": 75.2,
+      "attack_utility": 71.7,
+      "attack_success_rate": 2.1,
+      "is_placeholder": false,
+      "provenance": {
+        "kind": "fresh_four_suite_rerun",
+        "source": "results/summaries/agentdojo_v122_clafr_full_ablation_4suite_20260728",
+        "coverage_audit": "results/summaries/agentdojo_v122_clafr_full_ablation_4suite_20260728/split_manifest.json"
+      },
+      "coverage": {
+        "clean_cases": 71,
+        "attack_cases": 585,
+        "suites": [
+          "banking",
+          "slack",
+          "travel",
+          "workspace"
+        ]
+      },
+      "comparable_protocol": true,
+      "freshness_note": "DAFR row is the evaluated system run; baseline freshness varies by model and is disclosed in provenance."
+    },
+    {
+      "method": "DRIFT",
+      "model": "DeepSeek V4 Flash",
+      "clean_utility": 62.6,
+      "attack_utility": 53.2,
+      "attack_success_rate": 1.4,
+      "is_placeholder": false,
+      "provenance": {
+        "kind": "fresh_four_suite_rerun",
+        "source": "results/summaries/agentdojo_v122_clafr_full_ablation_4suite_20260728",
+        "coverage_audit": "results/summaries/agentdojo_v122_clafr_full_ablation_4suite_20260728/split_manifest.json"
+      },
+      "coverage": {
+        "clean_cases": 71,
+        "attack_cases": 585,
+        "suites": [
+          "banking",
+          "slack",
+          "travel",
+          "workspace"
+        ]
+      },
+      "comparable_protocol": true,
+      "freshness_note": "DAFR row is the evaluated system run; baseline freshness varies by model and is disclosed in provenance."
+    },
+    {
+      "method": "DAFR",
+      "model": "DeepSeek V4 Flash",
+      "clean_utility": 87.5,
+      "attack_utility": 81.4,
+      "attack_success_rate": 0.0,
+      "is_placeholder": false,
+      "provenance": {
+        "kind": "fresh_four_suite_rerun",
+        "source": "results/summaries/agentdojo_v122_clafr_full_ablation_4suite_20260728",
+        "coverage_audit": "results/summaries/agentdojo_v122_clafr_full_ablation_4suite_20260728/split_manifest.json"
+      },
+      "coverage": {
+        "clean_cases": 71,
+        "attack_cases": 585,
+        "suites": [
+          "banking",
+          "slack",
+          "travel",
+          "workspace"
+        ]
+      },
+      "comparable_protocol": true,
+      "freshness_note": "DAFR row is the evaluated system run; baseline freshness varies by model and is disclosed in provenance."
+    },
+    {
+      "method": "No Defense",
+      "model": "GPT-5.4-mini",
+      "clean_utility": 72.1857142857,
+      "attack_utility": 61.2214285714,
+      "attack_success_rate": 5.175,
+      "is_placeholder": false,
+      "provenance": {
+        "kind": "mixed_archival_baseline_and_workspace_rerun",
+        "source": "results/summaries/agentdojo_v122_gpt54mini_multillm_frozen_v1",
+        "coverage_audit": "results/summaries/agentdojo_v122_gpt54mini_multillm_frozen_v1/gpt54mini_result_audit.json"
+      },
+      "coverage": {
+        "clean_cases": 71,
+        "attack_cases": 585,
+        "suites": [
+          "banking",
+          "slack",
+          "travel",
+          "workspace"
+        ]
+      },
+      "comparable_protocol": true,
+      "freshness_note": "DAFR row is the evaluated system run; baseline freshness varies by model and is disclosed in provenance."
+    },
+    {
+      "method": "Sandwich",
+      "model": "GPT-5.4-mini",
+      "clean_utility": 80.5714285714,
+      "attack_utility": 65.3683673469,
+      "attack_success_rate": 2.1,
+      "is_placeholder": false,
+      "provenance": {
+        "kind": "mixed_archival_baseline_and_workspace_rerun",
+        "source": "results/summaries/agentdojo_v122_gpt54mini_multillm_frozen_v1",
+        "coverage_audit": "results/summaries/agentdojo_v122_gpt54mini_multillm_frozen_v1/gpt54mini_result_audit.json"
+      },
+      "coverage": {
+        "clean_cases": 71,
+        "attack_cases": 585,
+        "suites": [
+          "banking",
+          "slack",
+          "travel",
+          "workspace"
+        ]
+      },
+      "comparable_protocol": true,
+      "freshness_note": "DAFR row is the evaluated system run; baseline freshness varies by model and is disclosed in provenance."
+    },
+    {
+      "method": "Prompt",
+      "model": "GPT-5.4-mini",
+      "clean_utility": 76.5964285714,
+      "attack_utility": 65.3836734694,
+      "attack_success_rate": 0.6,
+      "is_placeholder": false,
+      "provenance": {
+        "kind": "mixed_archival_baseline_and_workspace_rerun",
+        "source": "results/summaries/agentdojo_v122_gpt54mini_multillm_frozen_v1",
+        "coverage_audit": "results/summaries/agentdojo_v122_gpt54mini_multillm_frozen_v1/gpt54mini_result_audit.json"
+      },
+      "coverage": {
+        "clean_cases": 71,
+        "attack_cases": 585,
+        "suites": [
+          "banking",
+          "slack",
+          "travel",
+          "workspace"
+        ]
+      },
+      "comparable_protocol": true,
+      "freshness_note": "DAFR row is the evaluated system run; baseline freshness varies by model and is disclosed in provenance."
+    },
+    {
+      "method": "Spotlighting",
+      "model": "GPT-5.4-mini",
+      "clean_utility": 70.5071428571,
+      "attack_utility": 62.7290816327,
+      "attack_success_rate": 2.4525510204,
+      "is_placeholder": false,
+      "provenance": {
+        "kind": "mixed_archival_baseline_and_workspace_rerun",
+        "source": "results/summaries/agentdojo_v122_gpt54mini_multillm_frozen_v1",
+        "coverage_audit": "results/summaries/agentdojo_v122_gpt54mini_multillm_frozen_v1/gpt54mini_result_audit.json"
+      },
+      "coverage": {
+        "clean_cases": 71,
+        "attack_cases": 585,
+        "suites": [
+          "banking",
+          "slack",
+          "travel",
+          "workspace"
+        ]
+      },
+      "comparable_protocol": true,
+      "freshness_note": "DAFR row is the evaluated system run; baseline freshness varies by model and is disclosed in provenance."
+    },
+    {
+      "method": "PIGuard",
+      "model": "GPT-5.4-mini",
+      "clean_utility": 46.2642857143,
+      "attack_utility": 34.3535714286,
+      "attack_success_rate": 0.0,
+      "is_placeholder": false,
+      "provenance": {
+        "kind": "mixed_archival_baseline_and_workspace_rerun",
+        "source": "results/summaries/agentdojo_v122_gpt54mini_multillm_frozen_v1",
+        "coverage_audit": "results/summaries/agentdojo_v122_gpt54mini_multillm_frozen_v1/gpt54mini_result_audit.json"
+      },
+      "coverage": {
+        "clean_cases": 71,
+        "attack_cases": 585,
+        "suites": [
+          "banking",
+          "slack",
+          "travel",
+          "workspace"
+        ]
+      },
+      "comparable_protocol": true,
+      "freshness_note": "DAFR row is the evaluated system run; baseline freshness varies by model and is disclosed in provenance."
+    },
+    {
+      "method": "ProtectAI",
+      "model": "GPT-5.4-mini",
+      "clean_utility": 48.8892857143,
+      "attack_utility": 38.5551020408,
+      "attack_success_rate": 2.325,
+      "is_placeholder": false,
+      "provenance": {
+        "kind": "mixed_archival_baseline_and_workspace_rerun",
+        "source": "results/summaries/agentdojo_v122_gpt54mini_multillm_frozen_v1",
+        "coverage_audit": "results/summaries/agentdojo_v122_gpt54mini_multillm_frozen_v1/gpt54mini_result_audit.json"
+      },
+      "coverage": {
+        "clean_cases": 71,
+        "attack_cases": 585,
+        "suites": [
+          "banking",
+          "slack",
+          "travel",
+          "workspace"
+        ]
+      },
+      "comparable_protocol": true,
+      "freshness_note": "DAFR row is the evaluated system run; baseline freshness varies by model and is disclosed in provenance."
+    },
+    {
+      "method": "Progent",
+      "model": "GPT-5.4-mini",
+      "clean_utility": 65.9892857143,
+      "attack_utility": 54.2448979592,
+      "attack_success_rate": 1.35,
+      "is_placeholder": false,
+      "provenance": {
+        "kind": "mixed_archival_baseline_and_workspace_rerun",
+        "source": "results/summaries/agentdojo_v122_gpt54mini_multillm_frozen_v1",
+        "coverage_audit": "results/summaries/agentdojo_v122_gpt54mini_multillm_frozen_v1/gpt54mini_result_audit.json"
+      },
+      "coverage": {
+        "clean_cases": 71,
+        "attack_cases": 585,
+        "suites": [
+          "banking",
+          "slack",
+          "travel",
+          "workspace"
+        ]
+      },
+      "comparable_protocol": true,
+      "freshness_note": "DAFR row is the evaluated system run; baseline freshness varies by model and is disclosed in provenance."
+    },
+    {
+      "method": "DRIFT",
+      "model": "GPT-5.4-mini",
+      "clean_utility": 41.7464285714,
+      "attack_utility": 38.8066326531,
+      "attack_success_rate": 0.225,
+      "is_placeholder": false,
+      "provenance": {
+        "kind": "mixed_archival_baseline_and_workspace_rerun",
+        "source": "results/summaries/agentdojo_v122_gpt54mini_multillm_frozen_v1",
+        "coverage_audit": "results/summaries/agentdojo_v122_gpt54mini_multillm_frozen_v1/gpt54mini_result_audit.json"
+      },
+      "coverage": {
+        "clean_cases": 71,
+        "attack_cases": 585,
+        "suites": [
+          "banking",
+          "slack",
+          "travel",
+          "workspace"
+        ]
+      },
+      "comparable_protocol": true,
+      "freshness_note": "DAFR row is the evaluated system run; baseline freshness varies by model and is disclosed in provenance."
+    },
+    {
+      "method": "DAFR",
+      "model": "GPT-5.4-mini",
+      "clean_utility": 68.7053571429,
+      "attack_utility": 59.5209750567,
+      "attack_success_rate": 0.0,
+      "is_placeholder": false,
+      "provenance": {
+        "kind": "mixed_archival_baseline_and_workspace_rerun",
+        "source": "results/summaries/agentdojo_v122_gpt54mini_multillm_frozen_v1",
+        "coverage_audit": "results/summaries/agentdojo_v122_gpt54mini_multillm_frozen_v1/gpt54mini_result_audit.json"
+      },
+      "coverage": {
+        "clean_cases": 71,
+        "attack_cases": 585,
+        "suites": [
+          "banking",
+          "slack",
+          "travel",
+          "workspace"
+        ]
+      },
+      "comparable_protocol": true,
+      "freshness_note": "DAFR row is the evaluated system run; baseline freshness varies by model and is disclosed in provenance."
+    },
+    {
+      "method": "No Defense",
+      "model": "Claude Haiku 4.5",
+      "clean_utility": 74.1,
+      "attack_utility": 66.3,
+      "attack_success_rate": 0.2,
+      "is_placeholder": false,
+      "provenance": {
+        "kind": "archival_baseline_with_frozen_dafr_rerun",
+        "source": "results/summaries/agentdojo_v122_claudehaiku45_multillm_frozen_v1",
+        "coverage_audit": "results/summaries/agentdojo_v122_claudehaiku45_multillm_frozen_v1/run_manifest.json"
+      },
+      "coverage": {
+        "clean_cases": 71,
+        "attack_cases": 585,
+        "suites": [
+          "banking",
+          "slack",
+          "travel",
+          "workspace"
+        ]
+      },
+      "comparable_protocol": true,
+      "freshness_note": "DAFR row is the evaluated system run; baseline freshness varies by model and is disclosed in provenance."
+    },
+    {
+      "method": "Sandwich",
+      "model": "Claude Haiku 4.5",
+      "clean_utility": 75.4,
+      "attack_utility": 67.1,
+      "attack_success_rate": 0.0,
+      "is_placeholder": false,
+      "provenance": {
+        "kind": "archival_baseline_with_frozen_dafr_rerun",
+        "source": "results/summaries/agentdojo_v122_claudehaiku45_multillm_frozen_v1",
+        "coverage_audit": "results/summaries/agentdojo_v122_claudehaiku45_multillm_frozen_v1/run_manifest.json"
+      },
+      "coverage": {
+        "clean_cases": 71,
+        "attack_cases": 585,
+        "suites": [
+          "banking",
+          "slack",
+          "travel",
+          "workspace"
+        ]
+      },
+      "comparable_protocol": true,
+      "freshness_note": "DAFR row is the evaluated system run; baseline freshness varies by model and is disclosed in provenance."
+    },
+    {
+      "method": "Prompt",
+      "model": "Claude Haiku 4.5",
+      "clean_utility": 70.9,
+      "attack_utility": 65.1,
+      "attack_success_rate": 0.0,
+      "is_placeholder": false,
+      "provenance": {
+        "kind": "archival_baseline_with_frozen_dafr_rerun",
+        "source": "results/summaries/agentdojo_v122_claudehaiku45_multillm_frozen_v1",
+        "coverage_audit": "results/summaries/agentdojo_v122_claudehaiku45_multillm_frozen_v1/run_manifest.json"
+      },
+      "coverage": {
+        "clean_cases": 71,
+        "attack_cases": 585,
+        "suites": [
+          "banking",
+          "slack",
+          "travel",
+          "workspace"
+        ]
+      },
+      "comparable_protocol": true,
+      "freshness_note": "DAFR row is the evaluated system run; baseline freshness varies by model and is disclosed in provenance."
+    },
+    {
+      "method": "Spotlighting",
+      "model": "Claude Haiku 4.5",
+      "clean_utility": 74.1,
+      "attack_utility": 62.5,
+      "attack_success_rate": 0.0,
+      "is_placeholder": false,
+      "provenance": {
+        "kind": "archival_baseline_with_frozen_dafr_rerun",
+        "source": "results/summaries/agentdojo_v122_claudehaiku45_multillm_frozen_v1",
+        "coverage_audit": "results/summaries/agentdojo_v122_claudehaiku45_multillm_frozen_v1/run_manifest.json"
+      },
+      "coverage": {
+        "clean_cases": 71,
+        "attack_cases": 585,
+        "suites": [
+          "banking",
+          "slack",
+          "travel",
+          "workspace"
+        ]
+      },
+      "comparable_protocol": true,
+      "freshness_note": "DAFR row is the evaluated system run; baseline freshness varies by model and is disclosed in provenance."
+    },
+    {
+      "method": "PIGuard",
+      "model": "Claude Haiku 4.5",
+      "clean_utility": 51.6,
+      "attack_utility": 38.2,
+      "attack_success_rate": 0.0,
+      "is_placeholder": false,
+      "provenance": {
+        "kind": "archival_baseline_with_frozen_dafr_rerun",
+        "source": "results/summaries/agentdojo_v122_claudehaiku45_multillm_frozen_v1",
+        "coverage_audit": "results/summaries/agentdojo_v122_claudehaiku45_multillm_frozen_v1/run_manifest.json"
+      },
+      "coverage": {
+        "clean_cases": 71,
+        "attack_cases": 585,
+        "suites": [
+          "banking",
+          "slack",
+          "travel",
+          "workspace"
+        ]
+      },
+      "comparable_protocol": true,
+      "freshness_note": "DAFR row is the evaluated system run; baseline freshness varies by model and is disclosed in provenance."
+    },
+    {
+      "method": "ProtectAI",
+      "model": "Claude Haiku 4.5",
+      "clean_utility": 56.0,
+      "attack_utility": 43.9,
+      "attack_success_rate": 2.1,
+      "is_placeholder": false,
+      "provenance": {
+        "kind": "archival_baseline_with_frozen_dafr_rerun",
+        "source": "results/summaries/agentdojo_v122_claudehaiku45_multillm_frozen_v1",
+        "coverage_audit": "results/summaries/agentdojo_v122_claudehaiku45_multillm_frozen_v1/run_manifest.json"
+      },
+      "coverage": {
+        "clean_cases": 71,
+        "attack_cases": 585,
+        "suites": [
+          "banking",
+          "slack",
+          "travel",
+          "workspace"
+        ]
+      },
+      "comparable_protocol": true,
+      "freshness_note": "DAFR row is the evaluated system run; baseline freshness varies by model and is disclosed in provenance."
+    },
+    {
+      "method": "Progent",
+      "model": "Claude Haiku 4.5",
+      "clean_utility": 65.3,
+      "attack_utility": 58.1,
+      "attack_success_rate": 0.0,
+      "is_placeholder": false,
+      "provenance": {
+        "kind": "archival_baseline_with_frozen_dafr_rerun",
+        "source": "results/summaries/agentdojo_v122_claudehaiku45_multillm_frozen_v1",
+        "coverage_audit": "results/summaries/agentdojo_v122_claudehaiku45_multillm_frozen_v1/run_manifest.json"
+      },
+      "coverage": {
+        "clean_cases": 71,
+        "attack_cases": 585,
+        "suites": [
+          "banking",
+          "slack",
+          "travel",
+          "workspace"
+        ]
+      },
+      "comparable_protocol": true,
+      "freshness_note": "DAFR row is the evaluated system run; baseline freshness varies by model and is disclosed in provenance."
+    },
+    {
+      "method": "DRIFT",
+      "model": "Claude Haiku 4.5",
+      "clean_utility": 43.1,
+      "attack_utility": 44.1,
+      "attack_success_rate": 0.2,
+      "is_placeholder": false,
+      "provenance": {
+        "kind": "archival_baseline_with_frozen_dafr_rerun",
+        "source": "results/summaries/agentdojo_v122_claudehaiku45_multillm_frozen_v1",
+        "coverage_audit": "results/summaries/agentdojo_v122_claudehaiku45_multillm_frozen_v1/run_manifest.json"
+      },
+      "coverage": {
+        "clean_cases": 71,
+        "attack_cases": 585,
+        "suites": [
+          "banking",
+          "slack",
+          "travel",
+          "workspace"
+        ]
+      },
+      "comparable_protocol": true,
+      "freshness_note": "DAFR row is the evaluated system run; baseline freshness varies by model and is disclosed in provenance."
+    },
+    {
+      "method": "DAFR",
+      "model": "Claude Haiku 4.5",
+      "clean_utility": 70.4,
+      "attack_utility": 68.4,
+      "attack_success_rate": 0.0,
+      "is_placeholder": false,
+      "provenance": {
+        "kind": "archival_baseline_with_frozen_dafr_rerun",
+        "source": "results/summaries/agentdojo_v122_claudehaiku45_multillm_frozen_v1",
+        "coverage_audit": "results/summaries/agentdojo_v122_claudehaiku45_multillm_frozen_v1/run_manifest.json"
+      },
+      "coverage": {
+        "clean_cases": 71,
+        "attack_cases": 585,
+        "suites": [
+          "banking",
+          "slack",
+          "travel",
+          "workspace"
+        ]
+      },
+      "comparable_protocol": true,
+      "freshness_note": "DAFR row is the evaluated system run; baseline freshness varies by model and is disclosed in provenance."
+    }
+  ],
+  "three_suite_archive": {
+    "clean_cases": 57,
+    "attack_cases": 389,
+    "suites": [
+      "banking",
+      "slack",
+      "travel"
+    ],
+    "path": "results/summaries/agentdojo_v122_clafr_final_full_4suite_v1/autodojo_table_aggregate.json",
+    "role": "historical subset; never mixed into four-suite aggregate"
+  },
+  "source_csv": "paper/figures/agentdojo_plot/agentdojo_multillm_plot_data.csv",
+  "git_head": "9d64cf5e5ce3e6cd5ce9199cfdc5ea86dff2c1f5"
+}
