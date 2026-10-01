@@ -33,11 +33,11 @@ Return exactly this object:
   "roles": {"schema_field": "object|destination|data|amount|time|effect|scope"},
   "preconditions": [
     {"type": "trusted_grounding|authorization|confirmation|state_freshness|prerequisite",
-     "fields": ["schema_field"], "minimum": 0.0, "source": "trusted"}
+     "fields": ["schema_field"], "minimum": 1.0, "source": "trusted"}
   ],
   "risk_budgets": [
-    {"name": "joint_risk", "fields": ["schema_field"], "limit": 0.0,
-     "weights": {"schema_field": 0.0}}
+    {"name": "joint_risk", "fields": ["schema_field"], "limit": 1.0,
+     "weights": {"schema_field": 1.0}}
   ],
   "region": {
     "logic": "intersection|union",
@@ -53,6 +53,9 @@ The region is computed from trusted context only and must remain identical if th
 replaced while the context is fixed. Use abstain when the policy/schema is ambiguous, contradictory,
 or lacks enough trusted evidence to define a safe region. Keep numerical bounds in the units stated
 by the schema. The runtime, not you, computes membership and the final ALLOW/NEED_EVIDENCE/BLOCK.
+Never emit minimum=0, limit=0, or a zero-weight constraint. If a precondition or budget is not
+required, omit it entirely. Every emitted precondition minimum must be in (0,1], and every budget
+limit and weight must be positive and within the schema's normalized range.
 '''
 
 
