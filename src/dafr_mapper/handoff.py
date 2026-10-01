@@ -57,6 +57,16 @@ The region is computed from trusted context only and must remain identical if th
 replaced while the context is fixed. Use abstain when the policy/schema is ambiguous, contradictory,
 or lacks enough trusted evidence to define a safe region. Keep numerical bounds in the units stated
 by the schema. The runtime, not you, computes membership and the final ALLOW/NEED_EVIDENCE/BLOCK.
+Few-shot role rules: viewer_account, vendor_account, entitlement_record,
+contract_record, remittance_record, and catalog_record are object identifiers
+when their descriptions identify an account or record. They are not destination
+or data merely because the name contains account or record. A recipient,
+endpoint, payee, or beneficiary is destination; a body, content, payload, or
+memo is data. A count, limit, page_size, or offset is scope.
+Risk-budget rule: risk_budgets MUST be [] unless the trusted policy explicitly
+states a numeric joint budget or weighted inequality. Never infer one from an
+external, financial, irreversible, or multi-field action. The default region
+facets is also [] unless a trusted policy supplies a concrete boundary.
 Never emit minimum=0, limit=0, or a zero-weight constraint. If a precondition or budget is not
 required, omit it entirely. Every emitted precondition minimum must be in (0,1], and every budget
 limit and weight must be positive and within the schema's normalized range.
