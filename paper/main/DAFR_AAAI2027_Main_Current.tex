@@ -23,11 +23,7 @@
 
 \begin{document}
 \maketitle
-\noindent\textbf{Working revision:} The retained full AgentDojo and ASB tables are results of the original deterministic DAFR configuration, not the LLM-mapped extension. The mapper and matched geometry studies are reported as separate, frozen evidence because they answer semantic-transfer and execution-interface questions.
-
-\noindent\textbf{Protocol-audit status:} The corrected mapper runner withholds hand-written labels, validates role semantics, and checks backend compilation. On the frozen 24-case cross-schema/paraphrase split, the pre-registered Qwen-Max snapshot produced 21/22 exact mappings on non-ambiguous cases and correctly abstained on 2/2 ambiguous cases; the matched schema-aware rules baseline produced 1/22 exact and 2/2 abstentions under the same IR/compiler/scorer. These mapper numbers are semantic-transfer evidence, not a replacement for the original full benchmark. On the same `src/clafr` runtime, a 512-case joint-risk suite found 25/512 false allows for independent axis thresholds, while Geometry and its equivalent predicate agreed on 512/512 decisions. In a 256-case executable repair suite, Geometry and Predicate+oracle each recovered 192 actions, while a bool-only predicate recovered none. We therefore claim a unified diagnostic/repair interface, not a security or expressiveness advantage over arbitrary if--else code.
-
-\noindent Subsequent disjoint role-transfer probes use new tool names and preserve raw artifacts. The earlier v7--v11 splits are retained as development evidence; the v12 split is the primary cross-schema comparison because it includes paraphrased approval/confirmation language and renamed fields. The v12 mapper evaluation retains raw responses, canonicalized IR, compiler status, and per-case scores; the frozen Banking execution artifact retains the validated IR, prompt/request hashes, and redacted response metadata.
+\noindent\textbf{Revision scope:} The paper focuses on deterministic semantic lifting, joint-risk geometric execution, and auditable action certificates. The former LLM-mapper experiments are retained only as exploratory supplementary evidence and are excluded from the main claims.
 
 
 \begin{abstract}
@@ -257,11 +253,28 @@ AgentDojo v1.2.2 is the primary benchmark and contains the Banking, Slack, Trave
 
 We further evaluate DAFR on 204 ASB cases using DeepSeek V4 Flash \citep{zhang2025agentsecuritybench}. AgentDojo reports clean utility, attack utility, and attack success rate (ASR), while ASB reports utility, task success, and ASR.
 
-DAFR is placed at the execution boundary, after the planner proposes a concrete tool call and before the trusted runtime performs its external effect. Each comparison keeps the benchmark cases, planner model, registered tools, and tool schemas fixed. Under this setup, DAFR contributes the feasibility decision and relation-specific revision feedback for the proposed call, while the benchmark task and planning environment remain unchanged. The mapper is evaluated on a disjoint held-out tool split and is frozen before end-to-end evaluation.
+DAFR is placed at the execution boundary, after the planner proposes a concrete tool call and before the trusted runtime performs its external effect. Each comparison keeps the benchmark cases, planner model, registered tools, and tool schemas fixed. Under this setup, DAFR contributes the feasibility decision and relation-specific revision feedback for the proposed call, while the benchmark task and planning environment remain unchanged.
 \paragraph{Matched geometry protocol.}
 All representation arms consume the same typed roles, action--evidence vectors, state, candidate actions, and repair candidates. We compare (i) independent axis-threshold if--else checks, (ii) weighted halfspaces, (iii) the joint-risk geometric region, (iv) an equivalent predicate that reuses the same joint boundary, and (v) a bool-only predicate with no certificate or repair interface. The equivalent predicate is a control for implementation correctness: any membership disagreement is a bug, not a method gain. The scientific questions are whether independent branches miss coupled budgets and whether the certificate interface supports diagnosis and executable repair.
 
 The matched 512-case joint-risk suite contains boundary-active four-dimensional risk vectors. Every coordinate remains below its independent threshold, but some vectors exceed the shared joint budget. The matched 256-case action suite supplies the same unsafe action and candidate repair to every arm; 192 cases are repairable by deleting an unsupported optional destination and 64 require blocking because the destination is semantically required. No case invokes an external tool.
+
+\begin{table}[ht]
+\centering
+\small
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{lrrrr}
+\toprule
+Backend & Joint allow & False allow & Repair & Certificate\\
+\midrule
+Axis-ifelse & 512/512 & 25/512 & -- & No\\
+Geometry & 487/512 & 0 & 192/256 & Yes\\
+Equivalent predicate & 487/512 & 0 & 192/256 & With oracle\\
+Bool-only predicate & -- & -- & 0/256 & No\\
+\bottomrule
+\end{tabular}
+\caption{Matched geometry representation ablation. All arms share the same encoder, evidence, candidates, and repairable actions.}\label{tab:geometry-representation}
+\end{table}
 
 \begin{figure*}[t]
 \centering
@@ -308,7 +321,7 @@ Compared with no defense, DAFR reduces ASR from 90.2\% to 0\%, with a 1.9-point 
 
 Table~\ref{tab:ablation} reports the full AgentDojo ablation with DeepSeek V4 Flash: each configuration uses the same 71 clean and 585 attacked cases across four suites, with suite-macro-averaged scores. Removing evidence projection lowers clean utility from 87.5\% to 79.2\% while retaining 81.8\% attack utility and 0\% observed ASR. Removing action--evidence lifting raises clean and attack utility to 91.5\% and 85.3\% but introduces a 0.7\% observed ASR.
 
-Removing geometric constraints produces the largest security change in the original module ablation: observed ASR rises from 0\% to 16.7\%, with attack utility at 81.3\%. This module ablation also removes geometry-conditioned observation handling, so it does not isolate the syntax of geometry from the underlying policy checks. We therefore add a matched representation ablation: Boolean predicates, axis-aligned thresholds, weighted halfspaces, and joint-risk cones consume the same mapper output, features, evidence, and candidate actions. The general predicate and geometric implementations are expected to agree on membership; the scientific comparison concerns axis-threshold expressiveness, margin-based diagnosis, and executable repair, not a claim that geometry can express functions unavailable to unrestricted programs. In a frozen 512-case joint-risk suite, independent axis thresholds allowed all cases and falsely allowed 25 actions whose joint risk exceeded the shared budget; the joint cone and equivalent predicate both allowed 487/512 and disagreed on 0/512. In a matched 256-case action suite, Geometry and Predicate+oracle each recovered 192 executable actions, while a bool-only predicate recovered 0; all 64 non-repairable actions remained blocked. This is evidence about coupled-budget encoding and an auditable repair interface, not arbitrary-program superiority. Removing decision and feedback lowers clean and attack utility to 79.4\% and 80.0\% and introduces a 0.8\% observed ASR.
+Removing geometric constraints produces the largest security change in the original module ablation: observed ASR rises from 0\% to 16.7\%, with attack utility at 81.3\%. This module ablation also removes geometry-conditioned observation handling, so it does not isolate the syntax of geometry from the underlying policy checks. We therefore add a matched representation ablation: Boolean predicates, axis-aligned thresholds, weighted halfspaces, and joint-risk cones consume the same typed interface, features, evidence, and candidate actions. The general predicate and geometric implementations are expected to agree on membership; the scientific comparison concerns axis-threshold expressiveness, margin-based diagnosis, and executable repair, not a claim that geometry can express functions unavailable to unrestricted programs. In a frozen 512-case joint-risk suite, independent axis thresholds allowed all cases and falsely allowed 25 actions whose joint risk exceeded the shared budget; the joint cone and equivalent predicate both allowed 487/512 and disagreed on 0/512. In a matched 256-case action suite, Geometry and Predicate+oracle each recovered 192 executable actions, while a bool-only predicate recovered 0; all 64 non-repairable actions remained blocked. This is evidence about coupled-budget encoding and an auditable repair interface, not arbitrary-program superiority. Removing decision and feedback lowers clean and attack utility to 79.4\% and 80.0\% and introduces a 0.8\% observed ASR.
 
 \begin{table}[ht]
 \centering
