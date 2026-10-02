@@ -21,6 +21,13 @@
 A well-formed tool call can still be unsupported by the trusted task, evidence, authorization, or current state. We present DAFR, an execution-layer compiler that represents each proposed call as an action--evidence point and evaluates it against state-dependent halfspaces and joint-risk regions. A deterministic typed field interface preserves the link from schema arguments to shared effect roles; the encoder records grounding, provenance, authorization, and risk coordinates; and the verifier emits a certificate with signed margins and violated relations. On the evaluated static attacks, DAFR obtains 0/585 observed attack successes on AgentDojo and 0/204 on Agent Security Benchmark, with 87.5\% clean utility and 81.4\% attack utility on AgentDojo and 86.8\% utility on ASB. A matched 512-case study finds 25 false allows for independent axis thresholds, while an equivalent arithmetic predicate agrees with the geometric boundary on all cases. DAFR connects policy-defined joint risk to a common decision certificate, making the limiting execution relations explicit and available for action revision.
 \end{abstract}
 
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{From_Semantics_to_Execution_Dynamic_Geometric_Constraints_for_Tool-Action_Feasibility_Figure_1.pdf}
+\caption{DAFR turns a proposed tool call, source-tagged evidence, and current state into an action--evidence point. Typed field validation preserves effect roles; the encoder records grounding, authorization, provenance, and risk; and the verifier evaluates active halfspaces and joint-risk regions. Region membership determines execution, while violated margins identify the relation used for clarification, repair, or blocking.}
+\label{fig:mechanism}
+\end{figure*}
+
 \section{Introduction}
 
 Tool-using agents can read private information, modify shared resources, contact external parties, and trigger actions that are difficult to reverse. These calls have more direct consequences than generated text: an executed call may immediately disclose information, change system state, or start an external operation \citep{yao2023react,schick2023toolformer,ruan2024toolemu,ye2024toolsword,lee2026mobilesafetybench}. Safe execution requires more than a valid schema. The function, effect-bearing arguments, expected effect, and state dependencies must be supported by the current task, available evidence, authorization, and policy.
@@ -92,6 +99,13 @@ We further evaluate DAFR on 204 ASB cases using DeepSeek V4 Flash \citep{zhang20
 DAFR is placed at the execution boundary, after the planner proposes a concrete tool call and before the trusted runtime performs its external effect. The reported comparisons target matched case sets and planner models. The archived GPT baseline aggregates combine earlier three-suite document summaries with Workspace reruns; they are not uniformly fresh four-suite reruns. We disclose this provenance in the supplement and interpret differences descriptively. Under this setup, DAFR contributes the feasibility decision and relation-specific revision feedback for the proposed call, while the benchmark task and planning environment remain unchanged.
 \subsection{Main Results on AgentDojo}
 
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{From_Semantics_to_Execution_Dynamic_Geometric_Constraints_for_Tool-Action_Feasibility_Figure_2.pdf}
+\caption{AgentDojo clean utility, attack utility, and attack success rate across representative methods and planner models. Values are percentages; the supplement reports the complete table and case counts.}
+\label{fig:agentdojo-main}
+\end{figure*}
+
 The AgentDojo comparison covers three planner models. With DeepSeek V4 Flash, DAFR achieves 87.5\% clean utility and 81.4\% attack utility with 0\% observed ASR under the evaluated static attacks. DAFR also records 0\% observed ASR under the evaluated static attacks with GPT-5.4-mini and Claude Haiku 4.5, while retaining 59.5\% and 68.4\% attack utility, respectively.
 
 PIGuard is the only other representative method that reaches 0\% observed ASR under the evaluated static attacks with all three planners. At this security level, DAFR improves attack utility over PIGuard by 38.9, 25.1, and 30.2 percentage points on DeepSeek, GPT, and Claude, respectively. These fixed-set comparisons show a favorable security--utility trade-off against PIGuard. They do not establish uniform dominance: with GPT, DAFR has lower attack utility than Prompt (65.4\%) and Sandwich (65.4\%), which have nonzero observed ASR; with Claude, Sandwich also has zero observed ASR and 67.1\% attack utility, compared with 68.4\% for DAFR.
@@ -152,6 +166,37 @@ w/o Decision \& Feedback & 79.4 & 80.0 & 0.8\\
 We separate membership and repair controls. These matched controls are locally generated mechanism tests, rather than additional AgentDojo episodes: the 512 membership vectors are generated with fixed seed 20260930 in four dimensions, with every coordinate below the independent threshold 0.8 and analytic labels from the shared budget $lVert rVert_2\leq1$ (25 vectors violate this joint budget); the 256 repair cases are generated from a fixed local-write effect model. The membership study supplies identical risk vectors to independent axis thresholds, the joint-risk region, and an arithmetic predicate implementing the same joint boundary. The repair study supplies identical actions, evidence, and candidate transformations to the geometric and predicate backends. Predicate agreement is an implementation-equivalence check. The two studies test coupled-budget representation and action repair separately; neither isolates a geometric advantage over an equally instrumented predicate.
 
 The matched 512-case joint-risk suite contains boundary-active four-dimensional risk vectors. Every coordinate remains below its independent threshold, but some vectors exceed the shared joint budget. The matched 256-case action suite supplies the same unsafe action and candidate repair to every arm; 192 cases are repairable by deleting an unsupported optional destination and 64 require blocking because the destination is semantically required. No case invokes an external tool or evolves from a completed benchmark trajectory. The matched study is therefore a representation and interface audit rather than a replacement for the end-to-end AgentDojo result. We also audited 614 saved AgentDojo decision records, of which 610 were well formed, by checking the recorded hard margins against an equivalent slack predicate. The two decisions agreed on 610/610 records; 546 were allowed and 64 were blocked or clarified. This is a certificate-consistency audit over saved boundaries, not a new planner replay or an end-to-end utility/ASR result. The matched study is reported separately because system ablations measure the complete defense path, whereas representation controls isolate coupled-risk handling and certificate observability.
+
+\begin{table}[t]
+\centering
+\scriptsize
+\begin{tabular}{lrrr}
+\toprule
+Backend & Safe allow & Unsafe block & False allow\\
+\midrule
+Axis thresholds & 487/487 & 0/25 & 25/25\\
+Joint geometry & 487/487 & 25/25 & 0/25\\
+Equivalent predicate & 487/487 & 25/25 & 0/25\\
+\bottomrule
+\end{tabular}
+\caption{Membership under the specified unit-norm joint-risk policy. Labels are analytic; the matched suite is not an additional AgentDojo episode.}
+\label{tab:geometry-representation}
+\end{table}
+
+\begin{table}[t]
+\centering
+\scriptsize
+\begin{tabular}{lrr}
+\toprule
+Backend + shared repair & Repaired & Required blocks\\
+\midrule
+Geometry & 192/192 & 64/64\\
+Equivalent predicate & 192/192 & 64/64\\
+\bottomrule
+\end{tabular}
+\caption{Local action-repair audit. Both backends use the same candidate transformation and effect check.}
+\label{tab:repair-interface}
+\end{table}
 
 \section{Related Work}
 
